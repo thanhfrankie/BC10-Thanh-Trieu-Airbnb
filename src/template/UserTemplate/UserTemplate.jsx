@@ -1,9 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import { Outlet } from "react-router-dom";
 const UserTemplate = () => {
   return (
-    <div>UserTemplate</div>
-  )
-}
+    <div>
+      <Outlet />
+    </div>
+  );
+};
 
-export default UserTemplate
+export default UserTemplate;
