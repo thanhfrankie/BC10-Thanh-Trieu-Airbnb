@@ -1,0 +1,36 @@
+.signInMobile {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+  
+  .animation_signIn {
+    width: 100%;
+    
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+  
+  .form_signIn {
+    width: 100%;
+    margin: auto 0;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+  .animation_signInMobile {
+    width: 100%;
+    @media (min-width: 768px) {
+      display: flex;
+     
+      width: 50%;
+    }
+  }
+  
+  
+  

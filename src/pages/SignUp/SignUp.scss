@@ -1,0 +1,68 @@
+.form_signUp {
+  width: 100%; // Đặt chiều rộng ban đầu là 100% để làm cho nó responsive
+}
+
+/* Bạn có thể thêm các media query khác nếu cần để điều chỉnh responsiveness chi tiết hơn */
+.form_signUp {
+  // Base styles
+  width: 90%;
+  @media (min-width: 640px) {
+    width: 70%; // Điều chỉnh chiều rộng cho màn hình kích thước trung bình
+  }
+
+  @media (min-width: 768px) {
+    width: 50%; 
+  }
+
+  @media (min-width: 1024px) {
+    width: 35%; 
+  }
+  .formInput {
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.5s ease; 
+    @media (min-width: 640px) {
+      width: 70%;
+    }
+
+    @media (min-width: 768px) {
+      width: 50%; 
+    }
+
+    @media (min-width: 1024px) {
+      width: 80%; 
+    }
+  }
+
+  .input_custom {
+
+    input {
+
+      padding: 10px 15px; 
+      font-size: 16px; 
+    }
+  }
+
+  // For tablets
+  @media only screen and (max-width: 1024px) {
+    .formInput {
+      width: 100%;
+    }
+  }
+
+  // For mobile devices
+  @media only screen and (max-width: 768px) {
+    .formInput {
+      width: 70%; 
+    }
+  }
+
+  // For smaller mobile devices
+  @media only screen and (max-width: 480px) {
+    .formInput {
+      width: 100%; 
+    }
+  }
+}
