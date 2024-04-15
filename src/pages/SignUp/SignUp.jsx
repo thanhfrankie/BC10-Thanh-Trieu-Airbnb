@@ -5,7 +5,7 @@ import Lottie from "react-lottie";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-// import { quanLyNguoiDungServ } from "../../services/quanLyNguoiDung";
+import { userManagementServ } from "../../services/userManagement";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
 import { saveLocalStorage, validationMessage } from "../../utils/util";
@@ -33,7 +33,7 @@ const SignUp = () => {
         // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
           // gửi dữ liệu lên backend
-          // const res = await quanLyNguoiDungServ.dangKy(values);
+          const res = await userManagementServ.signUp(values);
           // console.log(res);
           notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
           setTimeout(() => {
@@ -41,7 +41,7 @@ const SignUp = () => {
           }, 1000);
         } catch (error) {
           console.log(error);
-          // notify(error.response.data.content);
+          notify(error.response.data.content);
         }
       },
       validationSchema: Yup.object({

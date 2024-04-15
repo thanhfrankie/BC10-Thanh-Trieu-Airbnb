@@ -4,9 +4,12 @@ import Footer from "../../layout/Footer/Footer";
 
 const HomePage = () => {
   return (
-    <div>
-          {/* Header  */}
+    <div className="px-20">
+      {/* Header  */}
+      <div className=""> 
+
           <Header/>
+      </div>
           {/* Footer */}
           <Footer/>
     </div>

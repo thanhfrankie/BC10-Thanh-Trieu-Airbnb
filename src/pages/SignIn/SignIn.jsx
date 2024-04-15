@@ -5,7 +5,7 @@ import Lottie from "react-lottie";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-// import { quanLyNguoiDungServ } from "../../services/quanLyNguoiDung";
+import { userManagementServ } from "../../services/userManagement";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
 import { saveLocalStorage } from "../../utils/util";
@@ -24,10 +24,10 @@ const SignIn = () => {
         // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
           // gửi dữ liệu lên backend
-          // const res = await quanLyNguoiDungServ.dangNhap(values);
+          const res = await userManagementServ.signIn(values);
           // console.log(res);
           // lưu trữ dữ liệu xuống localstorage để lưu trữ
-          // saveLocalStorage("user", res.data.content);
+          saveLocalStorage("user", res.data.content);
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
           );
@@ -40,7 +40,7 @@ const SignIn = () => {
         }
       },
       validationSchema: Yup.object({
-        taiKhoan: Yup.string().required("Vui lòng nhập mật khẩu"),
+        taiKhoan: Yup.string().required("Vui lòng nhập tài khoản"),
         matKhau: Yup.string().required("Vui lòng nhập mật khẩu"),
       }),
     });
@@ -74,6 +74,7 @@ const SignIn = () => {
               touched={touched.taiKhoan}
               name="taiKhoan"
               value={values.taiKhoan}
+              type="email"
             />
             <InputCustom
               placeholder="Vui lòng nhập mật khẩu"

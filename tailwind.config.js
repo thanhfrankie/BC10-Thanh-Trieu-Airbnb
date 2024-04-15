@@ -9,6 +9,7 @@ module.exports = {
         "1/2-screen": "50vh",
         "screen-70": "70vh",
       },
+     
     },
   },
   plugins: [],
