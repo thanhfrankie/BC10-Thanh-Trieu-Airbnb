@@ -9,7 +9,7 @@ const ButtonCustom = ({
 }) => {
   return (
     <button
-      className={`btn py-2 px-4 rounded-full text-start ${classNameBtn}`}
+      className={`btn h-full py-2 px-4 rounded-full  ${classNameBtn}`}
       onClick={onClick}
     >
       {value}

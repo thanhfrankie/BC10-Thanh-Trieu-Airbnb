@@ -17,7 +17,20 @@
   color: black;
   font-weight: 600;
 }
+.search,
+.inputLabel {
+  cursor: pointer;
+}
 .btn:hover,
+.search:hover,
 .globe:hover {
   background-color: #f7f7f7;
+  background-color: red
+}
+.search:hover {
+  .inputCustom {
+    background-color: #f7f7f7;
+    background-color: red;
+
+  }
 }

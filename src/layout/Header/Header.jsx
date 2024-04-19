@@ -44,24 +44,24 @@ const Header = () => {
               <img src={logo} className="mr-3 h-6 sm:h-9" alt="Airbnb Logo" />
             </NavLink>
 
-            <div className="flex items-center justify-between gap-2 ml-56 ">
+            <div className="flex items-center justify-between gap-1 ml-56 ">
               <ButtonCustom
                 value="Stays"
                 classNameBtn={activeButton === "Stays" ? "active" : ""}
                 onClick={() => handleButtonClick("Stays")}
-              ></ButtonCustom>
+              />
               <ButtonCustom
                 value="Experiences"
                 classNameBtn={activeButton === "Experiences" ? "active" : ""}
                 onClick={() => handleButtonClick("Experiences")}
-              ></ButtonCustom>
+              />
               <NavLink to="/s/experiences/online">
-                <ButtonCustom value="Online Experiences"></ButtonCustom>
+                <ButtonCustom value="Online Experiences" />
               </NavLink>
             </div>
             <div className="flex items-center justify-between ">
               <NavLink to="/host/homes">
-                <ButtonCustom value="Airbnb your home"></ButtonCustom>
+                <ButtonCustom value="Airbnb your home" />
               </NavLink>
               <div className="mr-3">
                 <button className="globe flex items-center justify-center text-center rounded-full w-9 h-9">
@@ -94,29 +94,50 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      <div className="flex items-center justify-center">
-        <div>
-          <div>
+      <div className="h-auto w-1/2 flex items-center justify-center mx-auto gap-1 rounded-full border border-gray-500">
+        <div className="search w-1/3  px-6 rounded-full ">
+          <button className="w-full py-2 text-start">
             <InputCustom
               placeholder="Search destinations"
               id="where"
               label="Where"
+              className=" border-none px-4 outline-none"
+              classNameLabel=""
             />
-          </div>
+          </button>
         </div>
-        <div>
+
+        <div className="w-1/3 rounded-full">
           {activeButton === "Stays" ? (
             <div className="flex items-center justify-center">
-              <ButtonCustom value="Check in" span="Add Dates" />
-              <ButtonCustom value="Check out" span="Add Dates" />
+              <ButtonCustom
+                value="Check in"
+                span="Add Dates"
+                classNameBtn="text-sm w-1/2 px-6 text-start"
+              />
+              <ButtonCustom
+                value="Check out"
+                span="Add Dates"
+                classNameBtn="text-sm w-1/2 px-6 text-start"
+              />
             </div>
           ) : (
-            <ButtonCustom value="Date" span="Add Dates" />
+            <div className=" flex items-center justify-start mx-auto ">
+              <ButtonCustom
+                value="Date"
+                span="Add Dates"
+                classNameBtn="text-sm w-full px-6 text-start"
+              />
+            </div>
           )}
         </div>
-        <div>
-          <ButtonCustom value="Who" span="Add guests" />
-          <button>
+        <div className="w-1/3 flex items-center justify-center rounded-full relative">
+          <ButtonCustom
+            value="Who"
+            span="Add guests"
+            classNameBtn="text-sm w-full px-6 text-start "
+          />
+          <button className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <i class="fa-regular fa-magnifying-glass"></i>
           </button>
         </div>
