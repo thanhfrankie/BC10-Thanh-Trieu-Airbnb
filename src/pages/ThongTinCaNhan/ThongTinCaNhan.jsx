@@ -3,8 +3,13 @@ import "./ThongTinCaNhan.css";
 import { NavLink } from 'react-router-dom';
 import Header from "../../layout/Header/Header";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ThongTinCaNhan = () => {
+
+  const [showUserDetails, setShowUserDetails] = useState(true);
+  const navigate = useNavigate();
+
     const [image, setImage] = useState('/users');
 
     const handleEditImage = () => {
@@ -20,6 +25,12 @@ const ThongTinCaNhan = () => {
   
     // Tham chiếu đến input file element
     const inputFileRef = React.createRef();
+
+
+    const handleComplete = () => {
+      setShowUserDetails(true);
+      navigate('/tao-ho-so'); // Chuyển hướng về trang chính
+    };
   return (
     <div className="container">
         <div><Header/></div>
@@ -60,29 +71,39 @@ const ThongTinCaNhan = () => {
         </div>
         <div className="col-8">
 
-            <div className=" mt-4 displayUser ">
+        {showUserDetails && (
+            <div className="mt-4 displayUser ">
               <div>
                 <p className="texTopLeft" >Xin Chào Tôi Là : </p>
-                <NavLink 
-                to="/tao-ho-so">
-                <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">Chỉnh sửa hồ sơ</button>
+                <NavLink to="/tao-ho-so">
+                  <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">Chỉnh sửa hồ sơ</button>
                 </NavLink>
-
               </div>
-              <hr className="mt-5" />
-            </div>
+              <hr className="mt-5 mb-5" />
+              <div>
+                <p className="texTopLeft mb-3">Phòng Đã Thuê</p>
+                <div className="row">
+                  <div className="col-5">
+                    <img style={{width:"300px", height:"150px"}} src="https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau-002.jpg" alt="" />
+                  </div>
+                  <div className="col-7">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error perspiciatis dicta adipisci excepturi nam necessitatibus dignissimos, quidem at itaque voluptas ipsum tempora velit tenetur rem, explicabo alias porro quos molestiae!</p>
+                  </div>
 
-            <div className=" mt-56 pl-40">
-                <hr style={{width:"60%"}} />
-                <div className="titleRight mt-5">
+                </div>
+              </div>
+            </div>
+          )}
+          {!showUserDetails && (
+            <div className="mt-56 pl-40">
+              <hr style={{width:"60%"}} />
+              <div className="titleRight mt-5">
                 <p className="texTopLeft">Đã đến lúc tạo hồ sơ của bạn</p>
                 <p className="line-clamp-5 w-50 mt-3">Hồ sơ Airbnb của bạn là một phần quan trọng đối với mọi yêu cầu đặt phòng/đặt chỗ. Hãy tạo hồ sơ để giúp các Chủ nhà/Người tổ chức và khách khác tìm hiểu về bạn.</p>
-                <NavLink 
-                to="/tao-ho-so">
-                <button className="buttonleft text-white bg-rose-600 hover:bg-rose-700 ">Tạo hồ sơ</button>
-                </NavLink>
-                </div>
+                <button className="buttonleft text-white bg-rose-600 hover:bg-rose-700 " onClick={handleComplete}>Tạo hồ sơ</button>
+              </div>
             </div>
+          )}
         </div>
       </div>
       <div>Footer</div>

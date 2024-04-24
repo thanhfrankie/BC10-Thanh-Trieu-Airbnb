@@ -32,7 +32,7 @@ const TaoHoSo = () => {
           <Header />
         </div>
         <div className="row mt-5">
-          <div className="col-4">
+          <div className="  col-4">
             <div className="relative ml-24">
               <img
                 className="  imgLeft"
@@ -61,7 +61,7 @@ const TaoHoSo = () => {
               <p>
                 Thông tin mà bạn chia sẻ sẽ được sử dụng trên khắp nền tảng
                 Airbnb để giúp các khách và Chủ nhà/Người tổ chức khác biết thêm
-                về bạn. Tìm hiểu thêm
+                về bạn. 
               </p>
             </div>
             <div className="row ">

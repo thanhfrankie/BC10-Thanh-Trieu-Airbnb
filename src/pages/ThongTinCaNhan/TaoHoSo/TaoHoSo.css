@@ -24,3 +24,22 @@
     font-weight: bold;
     
 }
+
+.imgBg{
+  top:0;
+  left: 0;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-btn-primary {
+
+  background: gray
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  background:rgb(170, 169, 169)
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: black;
+  border-color: rgb(170, 169, 169);
+  background: #ffffff;
+}
