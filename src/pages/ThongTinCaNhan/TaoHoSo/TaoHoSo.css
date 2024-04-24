@@ -1,0 +1,26 @@
+.buttonEdit{
+    border: 0.5px solid gray;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    bottom: -8px;
+    left: 82px;
+    font-weight: bold;
+  }
+  .buttonEdit:hover{
+    background-color:gray;
+    color: white;
+  }
+  .imgLeft {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 0.5px solid gray;
+  }
+.textTitle{
+    font-size: 30px;
+    font-weight: bold;
+    
+}

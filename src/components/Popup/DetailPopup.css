@@ -1,0 +1,41 @@
+.btnPopup{
+  width: 390px !important;
+  height: 80px !important;
+  background-color: white;
+  color: black;
+}
+.btnPopup:hover{
+  background-color: rgb(224, 224, 224) !important;
+  color: black !important;
+  
+}
+
+button span {
+  font-size: 15px;
+}
+.textPopup{
+  font-size: 30px;
+  font-weight: bold;
+}
+.buttonPopup{
+  border:1px dashed gray;
+  width: 820px !important;
+  height: 100px !important;
+  background-color: white;
+  color: black;
+
+}
+.buttonPopup:hover{
+  background-color: white !important;
+  color: black !important;
+  
+}
+
+
+
+
+
+
+
+
+

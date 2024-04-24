@@ -5,6 +5,10 @@ import UserTemplate from "../template/UserTemplate/UserTemplate";
 import AdminTemplate from "../template/AdminTemplate/AdminTemplate";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import ThongTinCaNhan from "../pages/ThongTinCaNhan/ThongTinCaNhan";
+import TaoHoSo from "../pages/ThongTinCaNhan/TaoHoSo/TaoHoSo";
+import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanhTinh";
+
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -24,6 +28,19 @@ const useRoutesCustom = () => {
           path: "sign-up",
           element: <SignUp />,
         },
+        {
+          path: "thong-tin-ca-nhan",
+          element: <ThongTinCaNhan/>,
+         
+        },
+        {
+          path: "tao-ho-so",
+        element: <TaoHoSo/>,
+          },
+          {
+            path: "xac-minh",
+          element: <XacMinhDanhTinh/>,
+            },
     
       ],
     },
