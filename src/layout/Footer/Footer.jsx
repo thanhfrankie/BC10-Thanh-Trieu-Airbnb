@@ -85,15 +85,15 @@ const Footer = () => {
               <span>2024 Airbnb, Inc.</span>
             </div>
             <span>·</span>
-            <NavLink>
+            <NavLink to="/terms/privacy_policy">
               <button className="copyrightLink">Quyền riêng tư</button>
             </NavLink>
             <span>·</span>
-            <NavLink>
+            <NavLink to="/terms">
               <button className="copyrightLink">Điều khoản</button>
             </NavLink>
             <span>·</span>
-            <NavLink>
+            <NavLink to="sitemaps/v2">
               <button className="copyrightLink">Sơ đồ trang web</button>
             </NavLink>
           </div>

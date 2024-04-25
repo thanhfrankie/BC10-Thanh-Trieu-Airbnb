@@ -156,12 +156,12 @@ const Header = () => {
           />
           <button>
             {isFocused ? (
-              <div className="mag-glass px-3 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
+              <div className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
                 <i class="fa-regular fa-magnifying-glass"></i>
                 <span>Tìm kiếm</span>
               </div>
             ) : (
-              <div className="mag-glass px-3 py-3 flex items-center justify-center absolute -right-5 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
+              <div className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
                 <i class="fa-regular fa-magnifying-glass"></i>
               </div>
             )}
