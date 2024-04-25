@@ -2,10 +2,23 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import { Input, message } from "antd";
 import { NavLink } from 'react-router-dom';
-import "./DetailPopup.css";
+import { useNavigate } from "react-router-dom";
+import "./DetailPopup.scss";
 const { TextArea } = Input;
 
 const DetailPopupBot = () => {
+
+  const navigate = useNavigate();
+
+  const handleCompleteButtonClick = () => {
+    // Hiển thị thông báo cập nhật thành công (có thể sử dụng thư viện như Ant Design Modal)
+    alert("Cập nhật thành công");
+
+    // Chuyển trang
+    navigate("/thong-tin-ca-nhan");
+  };
+
+
   const [comment, setComment] = useState("");
   const handleCommentChange = (e) => {
     const inputComment = e.target.value;
@@ -67,12 +80,12 @@ const DetailPopupBot = () => {
           />
         </div>
       </Modal>
-      <hr className="mt-5 mb-3" />
+      <hr className="mt-5 mb-5" />
       <div className=" text-right">
         <NavLink
          to="/thong-tin-ca-nhan" >
             
-      <button className="buttonleft text-white bg-slate-700 hover:bg-slate-600 ">Hoàn Tất</button>
+      <button onClick={handleCompleteButtonClick} className="buttonleft mb-3 text-white bg-slate-700 hover:bg-slate-600 ">Hoàn Tất</button>
       </NavLink>
       </div>
 

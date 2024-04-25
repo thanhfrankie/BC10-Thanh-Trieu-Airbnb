@@ -30,7 +30,7 @@
 .imgLeft {
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius:50%;
   
 }
 
@@ -51,9 +51,18 @@
   margin-top: 10px;
   font-weight: bold;
 }
-.buttonleft:hover {
-  border: none;
+.borderXacMinh {
+  // border: 1px solid gray !important;
+  margin-right: 24px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  
 }
+
+
 .buttonEdit{
   border: 0.5px solid gray;
   border-radius: 20px;
@@ -77,10 +86,26 @@
   margin-top: 10px;
   font-weight: bold;
 }
-.buttonEdit:hover {
-  border: none;
-}
 
 .displayUser{
   
+}
+
+
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select .ant-select-arrow {
+
+  inset-inline-end: -185px;
+  height: 28px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+
+  width: 410px;
+  height: 45px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-radio-wrapper span.ant-radio+* {
+  padding-inline-start: 6px;
+  padding-inline-end: 288px;
 }

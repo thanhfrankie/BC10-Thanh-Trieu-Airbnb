@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import {  Checkbox,Input, message,Select } from "antd";
-import "./DetailPopup.css"
+import "./DetailPopup.scss"
 
 const { TextArea, Search } = Input;
 const { Option } = Select;
@@ -138,7 +138,7 @@ function DetailPopupRight() {
 
 
   return (
-    <div className="col-6 w-full ">
+    <div className=" w-full ">
     <div>
       <Button className='btnPopup' type="primary" onClick={showModal1}>
       <i class="fa-sharp fa-solid fa-briefcase mr-2"></i> <span> Công việc của tôi</span>

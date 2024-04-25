@@ -1,7 +1,8 @@
 import React from "react";
-import "./ThongTinCaNhan.css";
+import "./ThongTinCaNhan.scss";
 import { NavLink } from 'react-router-dom';
 import Header from "../../layout/Header/Header";
+import Footer from "../../layout/Footer/Footer"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -34,8 +35,8 @@ const ThongTinCaNhan = () => {
   return (
     <div className="container">
         <div><Header/></div>
-      <div className="row">
-        <div className="col-4 pl-24 mt-3">
+      <div className="grid grid-cols-4 mt-5">
+        <div className="col-span-1 pl-24 mt-3">
           <div className="titleTopLeft">
             <div className="relative">
             <img
@@ -69,7 +70,7 @@ const ThongTinCaNhan = () => {
             </NavLink>
           </div>
         </div>
-        <div className="col-8">
+        <div className="col-span-3 pl-24">
 
         {showUserDetails && (
             <div className="mt-4 displayUser ">
@@ -81,12 +82,12 @@ const ThongTinCaNhan = () => {
               </div>
               <hr className="mt-5 mb-5" />
               <div>
-                <p className="texTopLeft mb-3">Phòng Đã Thuê</p>
-                <div className="row">
-                  <div className="col-5">
-                    <img style={{width:"300px", height:"150px"}} src="https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau-002.jpg" alt="" />
+                <p className="texTopLeft mb-5">Phòng Đã Thuê</p>
+                <div className="grid grid-cols-6">
+                  <div className="col-span-2">
+                    <img style={{width:"300px", height:"150px",borderRadius:"10px"}} src="https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau-002.jpg" alt="" />
                   </div>
-                  <div className="col-7">
+                  <div className="col-span-4 pl-3">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error perspiciatis dicta adipisci excepturi nam necessitatibus dignissimos, quidem at itaque voluptas ipsum tempora velit tenetur rem, explicabo alias porro quos molestiae!</p>
                   </div>
 
@@ -106,9 +107,14 @@ const ThongTinCaNhan = () => {
           )}
         </div>
       </div>
-      <div>Footer</div>
+      <div className="mt-5">
+        <Footer/>
+      </div>
     </div>
   );
 };
 
 export default ThongTinCaNhan;
+
+
+

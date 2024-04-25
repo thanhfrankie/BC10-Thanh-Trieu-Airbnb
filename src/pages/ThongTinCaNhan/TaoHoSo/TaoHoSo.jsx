@@ -1,6 +1,7 @@
 import React from "react";
-import "./TaoHoSo.css";
+import "./TaoHoSo.scss";
 import Header from "../../../layout/Header/Header";
+import Footer from "../../../layout/Footer/Footer";
 import { useState } from "react";
 import DetailPopupLeft from "../../../components/Popup/DetailPopupLeft";
 import DetailPopupright from "../../../components/Popup/DetailPopupRight";
@@ -31,8 +32,8 @@ const TaoHoSo = () => {
         <div>
           <Header />
         </div>
-        <div className="row mt-5">
-          <div className="  col-4">
+        <div className="grid grid-cols-5 mt-5 pr-24">
+          <div className="col-span-2">
             <div className="relative ml-24">
               <img
                 className="  imgLeft"
@@ -55,7 +56,7 @@ const TaoHoSo = () => {
               onChange={handleImageChange}
             />
           </div>
-          <div className="col-8">
+          <div className="col-span-3">
             <div className=" pb-4">
               <p className="textTitle">Hồ sơ của bạn</p>
               <p>
@@ -64,11 +65,11 @@ const TaoHoSo = () => {
                 về bạn. 
               </p>
             </div>
-            <div className="row ">
-              <div  >
+            <div className="grid grid-cols-6 gap-1 ">
+              <div className="col-span-3 "  >
               <DetailPopupLeft/>
               </div>
-              <div >
+              <div className="col-span-3 ">
                 <DetailPopupright/>
               </div>
             </div>
@@ -78,7 +79,9 @@ const TaoHoSo = () => {
             </div>
           </div>
         </div>
-        <div>Footer</div>
+        <div> 
+         <Footer/>
+        </div>
       </div>
     </div>
   );

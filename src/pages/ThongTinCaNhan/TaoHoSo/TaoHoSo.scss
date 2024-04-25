@@ -43,3 +43,12 @@
   border-color: rgb(170, 169, 169);
   background: #ffffff;
 }
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:hover {
+  border-color: rgb(170, 169, 169);
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  border-color: rgb(170, 169, 169);}
+
+  :where(.css-dev-only-do-not-override-1kuana8).ant-picker-outlined:hover {
+    border-color: rgb(170, 169, 169);
+  }

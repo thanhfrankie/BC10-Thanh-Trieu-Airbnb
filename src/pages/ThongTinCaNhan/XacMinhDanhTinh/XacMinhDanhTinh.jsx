@@ -1,9 +1,568 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Select } from "antd";
+import { Radio, Button } from "antd";
+import "../ThongTinCaNhan.scss";
+import Header from "../../../layout/Header/Header";
+import Footer from "../../../layout/Footer/Footer";
+import { NavLink } from "react-router-dom";
+const { Option } = Select;
+const countries = [
+  "Afghanistan",
+  "Albania",
+  "Algeria",
+  "Andorra",
+  "Angola",
+  "Antigua and Barbuda",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahamas",
+  "Bahrain",
+  "Bangladesh",
+  "Barbados",
+  "Belarus",
+  "Belgium",
+  "Belize",
+  "Benin",
+  "Bhutan",
+  "Bolivia",
+  "Bosnia and Herzegovina",
+  "Botswana",
+  "Brazil",
+  "Brunei",
+  "Bulgaria",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Central African Republic",
+  "Chad",
+  "Chile",
+  "China",
+  "Colombia",
+  "Comoros",
+  "Congo",
+  "Costa Rica",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czech Republic",
+  "Democratic Republic of the Congo",
+  "Denmark",
+  "Djibouti",
+  "Dominica",
+  "Dominican Republic",
+  "East Timor",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Estonia",
+  "Eswatini",
+  "Ethiopia",
+  "Fiji",
+  "Finland",
+  "France",
+  "Gabon",
+  "Gambia",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Greece",
+  "Grenada",
+  "Guatemala",
+  "Guinea",
+  "Guinea-Bissau",
+  "Guyana",
+  "Haiti",
+  "Honduras",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Ivory Coast",
+  "Jamaica",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kenya",
+  "Kiribati",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Laos",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Liberia",
+  "Libya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Mauritania",
+  "Mauritius",
+  "Mexico",
+  "Micronesia",
+  "Moldova",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Mozambique",
+  "Myanmar",
+  "Namibia",
+  "Nauru",
+  "Nepal",
+  "Netherlands",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "North Korea",
+  "North Macedonia",
+  "Norway",
+  "Oman",
+  "Pakistan",
+  "Palau",
+  "Panama",
+  "Papua New Guinea",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Romania",
+  "Russia",
+  "Rwanda",
+  "Saint Kitts and Nevis",
+  "Saint Lucia",
+  "Saint Vincent and the Grenadines",
+  "Samoa",
+  "San Marino",
+  "Sao Tome and Principe",
+  "Saudi Arabia",
+  "Senegal",
+  "Serbia",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Solomon Islands",
+  "Somalia",
+  "South Africa",
+  "South Korea",
+  "South Sudan",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Suriname",
+  "Sweden",
+  "Switzerland",
+  "Syria",
+  "Taiwan",
+  "Tajikistan",
+  "Tanzania",
+  "Thailand",
+  "Togo",
+  "Tonga",
+  "Trinidad and Tobago",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Tuvalu",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "Uruguay",
+  "Uzbekistan",
+  "Vanuatu",
+  "Vatican City",
+  "Venezuela",
+  "Vietnam",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe",
+];
 
 const XacMinhDanhTinh = () => {
-  return (
-    <div>XacMinhDanhTinh</div>
-  )
-}
+  const navigate = useNavigate();
 
-export default XacMinhDanhTinh
+  const handleCompleteButtonClick = () => {
+    // Hiển thị thông báo cập nhật thành công (có thể sử dụng thư viện như Ant Design Modal)
+    alert("Cập nhật thành công");
+
+    // Chuyển trang
+    navigate("/thong-tin-ca-nhan");
+  };
+
+  const [frontImageUrl, setFrontImageUrl] = useState(null);
+  const [backImageUrl, setBackImageUrl] = useState(null);
+
+  const handleFrontImageUpload = (e) => {
+    const file = e.target.files[0];
+    // Xử lý file ảnh mặt trước ở đây
+    setFrontImage(file);
+
+    // Lấy đường dẫn của hình ảnh và cập nhật vào state
+    const imageUrl = URL.createObjectURL(file);
+    setFrontImageUrl(imageUrl);
+  };
+
+  const handleBackImageUpload = (e) => {
+    const file = e.target.files[0];
+    // Xử lý file ảnh mặt sau ở đây
+    setBackImage(file);
+
+    // Lấy đường dẫn của hình ảnh và cập nhật vào state
+    const imageUrl = URL.createObjectURL(file);
+    setBackImageUrl(imageUrl);
+  };
+
+  const [selectedDocument, setSelectedDocument] = useState(null);
+  const [showDocumentDetails, setShowDocumentDetails] = useState(false);
+  const [frontImage, setFrontImage] = useState(null);
+  const [backImage, setBackImage] = useState(null);
+
+  const handleDocumentChange = (e) => {
+    setSelectedDocument(e.target.value);
+    setShowDocumentDetails(false); // Ẩn nội dung khi chọn loại giấy tờ mới
+  };
+
+  const handleContinueButtonClick = () => {
+    setShowDocumentDetails(true); // Hiển thị nội dung sau khi bấm nút tiếp tục
+  };
+
+  return (
+    <div className="container">
+      <div className="mb-10">
+        <Header />
+      </div>
+      <div className="grid grid-cols-4 mt-5">
+        <div className=" ml-40 col-span-2 ">
+          <div style={{ width: "450px" }} className="borderXacMinh ">
+            <p
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                margin: "10px 0px",
+              }}
+            >
+              Chọn một loại giấy tờ tùy thân để thêm vào
+            </p>
+            <Select
+              showSearch
+              style={{ width: 200, margin: "10px 0px" }}
+              placeholder="Chọn quốc gia"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {countries.map((country, index) => (
+                <Option key={index} value={country}>
+                  {country}
+                </Option>
+              ))}
+            </Select>
+            <div style={{ margin: "45px 0px" }}>
+              <Radio.Group
+                onChange={handleDocumentChange}
+                value={selectedDocument}
+              >
+                <Radio
+                  className="flex flex-row-reverse "
+                  style={{ margin: "10px 0px" }}
+                  value="giayPhepLaiXe"
+                >
+                  <span>Giấy phép lái xe</span>
+                </Radio>
+                <br />
+                <hr />
+                <Radio
+                  className="flex flex-row-reverse"
+                  style={{ margin: "10px 0px" }}
+                  value="hoChieu"
+                >
+                  <span style={{ paddingRight: "42px" }}>Hộ chiếu</span>
+                </Radio>
+                <br />
+                <hr />
+                <Radio
+                  className="flex flex-row-reverse"
+                  style={{ margin: "10px 0px" }}
+                  value="giayToTuTuyThan"
+                >
+                  <span>Giấy tờ tùy thân</span>
+                </Radio>
+                <hr />
+              </Radio.Group>
+            </div>
+            <Button
+              type="primary"
+              className=" mt-3 ml-80"
+              onClick={handleContinueButtonClick}
+            >
+              Tiếp tục
+            </Button>
+          </div>
+        </div>
+        <div className=" col-span-2 ">
+          {/* Hiển thị nội dung tương ứng khi đã chọn giấy tờ tùy thân */}
+          {showDocumentDetails && selectedDocument && (
+            <div className="borderXacMinh">
+              {selectedDocument === "giayPhepLaiXe" && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      margin: "10px 0px",
+                    }}
+                  >
+                    Tải lên ảnh giấy phép lái xe của bạn
+                  </p>
+                  <p className="mb-3">
+                    Đảm bảo ảnh của bạn không bị nhòe, mờ và mặt trước bằng lái
+                    xe thể hiện rõ khuôn mặt bạn.(Chỉ định dạng JPEG hoặc PNG)
+                  </p>
+                  <div className=" grid grid-cols-4">
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFrontImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {frontImageUrl && (
+                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                      )}
+                      <p>Ảnh mặt trước</p>
+                    </div>
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleBackImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {backImageUrl && (
+                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                      )}
+                      <p>Ảnh mặt sau</p>
+                    </div>
+                  </div>
+                  <NavLink to="/thong-tin-ca-nhan">
+                    <Button
+                      className="mt-1"
+                      style={{ marginLeft: "465px" }}
+                      type="primary"
+                      onClick={handleCompleteButtonClick}
+                    >
+                      Hoàn thành
+                    </Button>
+                  </NavLink>
+                </div>
+              )}
+
+              {/* Tương tự cho các loại giấy tờ khác */}
+              {selectedDocument === "hoChieu" && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      margin: "10px 0px",
+                    }}
+                  >
+                    Tải lên ảnh hộ chiếu của bạn
+                  </p>
+                  <p className="mb-3">
+                    Đảm bảo ảnh của bạn không bị nhòe, mờ và mặt trước bằng lái
+                    xe thể hiện rõ khuôn mặt bạn.(Chỉ định dạng JPEG hoặc PNG)
+                  </p>
+                  <div className=" grid grid-cols-4">
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFrontImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {frontImageUrl && (
+                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                      )}
+                      <p>Ảnh mặt trước</p>
+                    </div>
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleBackImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {backImageUrl && (
+                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                      )}
+                      <p>Ảnh mặt sau</p>
+                    </div>
+                  </div>
+                  <NavLink to="/thong-tin-ca-nhan">
+                    <Button
+                      className="mt-1"
+                      style={{ marginLeft: "465px" }}
+                      type="primary"
+                      onClick={handleCompleteButtonClick}
+                    >
+                      Hoàn thành
+                    </Button>
+                  </NavLink>
+                </div>
+              )}
+
+              {selectedDocument === "giayToTuTuyThan" && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      margin: "10px 0px",
+                    }}
+                  >
+                    Tải lên ảnh giấy tờ tuỳ thân của bạn
+                  </p>
+                  <p className="mb-3">
+                    Đảm bảo ảnh của bạn không bị nhòe, mờ và mặt trước bằng lái
+                    xe thể hiện rõ khuôn mặt bạn.(Chỉ định dạng JPEG hoặc PNG)
+                  </p>
+                  <div className=" grid grid-cols-4">
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFrontImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {frontImageUrl && (
+                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                      )}
+                      <p>Ảnh mặt trước</p>
+                    </div>
+                    <div
+                      className=" col-span-2"
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px dashed black",
+                        margin: "20px",
+                        padding: "20px",
+                        width: "185px",
+                        height: "185px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleBackImageUpload}
+                        style={{ width: "84px", height: "34px" }}
+                      />
+                      {backImageUrl && (
+                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                      )}
+                      <p>Ảnh mặt sau</p>
+                    </div>
+                  </div>
+                  <NavLink to="/thong-tin-ca-nhan">
+                    <Button
+                      className="mt-1"
+                      style={{ marginLeft: "465px" }}
+                      type="primary"
+                      onClick={handleCompleteButtonClick}
+                    >
+                      Hoàn thành
+                    </Button>
+                  </NavLink>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-10">
+        <Footer />
+      </div>
+    </div>
+  );
+};
+
+export default XacMinhDanhTinh;
