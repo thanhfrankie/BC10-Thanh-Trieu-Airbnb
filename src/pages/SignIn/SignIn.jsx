@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import InputCustom from "../../components/Input/InputCustom";
+import InputSign from "../../components/Input/InputSign";
 import * as registerAnimation from "./../../assets/animation/register.json";
 import Lottie from "react-lottie";
 import { useFormik } from "formik";
@@ -54,17 +54,17 @@ const SignIn = () => {
     },
   };
   return (
-    <div className="signIn h-screen flex">
-      <div className="animation_signIn border border-x-red-800 w-9/12 flex items-center justify-center">
+    <div className="signIn h-screen flex items-center justify-between">
+      <div className="animation_signIn w-5/12 flex items-center justify-center">
         <Lottie options={defaultOptions} height={500} width={500} />
       </div>
-      <div className="form_signIn w-3/12 flex items-center justify-center flex-col">
+      <div className="form_signIn w-7/12 flex items-center justify-center flex-col">
         <div className="p-10 border border-gray-400 rounded-md space-y-5">
           <h1 className="text-center flex items-center justify-center text-black text-2xl font-semibold leading-6 md:text-3xl">
             Đăng nhập
           </h1>
           <form onSubmit={handleSubmit} className="space-y-5">
-            <InputCustom
+            <InputSign
               placeholder="Vui lòng nhập tài khoản"
               id="taiKhoan"
               label="Tài khoản"
@@ -76,7 +76,7 @@ const SignIn = () => {
               value={values.taiKhoan}
               type="email"
             />
-            <InputCustom
+            <InputSign
               placeholder="Vui lòng nhập mật khẩu"
               id="matKhau"
               label="Mật khẩu"

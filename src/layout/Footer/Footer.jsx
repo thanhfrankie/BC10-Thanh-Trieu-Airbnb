@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="footer h-full w-full space-x-3  mx-auto flex items-center justify-center flex-col ">
-      <div className="subFooter">a</div>
+      <div className="subFooter">
+        <div>Nguồn cảm hứng cho những kỳ nghỉ sau này</div>
+      </div>
       <div className="mainFooter w-full border border-t-2 py-3">
         <div className="mx-auto w-3/4  flex items-start justify-between gap-13 ">
           <div className="support  h-full w-1/3 flex items-center justify-center">

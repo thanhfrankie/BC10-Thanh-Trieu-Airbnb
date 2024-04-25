@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
 import "./Header.scss";
 import ButtonCustom from "../../components/Button/ButtonCustom";
-import InputCustom from "../../components/Input/InputCustom";
+import InputSearchBar from "../../components/Input/InputSearchBar";
 const items = [
   {
     label: <NavLink to="sign-up">Đăng ký</NavLink>,
@@ -114,7 +114,7 @@ const Header = () => {
       >
         <div className="search w-1/3  px-6 rounded-full ">
           <button className="w-full py-2 text-start ">
-            <InputCustom
+            <InputSearchBar
               placeholder="Tìm kiếm điểm đến"
               id="Địa điểm"
               label="Địa điểm"

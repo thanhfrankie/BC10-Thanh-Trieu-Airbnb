@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import InputCustom from "../../components/Input/InputCustom";
+import InputSign from "../../components/Input/InputSign";
 import * as registerAnimation from "./../../assets/animation/register.json";
 import Lottie from "react-lottie";
 import { useFormik } from "formik";
@@ -87,12 +87,12 @@ const SignUp = () => {
           <SignInMobile />
         </div>
       
-          <div className="form_signUp  w-1/3 h-4/5  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 ">
+          <div className="form_signUp  w-1/3 h-auto  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 ">
             <h1 className="flex items-center justify-center text-black text-xl font-semibold	">
               Đăng ký thành viên
             </h1>
             <form onSubmit={handleSubmit} className="formInput space-y-6">
-              <InputCustom
+              <InputSign
                 placeholder="Họ tên *"
                 id="hoTen"
                 onChange={handleChange}
@@ -102,7 +102,7 @@ const SignUp = () => {
                 name="hoTen"
                 value={values.hoTen}
               />
-              <InputCustom
+              <InputSign
                 placeholder="Tài khoản *"
                 id="taiKhoan"
                 onChange={handleChange}
@@ -113,7 +113,7 @@ const SignUp = () => {
                 value={values.taiKhoan}
               />
               <div className="relative">
-                <InputCustom
+                <InputSign
                   placeholder="Mật khẩu *"
                   id="matKhau"
                   onChange={handleChange}
@@ -144,7 +144,7 @@ const SignUp = () => {
                   </button>
                 </div>
               </div>
-              <InputCustom
+              <InputSign
                 placeholder="Email *"
                 id="email"
                 onChange={handleChange}
@@ -156,7 +156,7 @@ const SignUp = () => {
                 value={values.email}
               />
 
-              <InputCustom
+              <InputSign
                 placeholder="Số điện thoại *"
                 id="soDt"
                 onChange={handleChange}

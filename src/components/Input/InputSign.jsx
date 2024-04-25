@@ -5,8 +5,6 @@ const InputCustom = ({
   label,
   placeholder,
   className = "",
-  classNameLabel = "",
- 
   name,
   onChange,
   value,
@@ -16,11 +14,13 @@ const InputCustom = ({
   readOnly,
   type = "text",
 }) => {
+  // id, label, placeholder sẽ khác nhau giữa các input
+
   return (
     <div>
       <label
         htmlFor={id}
-        className={`inputLabel px-4  block text-sm font-medium text-gray-900 ${classNameLabel}`}
+        className="block mb-2 text-base font-medium  text-gray-900"
       >
         {label}
       </label>
@@ -32,9 +32,14 @@ const InputCustom = ({
         name={name}
         readOnly={readOnly ? true : false}
         id={id}
-        className={` min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className} inputCustom `}
+        className={`inputCustom min-w-80 bg-gray-50 min-w-sm border border-black text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${className} ${
+          error && touched ? "border-red-500" : ""
+        }`}
         placeholder={placeholder}
       />
+      {error && touched ? (
+        <p className="text-red-500 text-sm">{error}</p>
+      ) : null}
     </div>
   );
 };
