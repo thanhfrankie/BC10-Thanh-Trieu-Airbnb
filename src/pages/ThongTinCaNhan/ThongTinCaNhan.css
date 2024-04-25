@@ -52,7 +52,7 @@
   font-weight: bold;
 }
 .buttonleft:hover {
-  boder: none;
+  border: none;
 }
 .buttonEdit{
   border: 0.5px solid gray;
@@ -78,7 +78,7 @@
   font-weight: bold;
 }
 .buttonEdit:hover {
-  boder: none;
+  border: none;
 }
 
 .displayUser{

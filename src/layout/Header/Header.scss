@@ -1,3 +1,9 @@
+.header {
+  width: 100%;
+  .inputLabel {
+    border: none;
+  }
+}
 .logo {
   color: #ff385c;
 }
@@ -26,6 +32,14 @@
 .search,
 .inputLabel {
   cursor: pointer;
+}
+.btn:focus {
+  box-shadow: none;
+  outline: none;
+}
+.inputCustom {
+  border: none;
+  outline: none;
 }
 .btn:hover,
 .search:hover,
