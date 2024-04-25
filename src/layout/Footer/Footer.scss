@@ -1,0 +1,25 @@
+.footer {
+  background-color: #f7f7f7;
+  .mainFooter {
+    color: #4e4e4e;
+    ul {
+      .firstLi {
+        color: black;
+        font-weight: 600;
+      }
+      li {
+        color: #4e4e4e;
+        font-weight: 400;
+      }
+    }
+  }
+  .copyrightFooter {
+    .copyright {
+      color: #4e4e4e;
+      .copyrightLink {
+        color: #4e4e4e;
+        font-weight: 400;
+      }
+    }
+  }
+}

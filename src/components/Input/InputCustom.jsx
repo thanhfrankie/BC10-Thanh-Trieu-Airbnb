@@ -6,6 +6,7 @@ const InputCustom = ({
   placeholder,
   className = "",
   classNameLabel = "",
+ 
   name,
   onChange,
   value,
@@ -19,7 +20,7 @@ const InputCustom = ({
     <div>
       <label
         htmlFor={id}
-        className={`inputLabel px-4 block text-sm font-medium text-gray-900 ${classNameLabel}`}
+        className={`inputLabel px-4  block text-sm font-medium text-gray-900 ${classNameLabel}`}
       >
         {label}
       </label>
@@ -31,10 +32,9 @@ const InputCustom = ({
         name={name}
         readOnly={readOnly ? true : false}
         id={id}
-        className={`inputCustom min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className}`}
+        className={` min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className} inputCustom `}
         placeholder={placeholder}
       />
-     
     </div>
   );
 };

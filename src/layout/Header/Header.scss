@@ -7,6 +7,9 @@
     .ant-dropdown-menu-item-only-child {
       margin: 10px 0;
       padding-right: 50px;
+      .ant-dropdown-menu-title-content {
+        font-weight: 510;
+      }
     }
   }
 }
@@ -17,6 +20,9 @@
   color: black;
   font-weight: 600;
 }
+.active:hover {
+  background-color: white;
+}
 .search,
 .inputLabel {
   cursor: pointer;
@@ -24,13 +30,34 @@
 .btn:hover,
 .search:hover,
 .globe:hover {
-  background-color: #f7f7f7;
-  background-color: red
+  background-color: #ebebeb;
+}
+.btnHover:hover {
+  color: black;
+}
+.active.btnHover {
+  background-color: white;
 }
 .search:hover {
   .inputCustom {
-    background-color: #f7f7f7;
-    background-color: red;
-
+    background-color: #ebebeb;
   }
+}
+.mag-glass {
+  background-color: #ff385c;
+  border-radius: 30px;
+}
+
+.btnSearch,
+.btnRent,
+.inputLabel {
+  color: #222222;
+}
+.btnLabel,
+.inputCustom {
+  color: #6a6a6a;
+}
+.inputLabel {
+  font-weight: 700;
+  font-size: 0.75rem;
 }

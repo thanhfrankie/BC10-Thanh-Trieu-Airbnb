@@ -4,17 +4,17 @@ const ButtonCustom = ({
   classNameBtn = "",
   classNameSpan = "",
   value,
-  onClick,
   span = "",
+  ...rest
 }) => {
   return (
     <button
       className={`btn h-full py-2 px-4 rounded-full  ${classNameBtn}`}
-      onClick={onClick}
+      {...rest}
     >
       {value}
 
-      <span className={`block text-start ${classNameSpan}`}>{span}</span>
+      <span className={`btnLabel block text-start text-base font-medium ${classNameSpan}`}>{span}</span>
     </button>
   );
 };

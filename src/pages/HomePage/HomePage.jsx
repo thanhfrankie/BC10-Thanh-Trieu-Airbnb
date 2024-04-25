@@ -4,14 +4,15 @@ import Footer from "../../layout/Footer/Footer";
 
 const HomePage = () => {
   return (
-    <div className="px-20">
+    <div className="h-full ">
       {/* Header  */}
-      <div className=""> 
-
-          <Header/>
+      <div className="px-20">
+        <Header />
       </div>
-          {/* Footer */}
-          <Footer/>
+      {/* Footer */}
+      <div className="h-3/4 w-full mt-3 ">
+        <Footer />
+      </div>
     </div>
   );
 };
