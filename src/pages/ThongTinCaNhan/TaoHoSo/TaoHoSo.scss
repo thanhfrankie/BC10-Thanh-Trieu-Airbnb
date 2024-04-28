@@ -1,42 +1,40 @@
-.buttonEdit{
-    border: 0.5px solid gray;
-    border-radius: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    bottom: -8px;
-    left: 82px;
-    font-weight: bold;
-  }
-  .buttonEdit:hover{
-    background-color:gray;
-    color: white;
-  }
-  .imgLeft {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    border: 0.5px solid gray;
-  }
-.textTitle{
-    font-size: 30px;
-    font-weight: bold;
-    
+.buttonEdit {
+  border: 0.5px solid gray;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  bottom: -8px;
+  left: 82px;
+  font-weight: bold;
+}
+.buttonEdit:hover {
+  background-color: gray;
+  color: white;
+}
+.imgLeft {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 0.5px solid gray;
+}
+.textTitle {
+  font-size: 30px;
+  font-weight: bold;
 }
 
-.imgBg{
-  top:0;
+.imgBg {
+  top: 0;
   left: 0;
 }
 
 :where(.css-dev-only-do-not-override-1kuana8).ant-btn-primary {
-
-  background: gray
+  background: gray;
 }
 
 :where(.css-dev-only-do-not-override-1kuana8).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
-  background:rgb(170, 169, 169)
+  background: rgb(170, 169, 169);
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
   color: black;
@@ -46,9 +44,13 @@
 :where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:hover {
   border-color: rgb(170, 169, 169);
 }
-:where(.css-dev-only-do-not-override-1kuana8).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
-  border-color: rgb(170, 169, 169);}
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer):hover
+  .ant-select-selector {
+  border-color: rgb(170, 169, 169);
+}
 
-  :where(.css-dev-only-do-not-override-1kuana8).ant-picker-outlined:hover {
-    border-color: rgb(170, 169, 169);
-  }
+:where(.css-dev-only-do-not-override-1kuana8).ant-picker-outlined:hover {
+  border-color: rgb(170, 169, 169);
+}

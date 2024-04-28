@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import { Input, message } from "antd";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./DetailPopup.scss";
 const { TextArea } = Input;
 
 const DetailPopupBot = () => {
-
   const navigate = useNavigate();
 
   const handleCompleteButtonClick = () => {
@@ -17,7 +16,6 @@ const DetailPopupBot = () => {
     // Chuyển trang
     navigate("/thong-tin-ca-nhan");
   };
-
 
   const [comment, setComment] = useState("");
   const handleCommentChange = (e) => {
@@ -82,15 +80,16 @@ const DetailPopupBot = () => {
       </Modal>
       <hr className="mt-5 mb-5" />
       <div className=" text-right">
-        <NavLink
-         to="/thong-tin-ca-nhan" >
-            
-      <button onClick={handleCompleteButtonClick} className="buttonleft mb-3 text-white bg-slate-700 hover:bg-slate-600 ">Hoàn Tất</button>
-      </NavLink>
+        <NavLink to="/thong-tin-ca-nhan">
+          <button
+            onClick={handleCompleteButtonClick}
+            className="buttonleft mb-3 text-white bg-slate-700 hover:bg-slate-600 "
+          >
+            Hoàn Tất
+          </button>
+        </NavLink>
       </div>
-
     </div>
-    
   );
 };
 

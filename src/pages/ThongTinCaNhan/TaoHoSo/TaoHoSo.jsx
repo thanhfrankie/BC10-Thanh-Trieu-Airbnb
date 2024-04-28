@@ -7,9 +7,10 @@ import DetailPopupLeft from "../../../components/Popup/DetailPopupLeft";
 import DetailPopupright from "../../../components/Popup/DetailPopupRight";
 import DetailPopupBot from "../../../components/Popup/DetailPopupBot";
 
-
 const TaoHoSo = () => {
-  const [image, setImage] = useState("/users");
+  const [image, setImage] = useState(
+    "https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-ff.jpg"
+  );
 
   const handleEditImage = () => {
     // Gọi click() trên input element ẩn
@@ -25,7 +26,6 @@ const TaoHoSo = () => {
   // Tham chiếu đến input file element
   const inputFileRef = React.createRef();
 
- 
   return (
     <div>
       <div className="container">
@@ -35,11 +35,7 @@ const TaoHoSo = () => {
         <div className="grid grid-cols-5 mt-5 pr-24">
           <div className="col-span-2">
             <div className="relative ml-24">
-              <img
-                className="  imgLeft"
-                src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-ff.jpg"
-                alt="imgUser"
-              />
+              <img className="  imgLeft" src={image} alt="" />
               <button
                 className="buttonEdit absolute z-5"
                 onClick={handleEditImage}
@@ -62,25 +58,24 @@ const TaoHoSo = () => {
               <p>
                 Thông tin mà bạn chia sẻ sẽ được sử dụng trên khắp nền tảng
                 Airbnb để giúp các khách và Chủ nhà/Người tổ chức khác biết thêm
-                về bạn. 
+                về bạn.
               </p>
             </div>
             <div className="grid grid-cols-6 gap-1 ">
-              <div className="col-span-3 "  >
-              <DetailPopupLeft/>
+              <div className="col-span-3 ">
+                <DetailPopupLeft />
               </div>
               <div className="col-span-3 ">
-                <DetailPopupright/>
+                <DetailPopupright />
               </div>
             </div>
-            <div >
-              <DetailPopupBot/>
-
+            <div>
+              <DetailPopupBot />
             </div>
           </div>
         </div>
-        <div> 
-         <Footer/>
+        <div>
+          <Footer />
         </div>
       </div>
     </div>

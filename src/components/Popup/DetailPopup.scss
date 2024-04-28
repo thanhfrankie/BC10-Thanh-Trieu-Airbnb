@@ -1,42 +1,46 @@
-.btnPopup{
+.btnPopup {
   width: 390px !important;
   height: 80px !important;
   background-color: white;
   color: black;
   text-align: left;
 }
-.btnPopup:hover{
+.btnPopup:hover {
   background-color: rgb(224, 224, 224) !important;
   color: black !important;
-  
 }
 
 button span {
   font-size: 15px;
 }
-.textPopup{
+.textPopup {
   font-size: 30px;
   font-weight: bold;
 }
-.buttonPopup{
-  border:1px dashed gray;
+.buttonPopup {
+  border: 1px dashed gray;
   width: 820px !important;
   height: 100px !important;
   background-color: white;
   color: black;
-
 }
-.buttonPopup:hover{
+.buttonPopup:hover {
   background-color: white !important;
   color: black !important;
-  
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: gray;
+  border-color: gray;
+}
 
-
-
-
-
-
-
-
+:where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: gray;
+  border-color: gray;
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover
+  .ant-checkbox-checked:not(.ant-checkbox-disabled)
+  .ant-checkbox-inner {
+  background-color: rgb(90, 83, 83);
+  border-color: transparent;
+}
