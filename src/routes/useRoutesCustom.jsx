@@ -9,7 +9,6 @@ import ThongTinCaNhan from "../pages/ThongTinCaNhan/ThongTinCaNhan";
 import TaoHoSo from "../pages/ThongTinCaNhan/TaoHoSo/TaoHoSo";
 import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanhTinh";
 
-
 const useRoutesCustom = () => {
   const routes = useRoutes([
     {
@@ -30,30 +29,21 @@ const useRoutesCustom = () => {
         },
         {
           path: "thong-tin-ca-nhan",
-          element: <ThongTinCaNhan/>,
-         
+          element: <ThongTinCaNhan />,
         },
         {
           path: "tao-ho-so",
-        element: <TaoHoSo/>,
-          },
-          {
-            path: "xac-minh",
-          element: <XacMinhDanhTinh/>,
-            },
-    
+          element: <TaoHoSo />,
+        },
+        {
+          path: "xac-minh",
+          element: <XacMinhDanhTinh />,
+        },
       ],
     },
     {
       path: "/admin",
       element: <AdminTemplate />,
-      children: [
-        {
-          path: "/admin/quan-li-phim",
-          // element: <MovieManager />,
-        },
-        
-      ],
     },
   ]);
   return routes;

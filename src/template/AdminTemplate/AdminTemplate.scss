@@ -1,0 +1,34 @@
+:where(.css-dev-only-do-not-override-1kuana8).ant-layout .ant-layout-sider-children {
+    height: 100%;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+.ant-layout {
+    .ant-layout-sider {
+        flex: 0 0 300px !important;
+        min-width: 100px !important;
+        width: 300px !important;
+        max-width: 300px !important;
+    }
+}
+
+.ant-layout {
+    .ant-layout-sider-collapsed {
+        flex: 0 0 80px !important;
+        max-width: 80px !important;
+        min-width: 80px !important;
+        width: 80px !important;
+    }
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark .ant-menu-item-selected, :where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark>.ant-menu .ant-menu-item-selected {
+    background-color: #6C7B8B;
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-layout .ant-layout-sider {
+    background:#2F4F4F;
+}
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark, :where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark>.ant-menu {
+    color: rgba(255, 255, 255, 0.65);
+    background: #2F4F4F;
+}
+
+
