@@ -355,7 +355,9 @@ const QuanLyNguoiDung = () => {
             <strong>Vai trò: </strong> {detailData.role}
           </p>
         </div>
+        
       </Modal>
+      
       <div className="search-container mt-4">
         <Input.Search
           placeholder="Nhập từ khóa để tìm kiếm..."
