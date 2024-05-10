@@ -64,7 +64,7 @@ const Header = () => {
       key: "3",
     },
     {
-      label: <button onClick={ handleLogout}>Đăng xuất</button>,
+      label: <button onClick={handleLogout}>Đăng xuất</button>,
       key: "4",
     },
   ];
@@ -132,7 +132,11 @@ const Header = () => {
                           <i className="fa-regular fa-bars"></i>
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
-                          <i class="fa-solid fa-circle-user"></i>
+                          {isLoggedIn ? (
+                            <img src={userLocal?.avatar} alt="" />
+                          ) : (
+                            <i class="fa-solid fa-circle-user"></i>
+                          )}
                         </div>
                       </button>
                     </Space>
