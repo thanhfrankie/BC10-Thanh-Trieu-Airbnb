@@ -25,6 +25,11 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
+    // setUserRole(null); // Reset vai trò của người dùng khi đăng xuất
+    // notify("Đăng xuất thành công , đang quay về trang chủ");
+    // setTimeout(() => {
+    //   navigate("/");
+    // }, 3000);
   };
   const notLoggedInMenu = [
     {

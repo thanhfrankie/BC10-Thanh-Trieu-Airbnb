@@ -16,16 +16,16 @@ import SignInMobile from "../SignInMobile/SignInMobile";
 import { DatePicker, Select } from "antd";
 import "./SignUp.scss";
 const SignUp = () => {
-  
   // const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
-  const [dateValue, setDateValue] = useState(null)
+  const [dateValue, setDateValue] = useState(null);
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
-  const onChange = (date, dateString) => {
-    setDateValue(date)
+  const onDateChange = (date, dateString) => {
+    setDateValue(date);
   };
-  console.log(dateValue)
+  console.log(dateValue);
+
   const {
     handleChange,
     handleBlur,
@@ -41,13 +41,11 @@ const SignUp = () => {
       password: "",
       phone: "",
       birthday: "",
-      gender: "",
+      gender: true,
     },
     onSubmit: async (values) => {
       console.log(values);
-      // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
       try {
-        // gửi dữ liệu lên backend
         const res = await userManagementServ.signUp(values);
         console.log(res);
         notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
@@ -172,7 +170,7 @@ const SignUp = () => {
                 className="datePicker w-full p-2  border border-black"
                 id="birthday"
                 name="birthday"
-                onChange={onChange}
+                onChange={onDateChange}
                 onBlur={handleBlur}
                 error={errors.birthday}
                 touched={touched.birthday}
@@ -188,12 +186,13 @@ const SignUp = () => {
                 style={{ flex: 1 }}
                 className="rounded-lg bg-gray-50 "
                 options={[
-                  { value: "1", label: "Nam" },
-                  { value: "2", label: "Nữ" },
+                  { value: true, label: "Nam" },
+                  { value: false, label: "Nữ" },
                 ]}
                 id="gender"
                 name="gender"
-                onChange={(value) => setFieldValue(values.gender, value)}
+                // onChange={(value) => setFieldValue(values.gender, value)}
+                onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.gender}
                 error={errors.gender}
