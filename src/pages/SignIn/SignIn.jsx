@@ -16,8 +16,8 @@ const SignIn = () => {
   const { handleChange, handleBlur, values, errors, touched, handleSubmit } =
     useFormik({
       initialValues: {
-        taiKhoan: "",
-        matKhau: "",
+        email: "",
+        password: "",
       },
       onSubmit: async (values) => {
         console.log(values);
@@ -25,7 +25,7 @@ const SignIn = () => {
         try {
           // gửi dữ liệu lên backend
           const res = await userManagementServ.signIn(values);
-          // console.log(res);
+          console.log(res);
           // lưu trữ dữ liệu xuống localstorage để lưu trữ
           saveLocalStorage("user", res.data.content);
           notify(
@@ -40,8 +40,10 @@ const SignIn = () => {
         }
       },
       validationSchema: Yup.object({
-        taiKhoan: Yup.string().required("Vui lòng nhập tài khoản"),
-        matKhau: Yup.string().required("Vui lòng nhập mật khẩu"),
+        email: Yup.string()
+        .email("Vui lòng kiểm tra định dạng email")
+        .required("Vui lòng nhập email"),
+        password: Yup.string().required("Vui lòng nhập mật khẩu"),
       }),
     });
 
@@ -65,28 +67,28 @@ const SignIn = () => {
           </h1>
           <form onSubmit={handleSubmit} className="space-y-5">
             <InputSign
-              placeholder="Vui lòng nhập tài khoản"
-              id="taiKhoan"
+              placeholder="Vui lòng nhập email"
+              id="email"
               label="Tài khoản"
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors.taiKhoan}
-              touched={touched.taiKhoan}
-              name="taiKhoan"
-              value={values.taiKhoan}
+              error={errors.email}
+              touched={touched.email}
+              name="email"
+              value={values.email}
               type="email"
             />
             <InputSign
               placeholder="Vui lòng nhập mật khẩu"
-              id="matKhau"
+              id="password"
               label="Mật khẩu"
               onChange={handleChange}
               type="password"
               onBlur={handleBlur}
-              error={errors.matKhau}
-              touched={touched.matKhau}
-              name="matKhau"
-              value={values.matKhau}
+              error={errors.password}
+              touched={touched.password}
+              name="password"
+              value={values.password}
             />
             <div>
               <p>

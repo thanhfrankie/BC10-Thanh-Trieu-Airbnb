@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { NavLink } from "react-router-dom";
@@ -6,34 +6,68 @@ import logo from "./../../assets/img/logo.png";
 import "./Header.scss";
 import ButtonCustom from "../../components/Button/ButtonCustom";
 import InputSearchBar from "../../components/Input/InputSearchBar";
-const items = [
-  {
-    label: <NavLink to="sign-up">Đăng ký</NavLink>,
-    key: "0",
-  },
-  {
-    label: <NavLink to="/sign-in">Đăng nhập</NavLink>,
-    key: "1",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
-    key: "3",
-  },
-  {
-    label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
-    key: "4",
-  },
-];
+import { getLocalStorage } from "../../utils/util";
+
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeButton, setActiveButton] = useState("Chỗ ở");
   const [isFocused, setIsFocused] = useState(false);
-
+  const userLocal = getLocalStorage("user");
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      return userLocal !== null;
+    };
+    setIsLoggedIn(checkLocalStorage());
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+  };
+  const notLoggedInMenu = [
+    {
+      label: <NavLink to="sign-up">Đăng ký</NavLink>,
+      key: "0",
+    },
+    {
+      label: <NavLink to="/sign-in">Đăng nhập</NavLink>,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
+      key: "3",
+    },
+    {
+      label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
+      key: "4",
+    },
+  ];
+  const loggedInMenu = [
+    {
+      label: <NavLink to="thong-tin-ca-nhan">Tài khoản</NavLink>,
+      key: "0",
+    },
+    {
+      label: <NavLink to="/sign-in">Đăng nhập</NavLink>,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
+      key: "3",
+    },
+    {
+      label: <button onClick={() =>handleLogout}>Đăng xuất</button>,
+      key: "4",
+    },
+  ];
 
   return (
     <div className="header">
@@ -83,9 +117,11 @@ const Header = () => {
               </div>
               <div>
                 <Dropdown
-                  menu={{
-                    items,
-                  }}
+                  menu={
+                    isLoggedIn
+                      ? { items: loggedInMenu }
+                      : { items: notLoggedInMenu }
+                  }
                   trigger={["click"]}
                   placement="topRight"
                 >
@@ -96,7 +132,11 @@ const Header = () => {
                           <i class="fa-regular fa-bars"></i>
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
-                          <i class="fa-solid fa-circle-user"></i>
+                          {isLoggedIn ? (
+                            <img src={userLocal.avatar} alt="" />
+                          ) : (
+                            <i class="fa-solid fa-circle-user"></i>
+                          )}
                         </div>
                       </button>
                     </Space>
