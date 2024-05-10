@@ -18,8 +18,6 @@ const SignIn = () => {
       initialValues: {
         email: "",
         password: "",
-        email: "",
-        password: "",
       },
       onSubmit: async (values) => {
         console.log(values);
@@ -43,8 +41,8 @@ const SignIn = () => {
         }
       },
       validationSchema: Yup.object({
-        taiKhoan: Yup.string().required("Vui lòng nhập tài khoản"),
-        matKhau: Yup.string().required("Vui lòng nhập mật khẩu"),
+        email: Yup.string().required("Vui lòng nhập tài khoản"),
+        password: Yup.string().required("Vui lòng nhập mật khẩu"),
       }),
     });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { NavLink } from "react-router-dom";
@@ -64,7 +64,7 @@ const Header = () => {
       key: "3",
     },
     {
-      label: <button onClick={() =>handleLogout}>Đăng xuất</button>,
+      label: <button onClick={ handleLogout}>Đăng xuất</button>,
       key: "4",
     },
   ];
