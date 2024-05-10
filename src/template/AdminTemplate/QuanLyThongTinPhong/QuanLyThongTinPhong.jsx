@@ -219,14 +219,7 @@ const QuanLyThongTinPhong = () => {
                     },
                   ]}
                 >
-                  <Upload
-                    name="hinhAnh"
-                    action="/phong-thue/upload-hinh-phong" // API endpoint để tải hình ảnh lên
-                    listType="picture"
-                    maxCount={1} // Số lượng tệp tối đa được chấp nhận
-                  >
-                    <Button icon={<UploadOutlined />}>Tải lên</Button>
-                  </Upload>
+                 <Input prefix={<ShopOutlined />} placeholder="Hình ảnh" />
                 </Form.Item>
               </Col>
               <Col span={12}>

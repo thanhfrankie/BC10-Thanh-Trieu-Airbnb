@@ -3,30 +3,34 @@ import "./ThongTinCaNhan.scss";
 import { NavLink } from "react-router-dom";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserById } from "../../services/userManagement";
 
 const ThongTinCaNhan = () => {
   const [showUserDetails, setShowUserDetails] = useState(true);
   const navigate = useNavigate();
 
-  const [image, setImage] = useState(
-    "https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-ff.jpg"
-  );
+  const [userData, setUserData] = useState(null);
 
-  const handleEditImage = () => {
-    // Gọi click() trên input element ẩn
-    inputFileRef.current.click();
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = 1; // Thay đổi userId tùy theo người dùng hiện tại
+      const user = await getUserById(userId);
+      setUserData(user);
+    };
 
-  const handleImageChange = (event) => {
-    const selectedImage = event.target.files[0];
-    const imageUrl = URL.createObjectURL(selectedImage);
-    setImage(imageUrl);
-  };
+    fetchUserData();
+  }, []);
 
-  // Tham chiếu đến input file element
-  const inputFileRef = React.createRef();
+  if (!userData) {
+    return <div>Loading...</div>; // Hiển thị thông báo loading trong quá trình tải dữ liệu
+  }
+
+  const { name, avatar } = userData;
+
+
+
 
   const handleComplete = () => {
     setShowUserDetails(true);
@@ -39,26 +43,14 @@ const ThongTinCaNhan = () => {
       </div>
       <div className="grid grid-cols-4 mt-5">
         <div className="col-span-1 pl-24 mt-3">
-          <div className="titleTopLeft">
+        <div className="titleTopLeft">
             <div className="relative">
-              <img className="  imgLeft" src={image} alt="imgUser" />
-              <button
-                className="buttonEdit absolute z-5"
-                onClick={handleEditImage}
-              >
-                {" "}
-                <i class="fa-duotone fa-camera-retro"></i> Sửa ảnh
+              <img className="imgLeft" src={avatar} alt="Avatar" />
+              <button className="buttonEdit absolute z-5">
+                <i className="fa-duotone fa-camera-retro"></i> Sửa ảnh
               </button>
             </div>
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              ref={inputFileRef}
-              onChange={handleImageChange}
-            />
-            <p className="texTopLeft mt-2">Ten user</p>
-            <p>Khách</p>
+            <p className="texTopLeft mt-2">{name}</p>
           </div>
           <div className="titleBotLeft mt-3 ">
             <p className="texBotLeft">Xác minh danh tính của bạn</p>
@@ -81,7 +73,7 @@ const ThongTinCaNhan = () => {
           {showUserDetails && (
             <div className="mt-4 displayUser ">
               <div>
-                <p className="texTopLeft">Xin Chào Tôi Là : </p>
+                <p className="texTopLeft">Xin Chào Tôi Là : <span style={{color:"gray", fontWeight:"bold", fontSize:"35px"}}>{name}</span> </p>
                 <NavLink to="/tao-ho-so">
                   <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
                     Chỉnh sửa hồ sơ

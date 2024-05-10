@@ -5,6 +5,7 @@ import ListRoom from "../../layout/ListRoom/ListRoom";
 import RoomFilter from "../../layout/RoomFilter/RoomFilter";
 
 const HomePage = () => {
+  
   return (
     <div className="h-full ">
       {/* Header  */}

@@ -21,9 +21,7 @@ import {
   GlobalOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-
-const { Option } = Select;
-const { TextArea, Search } = Input;
+import { getToken } from "../../../services/authService"; // Import hàm lấy token
 
 const QuanLyThongTinViTri = () => {
   const [usersData, setUsersData] = useState([]);
@@ -45,7 +43,10 @@ const QuanLyThongTinViTri = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    
   };
+
+
 
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => {
@@ -58,37 +59,44 @@ const QuanLyThongTinViTri = () => {
     form.resetFields();
     setVisible(true);
   };
-
   const onFinish = async (values) => {
     try {
+      const token = getToken(); // Lấy token từ localStorage
       if (editingUser) {
-        // Nếu có người dùng đang được chỉnh sửa
-        const response = await http.put(`/vi-tri/${editingUser.id}`, values); // Gửi yêu cầu cập nhật thông tin người dùng
+        const response = await http.put(`/vi-tri/${editingUser.id}`, values, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề Authorization
+          },
+        });
         if (response.status === 200) {
           antdMessage.success("Cập nhật thành công!");
           form.resetFields();
           setVisible(false);
-          setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa
-          fetchData(); // Load lại dữ liệu sau khi cập nhật thành công
+          setEditingUser(null);
+          fetchData();
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi cập nhật người dùng.");
+          antdMessage.error("Cập nhật không thành công!");
         }
       } else {
-        const response = await http.post("/vi-tri", values);
+        const response = await http.post("/vi-tri", values, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề Authorization
+          },
+        });
         if (response.status === 200) {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Load lại dữ liệu sau khi thêm thành công
+          fetchData();
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi thêm người dùng.");
+          antdMessage.error("Thêm không thành công!");
         }
       }
     } catch (error) {
-      console.log(error);
-      console.error("Error adding/updating user:", error);
-      antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật người dùng.");
+      console.error("Lỗi thêm / cập nhật không thành công:", error);
+      antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật vị trí.");
     }
+    console.log('Form submitted:', values);
   };
 
   const handleDetail = (record) => {
@@ -104,16 +112,20 @@ const QuanLyThongTinViTri = () => {
 
   const handleDelete = async (record) => {
     try {
-      const response = await http.delete(`/vi-tri?id=${record.id}`);
+      const token = getToken(); // Lấy token từ localStorage
+      const response = await http.delete(`/vi-tri?id=${record.id}`, {
+        headers: {
+          Authorization: `bearer ${token}`, // Thêm token vào tiêu đề Authorization
+        },
+      });
       if (response.status === 200) {
         antdMessage.success("Xoá vị trí thành công!");
-        // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
-        antdMessage.error("Không xoá được vị trí.");
+        antdMessage.error("Xoá vị trí không thành công!");
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Lỗi xoá :", error);
       antdMessage.error("Đã có lỗi xảy ra khi xoá vị trí.");
     }
   };
@@ -200,7 +212,7 @@ const QuanLyThongTinViTri = () => {
             <Row gutter={[16, 16]}>
               <Col span={12}>
                 <Form.Item name="id" label="ID Vị Trí">
-                  <Input disabled placeholder="ID" />
+                  <Input placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -214,14 +226,7 @@ const QuanLyThongTinViTri = () => {
                     },
                   ]}
                 >
-                  <Upload
-                    name="hinhAnh"
-                    action="/vi-tri/upload-hinh-vitri" // API endpoint để tải hình ảnh lên
-                    listType="picture"
-                    maxCount={1} // Số lượng tệp tối đa được chấp nhận
-                  >
-                    <Button icon={<UploadOutlined />}>Tải lên</Button>
-                  </Upload>
+                  <Input prefix={<PushpinOutlined />} placeholder="Tải hình" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -322,5 +327,6 @@ const QuanLyThongTinViTri = () => {
     </div>
   );
 };
+
 
 export default QuanLyThongTinViTri;

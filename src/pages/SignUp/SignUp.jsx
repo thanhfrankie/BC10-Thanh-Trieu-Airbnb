@@ -11,11 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { saveLocalStorage, validationMessage } from "../../utils/util";
 
 import SignInMobile from "../SignInMobile/SignInMobile";
-import SignIn from "../SignIn/SignIn";
+
 // import useResponsive from "../../hooks/useResponsive";
 import { DatePicker, Select } from "antd";
 import "./SignUp.scss";
 const SignUp = () => {
+  
   // const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const [dateValue, setDateValue] = useState(null)

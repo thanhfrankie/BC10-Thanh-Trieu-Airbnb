@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { NavLink } from "react-router-dom";
@@ -112,7 +112,7 @@ const Header = () => {
               </NavLink>
               <div className="mr-3">
                 <button className="globe flex items-center justify-center text-center rounded-full w-9 h-9">
-                  <i class="fa-regular fa-globe"></i>
+                  <i className="fa-regular fa-globe"></i>
                 </button>
               </div>
               <div>
@@ -129,14 +129,10 @@ const Header = () => {
                     <Space>
                       <button className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
                         <div className="flex items-center justify-center text-sm text-black">
-                          <i class="fa-regular fa-bars"></i>
+                          <i className="fa-regular fa-bars"></i>
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
-                          {isLoggedIn ? (
-                            <img src={userLocal.avatar} alt="" />
-                          ) : (
-                            <i class="fa-solid fa-circle-user"></i>
-                          )}
+                          <i class="fa-solid fa-circle-user"></i>
                         </div>
                       </button>
                     </Space>
@@ -197,12 +193,12 @@ const Header = () => {
           <button>
             {isFocused ? (
               <div className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
-                <i class="fa-regular fa-magnifying-glass"></i>
+                <i className="fa-regular fa-magnifying-glass"></i>
                 <span>Tìm kiếm</span>
               </div>
             ) : (
               <div className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
-                <i class="fa-regular fa-magnifying-glass"></i>
+                <i className="fa-regular fa-magnifying-glass"></i>
               </div>
             )}
           </button>

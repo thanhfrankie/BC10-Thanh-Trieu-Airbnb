@@ -18,6 +18,8 @@ const SignIn = () => {
       initialValues: {
         email: "",
         password: "",
+        email: "",
+        password: "",
       },
       onSubmit: async (values) => {
         console.log(values);
@@ -25,9 +27,10 @@ const SignIn = () => {
         try {
           // gửi dữ liệu lên backend
           const res = await userManagementServ.signIn(values);
-          console.log(res);
+          // console.log(res);
           // lưu trữ dữ liệu xuống localstorage để lưu trữ
           saveLocalStorage("user", res.data.content);
+
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
           );
@@ -40,10 +43,8 @@ const SignIn = () => {
         }
       },
       validationSchema: Yup.object({
-        email: Yup.string()
-        .email("Vui lòng kiểm tra định dạng email")
-        .required("Vui lòng nhập email"),
-        password: Yup.string().required("Vui lòng nhập mật khẩu"),
+        taiKhoan: Yup.string().required("Vui lòng nhập tài khoản"),
+        matKhau: Yup.string().required("Vui lòng nhập mật khẩu"),
       }),
     });
 
@@ -67,8 +68,8 @@ const SignIn = () => {
           </h1>
           <form onSubmit={handleSubmit} className="space-y-5">
             <InputSign
-              placeholder="Vui lòng nhập email"
-              id="email"
+              placeholder="Vui lòng nhập tài khoản"
+              id="taiKhoan"
               label="Tài khoản"
               onChange={handleChange}
               onBlur={handleBlur}
