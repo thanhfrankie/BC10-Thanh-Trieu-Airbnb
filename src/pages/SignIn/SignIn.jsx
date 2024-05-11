@@ -10,7 +10,9 @@ import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
 import { saveLocalStorage } from "../../utils/util";
 import "./SignIn.scss";
+
 const SignIn = () => {
+  
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
   const { handleChange, handleBlur, values, errors, touched, handleSubmit } =

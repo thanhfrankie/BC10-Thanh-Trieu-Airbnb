@@ -37,6 +37,7 @@ const QuanLyThongTinViTri = () => {
   }, []);
 
   const fetchData = async () => {
+    const token = getToken(); // Lấy token từ localStorage
     try {
       const response = await http.get("/vi-tri");
       setUsersData(response.data.content);
@@ -59,13 +60,16 @@ const QuanLyThongTinViTri = () => {
     form.resetFields();
     setVisible(true);
   };
+
+
+
   const onFinish = async (values) => {
     try {
       const token = getToken(); // Lấy token từ localStorage
       if (editingUser) {
         const response = await http.put(`/vi-tri/${editingUser.id}`, values, {
           headers: {
-            Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề Authorization
+            token: `${token}`
           },
         });
         if (response.status === 200) {
@@ -73,21 +77,24 @@ const QuanLyThongTinViTri = () => {
           form.resetFields();
           setVisible(false);
           setEditingUser(null);
-          fetchData();
+          fetchData(); // Cập nhật lại dữ liệu sau khi cập nhật thành công
         } else {
           antdMessage.error("Cập nhật không thành công!");
         }
       } else {
+
+        
         const response = await http.post("/vi-tri", values, {
           headers: {
-            Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề Authorization
+            token: `${token}`
           },
         });
-        if (response.status === 200) {
+        if (response.status != 200) {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData();
+          fetchData(); // Cập nhật lại dữ liệu sau khi thêm mới thành công
+          
         } else {
           antdMessage.error("Thêm không thành công!");
         }
@@ -96,9 +103,9 @@ const QuanLyThongTinViTri = () => {
       console.error("Lỗi thêm / cập nhật không thành công:", error);
       antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật vị trí.");
     }
-    console.log('Form submitted:', values);
   };
-
+  
+  
   const handleDetail = (record) => {
     setDetailData(record);
     setDetailVisible(true);
@@ -113,9 +120,9 @@ const QuanLyThongTinViTri = () => {
   const handleDelete = async (record) => {
     try {
       const token = getToken(); // Lấy token từ localStorage
-      const response = await http.delete(`/vi-tri?id=${record.id}`, {
+      const response = await http.delete(`/vi-tri/${record.id}`, { 
         headers: {
-          Authorization: `bearer ${token}`, // Thêm token vào tiêu đề Authorization
+          token: `${token}`
         },
       });
       if (response.status === 200) {
@@ -129,7 +136,7 @@ const QuanLyThongTinViTri = () => {
       antdMessage.error("Đã có lỗi xảy ra khi xoá vị trí.");
     }
   };
-
+  
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
     {
@@ -211,8 +218,8 @@ const QuanLyThongTinViTri = () => {
           >
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item name="id" label="ID Vị Trí">
-                  <Input placeholder="ID" />
+                <Form.Item name="id" label="ID Vị Trí" >
+                  <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -330,3 +337,11 @@ const QuanLyThongTinViTri = () => {
 
 
 export default QuanLyThongTinViTri;
+
+
+
+
+
+
+
+

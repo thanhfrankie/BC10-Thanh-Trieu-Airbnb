@@ -40,10 +40,10 @@ const DetailPopupBot = () => {
     setVisible1(false);
   };
   return (
-    <div className="mt-5 ">
+    <div className="mt-5  ">
       <p className="textPopup mb-3"> Giới thiệu về bạn</p>
       <Button
-        className=" buttonPopup text-left"
+        className=" buttonPopup text-left w-full"
         type="primary"
         onClick={showModal1}
       >

@@ -15,15 +15,15 @@ import {
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import {
-  PictureOutlined,
-  PushpinOutlined,
   ShopOutlined,
-  GlobalOutlined,
   FormOutlined,
   PoundOutlined,
-  UploadOutlined,
+  InsertRowLeftOutlined,
+  InboxOutlined,
+  InsertRowRightOutlined,
+  InstagramOutlined,
 } from "@ant-design/icons";
-
+import { getToken } from "../../../services/authService"; // Import hàm lấy token
 const { Option } = Select;
 const { TextArea, Search } = Input;
 
@@ -63,36 +63,44 @@ const QuanLyThongTinPhong = () => {
 
   const onFinish = async (values) => {
     try {
+      const token = getToken(); // Lấy token từ localStorage
       if (editingUser) {
-        // Nếu có người dùng đang được chỉnh sửa
         const response = await http.put(
           `/phong-thue/${editingUser.id}`,
-          values
-        ); // Gửi yêu cầu cập nhật thông tin người dùng
+          values,
+          {
+            headers: {
+              token: `${token}`,
+            },
+          }
+        );
         if (response.status === 200) {
           antdMessage.success("Cập nhật thành công!");
           form.resetFields();
           setVisible(false);
-          setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa
-          fetchData(); // Load lại dữ liệu sau khi cập nhật thành công
+          setEditingUser(null);
+          fetchData(); // Cập nhật lại dữ liệu sau khi cập nhật thành công
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi cập nhật người dùng.");
+          antdMessage.error("Cập nhật không thành công!");
         }
       } else {
-        const response = await http.post("/phong-thue", values);
-        if (response.status === 200) {
+        const response = await http.post("/phong-thue", values, {
+          headers: {
+            token: `${token}`,
+          },
+        });
+        if (response.status != 200) {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Load lại dữ liệu sau khi thêm thành công
+          fetchData(); // Cập nhật lại dữ liệu sau khi thêm mới thành công
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi thêm người dùng.");
+          antdMessage.error("Thêm không thành công!");
         }
       }
     } catch (error) {
-      console.log(error);
-      console.error("Error adding/updating user:", error);
-      antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật người dùng.");
+      console.error("Lỗi thêm / cập nhật không thành công:", error);
+      antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật phòng thuê.");
     }
   };
 
@@ -109,17 +117,22 @@ const QuanLyThongTinPhong = () => {
 
   const handleDelete = async (record) => {
     try {
-      const response = await http.delete(`/phong-thue?id=${record.id}`);
+      const token = getToken(); // Lấy token từ localStorage
+      const response = await http.delete(`/phong-thue/${record.id}`, {
+        headers: {
+          token: `${token}`,
+        },
+      });
       if (response.status === 200) {
-        antdMessage.success("Xoá vị trí thành công!");
+        antdMessage.success("Xoá phòng thuê thành công!");
         // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
-        antdMessage.error("Không xoá được vị trí.");
+        antdMessage.error("Không xoá được phòng thuê.");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
-      antdMessage.error("Đã có lỗi xảy ra khi xoá vị trí.");
+      antdMessage.error("Đã có lỗi xảy ra khi xoá phòng thuê.");
     }
   };
 
@@ -137,9 +150,23 @@ const QuanLyThongTinPhong = () => {
         />
       ),
     },
-    { title: "Tên Phòng", dataIndex: "tenPhong", key: "tenPhong" },
+    {
+      title: "Tên Phòng",
+      dataIndex: "tenPhong",
+      key: "tenPhong",
+      render: (tenPhong) => (
+        <span style={{ fontWeight: "bold" }}>{tenPhong}</span>
+      ),
+    },
     { title: "Mô Tả", dataIndex: "moTa", key: "moTa" },
-    { title: "Giá Tiền ($)", dataIndex: "giaTien", key: "giaTien" },
+    {
+      title: "Giá Tiền ($)",
+      dataIndex: "giaTien",
+      key: "giaTien",
+      render: (giaTien) => (
+        <span style={{ fontWeight: "bold" }}>{giaTien}</span>
+      ),
+    },
     {
       title: "Hành động",
       key: "action",
@@ -183,6 +210,7 @@ const QuanLyThongTinPhong = () => {
         </Button>
 
         <Modal
+          className="widthModalPhong"
           title={editingUser ? "Chỉnh sửa thông tin" : "Thêm Thông Tin Phòng"}
           visible={visible}
           onCancel={handleCloseModal}
@@ -202,13 +230,13 @@ const QuanLyThongTinPhong = () => {
             layout="vertical"
             initialValues={{ remember: true }}
           >
-            <Row gutter={[16, 16]}>
-              <Col span={12}>
+            <Row gutter={[8, 0]}>
+              <Col span={8}>
                 <Form.Item name="id" label="ID Phòng">
                   <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="hinhAnh"
                   label="Hình Ảnh"
@@ -219,10 +247,13 @@ const QuanLyThongTinPhong = () => {
                     },
                   ]}
                 >
-                 <Input prefix={<ShopOutlined />} placeholder="Hình ảnh" />
+                  <Input
+                    prefix={<InstagramOutlined />}
+                    placeholder="Hình ảnh"
+                  />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="tenPhong"
                   label="Tên Phòng"
@@ -236,7 +267,7 @@ const QuanLyThongTinPhong = () => {
                   <Input prefix={<ShopOutlined />} placeholder="Tên phòng" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="moTa"
                   label="Mô Tả"
@@ -250,7 +281,7 @@ const QuanLyThongTinPhong = () => {
                   <Input prefix={<FormOutlined />} placeholder="Mô Tả" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="giaTien"
                   label="Giá tiền $"
@@ -268,7 +299,91 @@ const QuanLyThongTinPhong = () => {
                   <Input prefix={<PoundOutlined />} placeholder="Giá tiền $" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
+                <Form.Item
+                  name="khach"
+                  label="Phòng khách"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập só lượng phòng",
+                    },
+                    {
+                      pattern: /^[0-9]+$/,
+                      message: "Nhập vào chữ số.",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<InsertRowRightOutlined />}
+                    placeholder="Số lượng phòng"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item
+                  name="phongNgu"
+                  label="Phòng ngủ"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập só lượng phòng",
+                    },
+                    {
+                      pattern: /^[0-9]+$/,
+                      message: "Nhập vào chữ số.",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<InsertRowRightOutlined />}
+                    placeholder="Số lượng phòng"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item
+                  name="giuong"
+                  label="Giường"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập só lượng giường",
+                    },
+                    {
+                      pattern: /^[0-9]+$/,
+                      message: "Nhập vào chữ số.",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<InboxOutlined />}
+                    placeholder="Số lượng giường"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item
+                  name="phongTam"
+                  label="Phòng tắm"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập só lượng phòng",
+                    },
+                    {
+                      pattern: /^[0-9]+$/,
+                      message: "Nhập vào chữ số.",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<InsertRowLeftOutlined />}
+                    placeholder="Số lượng phòng"
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={6}>
                 <Form.Item name="mayGiat" label="Máy Giặt">
                   <Switch
                     defaultChecked={editingUser ? editingUser.mayGiat : false}
@@ -276,7 +391,7 @@ const QuanLyThongTinPhong = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16, 0]}>
               <Col xs={24} sm={12} md={8} lg={6}>
                 <Form.Item name="banLa" label="Bàn Là">
                   <Switch
@@ -416,7 +531,7 @@ const QuanLyThongTinPhong = () => {
       </Modal>
       <div className="search-container mt-4">
         <Input.Search
-          placeholder="Nhập từ khóa để tìm kiếm..."
+          placeholder="Nhập tên phòng để tìm kiếm..."
           enterButton
           style={{ width: "100%" }}
           onSearch={(value) => setSearchKeyword(value)}

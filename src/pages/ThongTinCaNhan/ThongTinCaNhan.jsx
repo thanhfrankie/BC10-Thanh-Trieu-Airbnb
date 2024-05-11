@@ -1,56 +1,130 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ThongTinCaNhan.scss";
 import { NavLink } from "react-router-dom";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
-import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../../services/userManagement";
+import { getUserById, updateUserById } from "../../services/userManagement"; // Import hàm updateUserById từ userManagement
+import { getLocalStorage } from "../../utils/util";
+import { http } from "../../services/config";
+import { Modal, Button, Input, message, Radio } from "antd";
+import { getToken } from "../../services/authService"; // Import hàm lấy token
+const { TextArea } = Input;
 
 const ThongTinCaNhan = () => {
-  const [showUserDetails, setShowUserDetails] = useState(true);
+  const [editedUserData, setEditedUserData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [gender, setGender] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null); // Thêm state để lưu trữ ảnh được chọn
   const navigate = useNavigate();
 
-  const [userData, setUserData] = useState(null);
-
   useEffect(() => {
-    const fetchUserData = async () => {
-      const userId = 1; // Thay đổi userId tùy theo người dùng hiện tại
-      const user = await getUserById(userId);
-      setUserData(user);
-    };
-
-    fetchUserData();
+    const user = getLocalStorage("user");
+    if (user) {
+      const userId = user.user.id;
+      const fetchUserData = async () => {
+        try {
+          const user = await getUserById(userId);
+          setEditedUserData(user);
+          setGender(user.gender); // Set giá trị ban đầu cho gender
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData();
+    }
   }, []);
 
-  if (!userData) {
-    return <div>Loading...</div>; // Hiển thị thông báo loading trong quá trình tải dữ liệu
+  const handleEditProfile = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedUserData({ ...editedUserData, [name]: value });
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      // Gửi dữ liệu người dùng chỉnh sửa lên API
+      await updateUserById(editedUserData.id, editedUserData);
+      message.success("Cập nhật thông tin thành công");
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      message.error("Cập nhật thông tin không thành công");
+    }
+  };
+
+  const handleChooseImage = () => {
+    const inputFile = document.createElement("input");
+    inputFile.type = "file";
+    inputFile.accept = "image/*";
+    inputFile.onchange = handleImageChange;
+    inputFile.click();
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("formFile", file); // Thêm file vào FormData với key là "formFile"
+  
+    // Lấy token từ local storage
+    const token = getToken();
+  
+    try {
+      const response = await http.post("/users/upload-avatar", formData, {
+        headers: {
+          token: token, // Thêm token vào header của request
+          
+        },
+      });
+  
+      const { data } = response;
+      setSelectedImage(data.avatarUrl); // Cập nhật ảnh mới vào state
+      // Cập nhật avatar của người dùng sau khi tải lên thành công
+      setEditedUserData({ ...editedUserData, avatar: data.avatarUrl });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+  
+
+  if (!editedUserData) {
+    return <div>Loading...</div>;
   }
 
-  const { name, avatar } = userData;
+  const { name, email, phone, birthday, role, avatar } = editedUserData;
 
-
-
-
-  const handleComplete = () => {
-    setShowUserDetails(true);
-    navigate("/tao-ho-so"); // Chuyển hướng về trang chính
-  };
   return (
     <div className="container">
       <div>
         <Header />
       </div>
       <div className="grid grid-cols-4 mt-5">
-        <div className="col-span-1 pl-24 mt-3">
-        <div className="titleTopLeft">
+        <div className="col-span-1 pl-24 mt-5">
+          <div className="titleTopLeft">
             <div className="relative">
-              <img className="imgLeft" src={avatar} alt="Avatar" />
-              <button className="buttonEdit absolute z-5">
+              <img className="imgLeft mt-2" src={selectedImage || avatar} alt="Avatar" />
+              <button className="buttonEdit absolute z-5" onClick={handleChooseImage}>
                 <i className="fa-duotone fa-camera-retro"></i> Sửa ảnh
               </button>
             </div>
-            <p className="texTopLeft mt-2">{name}</p>
+            <p className="texTopLeft mt-2">
+              <span
+                style={{
+                  color: "gray",
+                  fontWeight: "bold",
+                  fontSize: "35px",
+                }}
+              >
+                {name}
+              </span>{" "}
+            </p>
           </div>
           <div className="titleBotLeft mt-3 ">
             <p className="texBotLeft">Xác minh danh tính của bạn</p>
@@ -69,65 +143,204 @@ const ThongTinCaNhan = () => {
             </NavLink>
           </div>
         </div>
-        <div className="col-span-3 pl-24">
-          {showUserDetails && (
-            <div className="mt-4 displayUser ">
-              <div>
-                <p className="texTopLeft">Xin Chào Tôi Là : <span style={{color:"gray", fontWeight:"bold", fontSize:"35px"}}>{name}</span> </p>
-                <NavLink to="/tao-ho-so">
-                  <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
-                    Chỉnh sửa hồ sơ
-                  </button>
-                </NavLink>
-              </div>
-              <hr className="mt-5 mb-5" />
-              <div>
-                <p className="texTopLeft mb-5">Phòng Đã Thuê</p>
-                <div className="grid grid-cols-6">
-                  <div className="col-span-2">
-                    <img
-                      style={{
-                        width: "300px",
-                        height: "150px",
-                        borderRadius: "10px",
-                      }}
-                      src="https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau-002.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="col-span-4 pl-3">
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Error perspiciatis dicta adipisci excepturi nam
-                      necessitatibus dignissimos, quidem at itaque voluptas
-                      ipsum tempora velit tenetur rem, explicabo alias porro
-                      quos molestiae!
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr className="mt-5 mb-5" />
-            </div>
-          )}
-          {!showUserDetails && (
-            <div className="mt-56 pl-40">
-              <hr style={{ width: "60%" }} />
-              <div className="titleRight mt-5">
-                <p className="texTopLeft">Đã đến lúc tạo hồ sơ của bạn</p>
-                <p className="line-clamp-5 w-50 mt-3">
-                  Hồ sơ Airbnb của bạn là một phần quan trọng đối với mọi yêu
-                  cầu đặt phòng/đặt chỗ. Hãy tạo hồ sơ để giúp các Chủ nhà/Người
-                  tổ chức và khách khác tìm hiểu về bạn.
-                </p>
-                <button
-                  className="buttonleft text-white bg-rose-600 hover:bg-rose-700 "
-                  onClick={handleComplete}
+        <div className="col-span-3 ml-16 pl-24">
+          <div className="mt-4 displayUser ">
+            <div>
+              <p className="texTopLeft">
+                Xin Chào :{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
                 >
-                  Tạo hồ sơ
+                  {name}
+                </span>{" "}
+              </p>
+              <hr />
+              <p className="texTopLeft">
+                Email:{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
+                >
+                  {email}
+                </span>{" "}
+              </p>
+              <hr />
+              
+              <p className="texTopLeft">
+                Số điện thoại:{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
+                >
+                  {phone}
+                </span>{" "}
+              </p>
+              <hr />
+              <p className="texTopLeft">
+                Ngày sinh:{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
+                >
+                  {birthday}
+                </span>{" "}
+              </p>
+              <hr />
+              <p className="texTopLeft">
+                Giới tính:{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
+                >
+                  {gender === 1 ? "Nam" : "Nữ"}
+                </span>{" "}
+              </p>
+
+              <hr />
+              <p className="texTopLeft">
+                Vai trò:{" "}
+                <span
+                  style={{
+                    color: "gray",
+                    fontWeight: "bold",
+                    fontSize: "35px",
+                  }}
+                >
+                  {role}
+                </span>{" "}
+              </p>
+              <hr className="mb-4" />
+              <button
+                onClick={handleEditProfile}
+                className="mr-3 buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  "
+              >
+                Chỉnh sửa hồ sơ
+              </button>
+
+              {/* Modal của Ant Design */}
+              <Modal
+                title="Chỉnh sửa thông tin người dùng"
+                visible={showModal}
+                onCancel={handleCloseModal}
+                footer={[
+                  <Button key="cancel" onClick={handleCloseModal}>
+                    Hủy
+                  </Button>,
+                  <Button key="save" type="primary" onClick={handleSaveChanges}>
+                    Lưu
+                  </Button>,
+                ]}
+              >
+                Tên
+                <Input
+                  name="name"
+                  label="Tên"
+                  value={editedUserData.name}
+                  onChange={handleInputChange}
+                  placeholder="Tên"
+                  style={{ marginBottom: "20px" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập tên người dùng.",
+                    },
+                  ]}
+                />
+                Email
+                <Input
+                  name="email"
+                  label="Email"
+                  value={editedUserData.email}
+                  onChange={handleInputChange}
+                  placeholder="Email"
+                  style={{ marginBottom: "20px" }}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập địa chỉ email." },
+                    { type: "email", message: "Email không hợp lệ." },
+                  ]}
+                />
+
+                Số điện thoại
+                <Input
+                  name="phone"
+                  label="Số điện thoại"
+                  value={editedUserData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Số điện thoại"
+                  style={{ marginBottom: "20px" }}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số điện thoại." },
+                    {
+                      pattern: /^[0-9()+\-\s]+$/,
+                      message: "Số điện thoại chỉ được nhập số.",
+                    },
+                  ]}
+                />
+                Ngày sinh
+                <Input
+                  name="birthday"
+                  label="Ngày sinh"
+                  value={editedUserData.birthday}
+                  onChange={handleInputChange}
+                  placeholder="Ngày sinh"
+                  style={{ marginBottom: "20px" }}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập ngày sinh." },
+                    {
+                      pattern: /^[0-9/]+$/,
+                      message: "Nhập số theo định dạng DD/MM/YYYY",
+                    },
+                    {
+                      validator: (_, value) => {
+                        if (value && value.length >= 8 && value.length <= 10) {
+                          const parts = value.split("/");
+                          if (
+                            parts.length === 3 &&
+                            parts[2].length === 4 &&
+                            !isNaN(parts[2])
+                          ) {
+                            return Promise.resolve();
+                          }
+                        }
+                        return Promise.reject(new Error("Ngày sinh chưa đúng"));
+                      },
+                    },
+                  ]}
+                />
+                Giới tính
+                <Radio.Group
+                  name="gender"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
+                  <Radio value={1}>Nam</Radio>
+                  <Radio value={0}>Nữ</Radio>
+                </Radio.Group>
+              </Modal>
+
+              <NavLink to="/tao-ho-so">
+                <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
+                  Thông tin thêm
                 </button>
-              </div>
+              </NavLink>
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div className="mt-5">

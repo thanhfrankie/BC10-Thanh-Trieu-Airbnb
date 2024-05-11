@@ -1,6 +1,6 @@
 import React, { useState, useEffect,useContext } from "react";
 import { Dropdown, Space } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
 import "./Header.scss";
 import ButtonCustom from "../../components/Button/ButtonCustom";
@@ -10,7 +10,7 @@ import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 
 const Header = () => {
 
-  
+  const navigate = useNavigate();
   const notify = useContext(NotifyContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -33,6 +33,9 @@ const Header = () => {
     setIsLoggedIn(false);
     setUserRole(null); // Reset vai trò của người dùng khi đăng xuất
     notify("Đăng xuất thành công , đang quay về trang chủ");
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   

@@ -109,7 +109,7 @@ function DetailPopupLeft() {
   // Thêm các hàm handleCancel cho các Modal khác
 
   return (
-    <div className=" w-full ">
+    <div className="  ">
       <div>
         <Button className="btnPopup" type="primary" onClick={showModal1}>
           <i class="fa-duotone fa-graduation-cap mr-2"></i>{" "}

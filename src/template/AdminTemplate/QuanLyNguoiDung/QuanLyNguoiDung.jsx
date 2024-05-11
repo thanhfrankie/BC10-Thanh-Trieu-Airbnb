@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, message as antdMessage } from "antd";
+import { DatePicker, message as antdMessage, Radio } from "antd";
 import moment from "moment";
 import {
   Modal,
@@ -82,7 +82,7 @@ const QuanLyNguoiDung = () => {
           setVisible(false);
           fetchData(); // Load lại dữ liệu sau khi thêm thành công
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi thêm người dùng.");
+          antdMessage.error("Thêm người dùng không thành công");
         }
       }
     } catch (error) {
@@ -98,7 +98,10 @@ const QuanLyNguoiDung = () => {
 
   const handleEdit = (record) => {
     setEditingUser(record); // Lưu thông tin người dùng được chỉnh sửa
-    form.setFieldsValue(record); // Điền thông tin người dùng được chọn vào form
+    form.setFieldsValue({
+      ...record,
+      gender: record.gender ? true : false, // Thiết lập giá trị mặc định cho Radio.Group
+    }); // Điền thông tin người dùng được chọn vào form
     setVisible(true); // Hiển thị lại popup thêm quản trị viên
   };
 
@@ -110,7 +113,7 @@ const QuanLyNguoiDung = () => {
         // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
-        antdMessage.error("Đã có lỗi xảy ra khi xoá người dùng.");
+        antdMessage.error("Xoá người dùng không thành công!");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -118,8 +121,13 @@ const QuanLyNguoiDung = () => {
     }
   };
 
+  const getGenderLabel = (gender) => {
+    return gender ? "Nam" : "Nữ";
+  };
+
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
+
     { title: "Tên", dataIndex: "name", key: "name" },
     { title: "Email", dataIndex: "email", key: "email" },
     {
@@ -128,7 +136,20 @@ const QuanLyNguoiDung = () => {
       key: "birthday",
       render: (birthday) => moment(birthday).format("DD/MM/YYYY"),
     },
-    { title: "Mật khẩu", dataIndex: "password", key: "password" },
+    {
+      title: "Giới tính",
+      dataIndex: "gender",
+      key: "gender",
+      render: (gender) => (
+        <span>
+          {gender ? (
+            <span style={{ color: "seagreen" }}>Nam</span>
+          ) : (
+            <span style={{ color: "indianred" }}>Nữ</span>
+          )}
+        </span>
+      ),
+    },
     {
       title: "Vai trò",
       dataIndex: "role",
@@ -201,117 +222,30 @@ const QuanLyNguoiDung = () => {
             layout="vertical"
             initialValues={{ remember: true }}
           >
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16, 0]}>
               <Col span={12}>
                 <Form.Item name="id" label="ID Người Dùng">
                   <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="name"
-                  label="Tên"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập tên người dùng.",
-                    },
-                    {
-                      pattern: /^[^\d]+$/,
-                      message: "Tên không được chứa chữ số.",
-                    },
-                  ]}
-                >
+                <Form.Item name="name" label="Tên">
                   <Input prefix={<UserOutlined />} placeholder="Tên" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Vui lòng nhập địa chỉ email." },
-                    { type: "email", message: "Email không hợp lệ." },
-                  ]}
-                >
+                <Form.Item name="email" label="Email">
                   <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="birthday"
-                  label="Ngày sinh"
-                  rules={[
-                    { required: true, message: "Vui lòng nhập ngày sinh." },
-                    {
-                      pattern: /^[0-9/]+$/,
-                      message: "Nhập số theo định dạng DD/MM/YYYY",
-                    },
-                    {
-                      validator: (_, value) => {
-                        if (value && value.length >= 8 && value.length <= 10) {
-                          const parts = value.split("/");
-                          if (
-                            parts.length === 3 &&
-                            parts[2].length === 4 &&
-                            !isNaN(parts[2])
-                          ) {
-                            return Promise.resolve();
-                          }
-                        }
-                        return Promise.reject(new Error("Ngày sinh chưa đúng"));
-                      },
-                    },
-                  ]}
-                >
+                <Form.Item name="birthday" label="Ngày sinh">
                   <Input prefix={<SmileOutlined />} placeholder="Ngày sinh" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="phone"
-                  label="Số điện thoại"
-                  rules={[
-                    { required: true, message: "Vui lòng nhập số điện thoại." },
-                    {
-                      pattern: /^[0-9()+\-\s]+$/,
-                      message: "Số điện thoại chỉ được nhập số.",
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<PhoneOutlined />}
-                    placeholder="Số điện thoại"
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="password"
-                  label="Mật khẩu"
-                  rules={[
-                    { required: true, message: "Vui lòng nhập mật khẩu." },
-                    {
-                      min: 6,
-                      max: 20,
-                      message: "Mật khẩu phải từ 6 đến 20 kí tự.",
-                    },
-                  ]}
-                >
-                  <Input.Password
-                    prefix={<LockOutlined />}
-                    placeholder="Mật khẩu"
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="role"
-                  label="Vai trò"
-                  rules={[
-                    { required: true, message: "Vui lòng chọn vai trò." },
-                  ]}
-                >
+
+              <Col span={24}>
+                <Form.Item name="role" label="Vai trò">
                   <Select
                     style={{ marginBottom: "10px" }}
                     placeholder="Chọn vai trò"
@@ -319,6 +253,14 @@ const QuanLyNguoiDung = () => {
                     <Option value="USER">User</Option>
                     <Option value="ADMIN">Admin</Option>
                   </Select>
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item name="gender" label="Giới tính">
+                  <Radio.Group>
+                    <Radio value={true}>Nam</Radio>
+                    <Radio value={false}>Nữ</Radio>
+                  </Radio.Group>
                 </Form.Item>
               </Col>
             </Row>
@@ -352,12 +294,15 @@ const QuanLyNguoiDung = () => {
             <strong>Số điện thoại: </strong> {detailData.phone}
           </p>
           <p>
+            <strong>Giới tính: </strong> {detailData.gender ? "Nam" : "Nữ"}
+          </p>
+
+          <p>
             <strong>Vai trò: </strong> {detailData.role}
           </p>
         </div>
-        
       </Modal>
-      
+
       <div className="search-container mt-4">
         <Input.Search
           placeholder="Nhập từ khóa để tìm kiếm..."
