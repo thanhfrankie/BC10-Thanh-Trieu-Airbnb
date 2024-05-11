@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputCustom = ({
+const InputSearchBar = ({
   id,
   label,
   placeholder,
@@ -27,7 +27,7 @@ const InputCustom = ({
         type={type}
         name={name}
         id={id}
-        className={` min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className} inputCustom `}
+        className={` min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className} InputSearchBar `}
         placeholder={placeholder}
       />
   
@@ -35,4 +35,4 @@ const InputCustom = ({
   );
 };
 
-export default InputCustom;
+export default InputSearchBar;

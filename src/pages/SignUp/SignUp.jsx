@@ -13,59 +13,70 @@ import { saveLocalStorage, validationMessage } from "../../utils/util";
 import SignInMobile from "../SignInMobile/SignInMobile";
 
 // import useResponsive from "../../hooks/useResponsive";
+import { DatePicker, Select } from "antd";
 import "./SignUp.scss";
 const SignUp = () => {
-  
   // const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
+  const [dateValue, setDateValue] = useState(null);
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
-  const { handleChange, handleBlur, values, errors, touched, handleSubmit } =
-    useFormik({
-      initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-      },
-      onSubmit: async (values) => {
-        console.log(values);
-        // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
-        try {
-          // gửi dữ liệu lên backend
-          const res = await userManagementServ.signUp(values);
-          // console.log(res);
-          notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
-          setTimeout(() => {
-            navigate("/sign-in");
-          }, 1000);
-        } catch (error) {
-          console.log(error);
-          notify(error.response.data.content);
-        }
-      },
-      validationSchema: Yup.object({
-        name: Yup.string().required("Vui lòng nhập họ và tên"),
-        email: Yup.string()
-          .email("Vui lòng kiểm tra định dạng email")
-          .required("Vui lòng nhập email"),
-        password: Yup.string()
-          .required("Vui lòng nhập mật khẩu")
-          .min(6, "Mật khẩu yêu cầu tối thiểu 6 ký tự")
-          .max(15, "Mật khẩu chỉ gồm tối đa 15 ký tự")
-          .matches(
-            /.*[^\w\s].*/,
-            "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt"
-          ),
+  const onDateChange = (date, dateString) => {
+    setDateValue(date);
+  };
+  console.log(dateValue);
 
-        phone: Yup.string()
-          .matches(
-            /^(0[2|3|5|7|8|9])+([0-9]{8,10})$/,
-            "Vui lòng nhập đúng số điện thoại"
-          )
-          .required("Vui lòng nhập số điện thoại"),
-      }),
-    });
+  const {
+    handleChange,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      birthday: "",
+      gender: true,
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      try {
+        const res = await userManagementServ.signUp(values);
+        console.log(res);
+        notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
+        setTimeout(() => {
+          navigate("/sign-in");
+        }, 1000);
+      } catch (error) {
+        console.log(error);
+        notify(error.response.data.content);
+      }
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Vui lòng không để trống"),
+      email: Yup.string()
+        .email("Vui lòng kiểm tra định dạng email")
+        .required("Vui lòng nhập email"),
+      password: Yup.string()
+        .required("Vui lòng nhập mật khẩu")
+        .min(6, "Mật khẩu yêu cầu tối thiểu 6 ký tự")
+        .max(15, "Mật khẩu chỉ gồm tối đa 15 ký tự")
+        .matches(/.*[^\w\s].*/, "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt"),
+      phone: Yup.string()
+        .matches(
+          /^(0[2|3|5|7|8|9])+([0-9]{8,10})$/,
+          "Vui lòng nhập đúng số điện thoại"
+        )
+        .required("Vui lòng nhập số điện thoại"),
+      birthday: Yup.date().nullable().required("Vui lòng không để trống"),
+      gender: Yup.string().required("Vui lòng chọn giới tính"),
+    }),
+  });
 
   const defaultOptions = {
     loop: true,
@@ -82,13 +93,16 @@ const SignUp = () => {
           <SignInMobile />
         </div>
 
-        <div className="form_signUp  w-1/3 h-auto  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 ">
+        <div
+          className="form_signUp  w-1/3 h-auto  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 "
+          // onBlur={() => navigate("/sign-in")}
+        >
           <h1 className="flex items-center justify-center text-black text-xl font-semibold	">
             Đăng ký thành viên
           </h1>
           <form onSubmit={handleSubmit} className="formInput space-y-6">
             <InputSign
-              placeholder="Họ tên *"
+              placeholder="Tên người dùng *"
               id="name"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -108,7 +122,6 @@ const SignUp = () => {
               name="email"
               value={values.email}
             />
-
             <div className="relative">
               <InputSign
                 placeholder="Mật khẩu *"
@@ -141,7 +154,6 @@ const SignUp = () => {
                 </button>
               </div>
             </div>
-
             <InputSign
               placeholder="Số điện thoại *"
               id="phone"
@@ -152,6 +164,45 @@ const SignUp = () => {
               name="phone"
               value={values.phone}
             />
+            <div className=" min-w-80  text-gray-700">
+              <DatePicker
+                placeholder="Ngày sinh: mm/dd/yyyy *"
+                className="datePicker w-full p-2  border border-black"
+                id="birthday"
+                name="birthday"
+                onChange={onDateChange}
+                onBlur={handleBlur}
+                error={errors.birthday}
+                touched={touched.birthday}
+                value={dateValue}
+              />
+              {errors.birthday && touched.birthday ? (
+                <p className="text-red-500 text-sm mt-1">{errors.birthday}</p>
+              ) : null}
+            </div>
+            <div className="selectorInput text-gray-700 ">
+              <Select
+                placeholder="Chọn giới tính *"
+                style={{ flex: 1 }}
+                className="rounded-lg bg-gray-50 "
+                options={[
+                  { value: true, label: "Nam" },
+                  { value: false, label: "Nữ" },
+                ]}
+                id="gender"
+                name="gender"
+                // onChange={(value) => setFieldValue(values.gender, value)}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.gender}
+                error={errors.gender}
+                touched={touched.gender}
+              />
+              {errors.gender && touched.gender ? (
+                <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
+              ) : null}
+            </div>
+
             <div>
               <button
                 type="submit"

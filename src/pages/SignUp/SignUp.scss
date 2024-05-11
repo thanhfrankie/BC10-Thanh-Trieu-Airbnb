@@ -11,37 +11,60 @@
   }
 
   @media (min-width: 768px) {
-    width: 50%; 
+    width: 50%;
   }
 
   @media (min-width: 1024px) {
-    width: 35%; 
+    width: 35%;
   }
   .formInput {
-    width: 100%; 
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: width 0.5s ease; 
+    transition: width 0.5s ease;
     @media (min-width: 640px) {
       width: 70%;
     }
 
     @media (min-width: 768px) {
-      width: 50%; 
+      width: 50%;
     }
 
     @media (min-width: 1024px) {
-      width: 80%; 
+      width: 80%;
     }
   }
+  // .datePicker {
+  //   .ant-picker-panel-container,
+  //   .ant-picker-date-panel-container {
+  //     color: blue;
+  //     .ant-picker-panel-layout {
+  //       min-width: 20rem !important;
+  //     }
+  //   }
+  // }
+  .selectorInput {
+    min-width: 20rem !important;
+    border-radius: 0.5rem;
+    .ant-select-selector {
+      min-width: 20rem !important;
+      width: 100% !important;
+      border: 1px solid black;
 
-  .input_custom {
-
+      .ant-select-selection-search {
+        min-width: 20rem !important;
+      }
+      .ant-select-selection-placeholder {
+        width: 100% !important;
+        color: #a7adb8 !important;
+      }
+    }
+  }
+  .InputSign {
     input {
-
-      padding: 10px 15px; 
-      font-size: 16px; 
+      padding: 10px 15px;
+      font-size: 16px;
     }
   }
 
@@ -55,14 +78,14 @@
   // For mobile devices
   @media only screen and (max-width: 768px) {
     .formInput {
-      width: 70%; 
+      width: 70%;
     }
   }
 
   // For smaller mobile devices
   @media only screen and (max-width: 480px) {
     .formInput {
-      width: 100%; 
+      width: 100%;
     }
   }
 }

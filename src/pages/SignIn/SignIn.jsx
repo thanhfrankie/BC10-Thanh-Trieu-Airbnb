@@ -27,11 +27,9 @@ const SignIn = () => {
         try {
           // gửi dữ liệu lên backend
           const res = await userManagementServ.signIn(values);
-          // console.log(res);
-
-          // Lưu dữ liệu xuống localstorage để lưu trữ
+          console.log(res);
+          // lưu trữ dữ liệu xuống localstorage để lưu trữ
           saveLocalStorage("user", res.data.content);
-
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
           );
@@ -44,7 +42,9 @@ const SignIn = () => {
         }
       },
       validationSchema: Yup.object({
-        email: Yup.string().required("Vui lòng nhập email"),
+        email: Yup.string()
+        .email("Vui lòng kiểm tra định dạng email")
+        .required("Vui lòng nhập email"),
         password: Yup.string().required("Vui lòng nhập mật khẩu"),
       }),
     });
@@ -71,7 +71,7 @@ const SignIn = () => {
             <InputSign
               placeholder="Vui lòng nhập email"
               id="email"
-              label="Email"
+              label="Tài khoản"
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.email}
