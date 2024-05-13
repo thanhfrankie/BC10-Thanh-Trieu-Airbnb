@@ -8,6 +8,8 @@ import SignUp from "../pages/SignUp/SignUp";
 import ThongTinCaNhan from "../pages/ThongTinCaNhan/ThongTinCaNhan";
 import TaoHoSo from "../pages/ThongTinCaNhan/TaoHoSo/TaoHoSo";
 import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanhTinh";
+import RoomDetail from "../pages/RoomDetail/RoomDetail";
+import RoomLocation from "../pages/RoomLocation/RoomLocation";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -39,6 +41,15 @@ const useRoutesCustom = () => {
           path: "xac-minh",
           element: <XacMinhDanhTinh />,
         },
+        {
+          path: "room-detail/:roomId",
+          element: <RoomDetail />,
+          
+        },
+        {
+          path: "rooms/:locationId",
+          element: <RoomLocation/>
+        }
       ],
     },
     {
