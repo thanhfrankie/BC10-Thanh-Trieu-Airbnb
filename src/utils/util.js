@@ -7,5 +7,14 @@ export const saveLocalStorage = (key, data) => {
   const stringData = JSON.stringify(data);
   return localStorage.setItem(key, stringData);
 };
-// // Xoá key 'token' khỏi localStorage
-// localStorage.removeItem('token');
+export const convertToSlug = (text) => {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+};
+

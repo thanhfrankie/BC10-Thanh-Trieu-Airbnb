@@ -1,33 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
+import { NavLink } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
 const ListRoom = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    roomManagement
-      .getAllRoom()
-      .then(function (res) {
+    const fetchRoomData = async () => {
+      try {
+        setLoading(true);
+        const res = await roomManagement.getAllRoom();
         console.log(res.data.content);
-        setListRoomArr(res.data.content);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  }, []);
+        setListRoomArr(res.data.content.filter(room => room.maViTri !== 0));
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoomData();
+  }, [setListRoomArr]);
+
+
+  if (loading) {
+    return <div><Loading/></div>;
+  }
   return (
     <div className="w-full h-auto mx-auto flex items-center justify-center flex-wrap mt-3 py-2 border border-red-300">
-        {listRoomArr.map((room, index) => (
-      <div className="grid-cols-4 mx-auto border-red-300">
-          <div key={index} className="h-screen w-full">
-            <div>
-              <div>{room.tenPhong}</div>
-              <div>aaaa</div>
+      {listRoomArr && listRoomArr.length > 0 ? (
+        listRoomArr.map((room) => (
+          <div key={room.id} className="grid-cols-4 mx-auto border-red-300">
+            <div className="w-full">
+              <NavLink to={`room-detail/${room.id}`}>
+                {room.hinhAnh && <img src={room.hinhAnh} alt="" />}
+                <div>{room.tenPhong}</div>
+                <div>{room.moTa}</div>
+                <div className="font-bold">
+                  ${room.giaTien} <span className="font-normal">/khách</span>
+                </div>
+              </NavLink>
             </div>
           </div>
-      </div>
-        ))}
+        ))
+      ) : (
+        <div>Không có phòng nào</div>
+      )}
     </div>
   );
+  
 };
 
 export default ListRoom;

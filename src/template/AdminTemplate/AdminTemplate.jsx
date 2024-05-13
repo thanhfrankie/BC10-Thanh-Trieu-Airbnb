@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./AdminTemplate.scss";
 import logo from "./../../assets/img/logo.png";
-import {
-  HomeOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  ProfileOutlined,
-  SafetyCertificateOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import {HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined, SafetyCertificateOutlined, UserOutlined,} from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import QuanLyNguoiDung from "./QuanLyNguoiDung/QuanLyNguoiDung";
 import QuanLyThongTinViTri from "./QuanLyThongTinViTri/QuanLyThongTinViTri";
@@ -20,11 +13,9 @@ const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedPage, setSelectedPage] = useState(""); // State để lưu trữ trang được chọn
   const navigate = useNavigate();
-
   const handleMenuClick = (key) => {
     setSelectedPage(key); // Cập nhật trang được chọn khi click vào MenuItem
   };
-
   const renderContent = () => {
     switch (selectedPage) {
       case "1":
@@ -39,7 +30,6 @@ const AdminTemplate = () => {
         return <QuanLyNguoiDung />; // Mặc định không hiển thị nội dung nào
     }
   };
-
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -86,12 +76,7 @@ const AdminTemplate = () => {
           />
         </Sider>
         <Layout>
-          <Header
-            style={{
-              padding: 0,
-              background: colorBgContainer,
-            }}
-          >
+          <Header style={{ padding: 0,  background: colorBgContainer,  }} >
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

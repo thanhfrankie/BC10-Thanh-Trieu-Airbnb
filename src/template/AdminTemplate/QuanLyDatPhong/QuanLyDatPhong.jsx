@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker, message as antdMessage } from "antd";
 import moment from "moment";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Row,
-  Col,
-  Table,
-  Tag,
-  Select,
-} from "antd";
+import { Modal,Button,Form,Input,Row,Col,Table,Select,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import {
@@ -72,11 +61,11 @@ const QuanLyDatPhong = () => {
           setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa
           fetchData(); // Load lại dữ liệu sau khi cập nhật thành công
         } else {
-          antdMessage.error("Đã có lỗi xảy ra khi cập nhật người dùng.");
+          antdMessage.error("Đã có lỗi xảy ra khi cập nhật đặt phòng.");
         }
       } else {
         const response = await http.post("/dat-phong", values);
-        if (response.status === 200) {
+        if (response.status != 200) {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
@@ -104,39 +93,55 @@ const QuanLyDatPhong = () => {
 
   const handleDelete = async (record) => {
     try {
-      const response = await http.delete(`/dat-phong?id=${record.id}`);
+      const response = await http.delete(`/dat-phong/${record.id}`);
       if (response.status === 200) {
-        antdMessage.success("Xoá người dùng thành công!");
+        antdMessage.success("Xoá đặt phòng thành công!");
         // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
-        antdMessage.error("Đã có lỗi xảy ra khi xoá người dùng.");
+        antdMessage.error("Đã có lỗi xảy ra khi xoá .");
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
-      antdMessage.error("Đã có lỗi xảy ra khi xoá người dùng.");
+      console.error("Error deleting booking:", error);
+      antdMessage.error("Đã có lỗi xảy ra khi xoá đặt phòng.");
     }
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Mã phòng", dataIndex: "maPhong", key: "maPhong" },
+    { title: "ID", dataIndex: "id", key: "id" ,
+    render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+     },
+    { title: "Mã phòng", dataIndex: "maPhong", key: "maPhong",
+    render: (maPhong) => <span style={{ fontWeight: "bold" ,color:"#CD5C5C" }}>{maPhong}</span>,
+     },
 
     {
       title: "Ngày đến",
       dataIndex: "ngayDen",
       key: "ngayDen",
-      render: (ngayDen) => moment(ngayDen).format("DD/MM/YYYY"),
+      render: (ngayDen) => (
+        <span style={{ color: "green", fontWeight: "bold" }}>
+          {moment(ngayDen).format("DD/MM/YYYY")}
+        </span>
+      ),
     },
     {
       title: "Ngày đi",
       dataIndex: "ngayDi",
       key: "ngayDi",
-      render: (ngayDi) => moment(ngayDi).format("DD/MM/YYYY"),
+      render: (ngayDi) => (
+        <span style={{ color: " #FF8247" , fontWeight: "bold" }}>
+          {moment(ngayDi).format("DD/MM/YYYY")}
+        </span>
+      ),
     },
-    { title: "Số lượng khách", dataIndex: "soLuongKhach", key: "soLuongKhach" },
+    { title: "Số lượng khách", dataIndex: "soLuongKhach", key: "soLuongKhach",
+    render: (soLuongKhach) => <span style={{ fontWeight: "bold" ,color:" #9932CC"}}>{soLuongKhach}</span>,
+     },
 
-    { title: "Mã người dùng", dataIndex: "maNguoiDung", key: "maNguoiDung" },
+    { title: "Mã người dùng", dataIndex: "maNguoiDung", key: "maNguoiDung" ,
+    render: (maNguoiDung) => <span style={{ fontWeight: "bold" ,color:"#FFB90F"}}>{maNguoiDung}</span>,
+    },
     {
       title: "Hành động",
       key: "action",
@@ -181,11 +186,11 @@ const QuanLyDatPhong = () => {
     <div className="container">
       <div>
         <Button type="primary" onClick={handleOpenModal}>
-          <i class="fa-regular fa-circle-plus mr-1"></i> Thêm Quản Trị Viên
+          <i class="fa-regular fa-circle-plus mr-1"></i> Thêm Đặt Phòng
         </Button>
 
         <Modal
-          title={editingUser ? "Chỉnh sửa thông tin" : "Thêm Quản Trị Viên"}
+          title={editingUser ? "Chỉnh sửa thông tin" : " Đặt Phòng"}
           visible={visible}
           onCancel={handleCloseModal}
           footer={[
@@ -235,10 +240,6 @@ const QuanLyDatPhong = () => {
                   label="Ngày đến"
                   rules={[
                     { required: true, message: "Vui lòng nhập ngày đến." },
-                    {
-                      pattern: /^[0-9/]+$/,
-                      message: "Nhập số theo định dạng DD/MM/YYYY",
-                    },
                   ]}
                 >
                   <Input
@@ -253,10 +254,6 @@ const QuanLyDatPhong = () => {
                   label="Ngày đi"
                   rules={[
                     { required: true, message: "Vui lòng nhập ngày đi." },
-                    {
-                      pattern: /^[0-9/]+$/,
-                      message: "Nhập số theo định dạng DD/MM/YYYY",
-                    },
                   ]}
                 >
                   <Input
@@ -337,7 +334,7 @@ const QuanLyDatPhong = () => {
       </Modal>
       <div className="search-container mt-4">
         <Input.Search
-          placeholder="Nhập từ khóa để tìm kiếm..."
+          placeholder="Nhập mã phòng để tìm kiếm..."
           enterButton
           style={{ width: "100%" }}
           onSearch={(value) => setSearchKeyword(value)}

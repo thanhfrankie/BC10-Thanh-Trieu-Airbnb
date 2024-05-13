@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { Select } from "antd";
-import { Radio, Button } from "antd";
+import { useNavigate,NavLink } from "react-router-dom";
+import {  Select,Radio, Button } from "antd";
 import "../ThongTinCaNhan.scss";
 import Header from "../../../layout/Header/Header";
 import Footer from "../../../layout/Footer/Footer";
-import { NavLink } from "react-router-dom";
 const { Option } = Select;
 const countries = require("../../../data/countries.json");
 
@@ -123,9 +120,18 @@ const XacMinhDanhTinh = () => {
                 <hr />
               </Radio.Group>
             </div>
+            <NavLink to="/thong-tin-ca-nhan">
             <Button
               type="primary"
-              className=" mt-3 ml-80"
+              className=" mt-3 "
+              onClick={handleContinueButtonClick}
+            >
+              Quay lại
+            </Button>
+            </NavLink>
+            <Button
+              type="primary"
+              className=" mt-3 ml-60"
               onClick={handleContinueButtonClick}
             >
               Tiếp tục
