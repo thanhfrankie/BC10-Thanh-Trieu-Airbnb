@@ -17,7 +17,7 @@ const RoomDetail = () => {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const roomRes = await roomManagement.getAllRoom();
         console.log(roomRes.data.content);
         setListRoomArr(roomRes.data.content);
@@ -28,8 +28,7 @@ const RoomDetail = () => {
         setLoading(false);
       } catch (error) {
         console.log(error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     };
@@ -72,7 +71,11 @@ const RoomDetail = () => {
     return location;
   };
   if (loading) {
-    return <div><Loading/></div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
   const {
     hinhAnh,
@@ -127,8 +130,7 @@ const RoomDetail = () => {
             <div>Chủ nhà/ Người tổ chức: Thành</div>
             {hasLocation && (
               <div>
-                {tenViTri}, {tinhThanh},{" "}
-                {quocGia}
+                {tenViTri}, {tinhThanh}, {quocGia}
               </div>
             )}
             <div className="room-desc">{moTa}</div>
@@ -137,7 +139,12 @@ const RoomDetail = () => {
             </div>
           </div>
         )}
-        {!watchingRoom && <div>Không tìm thấy phòng {roomId}</div>}
+        {!watchingRoom && (
+          <div>
+            Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
+            <NavLink to="/" className="text-blue-700">trang chủ</NavLink> để tiếp tục
+          </div>
+        )}
       </div>
       <Footer />
     </div>
