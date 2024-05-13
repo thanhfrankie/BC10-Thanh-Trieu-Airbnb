@@ -24,6 +24,7 @@ export const getViTriById = async (vitriId) => {
         return null;
     }
 };
+
 export const getUserById = async (userId) => {
     try {
         const response = await http.get(`/users/${userId}`);
@@ -33,8 +34,6 @@ export const getUserById = async (userId) => {
         return null;
     }
 };
-
-
 
 // Hàm gửi yêu cầu cập nhật thông tin người dùng lên API
 export const updateUserById = async (userId, updatedUserData) => {

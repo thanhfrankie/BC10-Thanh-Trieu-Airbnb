@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Upload } from "antd";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Row,
-  Col,
-  Table,
-  Tag,
-  Select,
-} from "antd";
+import { Modal, Button, Form, Input, message, Row, Col, Table,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {
-  PictureOutlined,
-  PushpinOutlined,
-  ShopOutlined,
-  GlobalOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { PushpinOutlined, ShopOutlined,GlobalOutlined, UploadOutlined,} from "@ant-design/icons";
 import { getToken } from "../../../services/authService"; // Import hàm lấy token
 
 const QuanLyThongTinViTri = () => {
@@ -37,17 +20,13 @@ const QuanLyThongTinViTri = () => {
   }, []);
 
   const fetchData = async () => {
-    const token = getToken(); // Lấy token từ localStorage
     try {
       const response = await http.get("/vi-tri");
       setUsersData(response.data.content);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-    
   };
-
-
 
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => {
@@ -61,15 +40,13 @@ const QuanLyThongTinViTri = () => {
     setVisible(true);
   };
 
-
-
   const onFinish = async (values) => {
     try {
       const token = getToken(); // Lấy token từ localStorage
       if (editingUser) {
         const response = await http.put(`/vi-tri/${editingUser.id}`, values, {
           headers: {
-            token: `${token}`
+            token: `${token}`,
           },
         });
         if (response.status === 200) {
@@ -82,11 +59,9 @@ const QuanLyThongTinViTri = () => {
           antdMessage.error("Cập nhật không thành công!");
         }
       } else {
-
-        
         const response = await http.post("/vi-tri", values, {
           headers: {
-            token: `${token}`
+            token: `${token}`,
           },
         });
         if (response.status != 200) {
@@ -94,7 +69,6 @@ const QuanLyThongTinViTri = () => {
           form.resetFields();
           setVisible(false);
           fetchData(); // Cập nhật lại dữ liệu sau khi thêm mới thành công
-          
         } else {
           antdMessage.error("Thêm không thành công!");
         }
@@ -104,8 +78,7 @@ const QuanLyThongTinViTri = () => {
       antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật vị trí.");
     }
   };
-  
-  
+
   const handleDetail = (record) => {
     setDetailData(record);
     setDetailVisible(true);
@@ -120,9 +93,9 @@ const QuanLyThongTinViTri = () => {
   const handleDelete = async (record) => {
     try {
       const token = getToken(); // Lấy token từ localStorage
-      const response = await http.delete(`/vi-tri/${record.id}`, { 
+      const response = await http.delete(`/vi-tri/${record.id}`, {
         headers: {
-          token: `${token}`
+          token: `${token}`,
         },
       });
       if (response.status === 200) {
@@ -136,24 +109,89 @@ const QuanLyThongTinViTri = () => {
       antdMessage.error("Đã có lỗi xảy ra khi xoá vị trí.");
     }
   };
-  
+
+  const uploadImageToApi = async (info, maViTri) => {
+    try {
+      const formData = new FormData();
+      formData.append("formFile", info.file);
+
+      const token = getToken(); // Lấy token từ localStorage
+      const response = await http.post(
+        `/vi-tri/upload-hinh-vitri?maViTri=${maViTri}`,
+        formData,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        message.success("Tải ảnh lên thành công");
+
+        fetchData();
+      } else {
+        message.error("Tải ảnh lên không thành công");
+      }
+    } catch (error) {
+      console.error("Lỗi khi tải ảnh lên API:", error);
+      message.error("Đã có lỗi xảy ra khi tải ảnh lên API");
+    }
+  };
+
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+    },
     {
       title: "Hình Ảnh",
       dataIndex: "hinhAnh",
       key: "hinhAnh",
-      render: (hinhAnh) => (
-        <img
-          src={hinhAnh}
-          alt="Hình Ảnh"
-          style={{ width: "50px", height: "50px" }}
-        />
+      render: (hinhAnh, record) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={hinhAnh}
+            alt="Hình Ảnh"
+            style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          />
+          <Upload
+            showUploadList={false}
+            beforeUpload={() => false}
+            onChange={(info) => uploadImageToApi(info, record.id)}
+          >
+            <Button icon={<UploadOutlined />} />
+          </Upload>
+        </div>
       ),
     },
-    { title: "Tên Vị Trí", dataIndex: "tenViTri", key: "tenViTri" },
-    { title: "Tỉnh Thành", dataIndex: "tinhThanh", key: "tinhThanh" },
-    { title: "Quốc Gia", dataIndex: "quocGia", key: "quocGia" },
+
+    {
+      title: "Tên Vị Trí",
+      dataIndex: "tenViTri",
+      key: "tenViTri",
+      render: (tenViTri) => (
+        <span style={{ fontWeight: "bold" }}>{tenViTri}</span>
+      ),
+    },
+    {
+      title: "Tỉnh Thành",
+      dataIndex: "tinhThanh",
+      key: "tinhThanh",
+      render: (tinhThanh) => (
+        <span style={{ fontWeight: "bold", color: "green" }}>{tinhThanh}</span>
+      ),
+    },
+    {
+      title: "Quốc Gia",
+      dataIndex: "quocGia",
+      key: "quocGia",
+      render: (quocGia) => (
+        <span style={{ fontWeight: "bold", color: "red" }}>{quocGia}</span>
+      ),
+    },
     {
       title: "Hành động",
       key: "action",
@@ -218,21 +256,12 @@ const QuanLyThongTinViTri = () => {
           >
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item name="id" label="ID Vị Trí" >
+                <Form.Item name="id" label="ID Vị Trí">
                   <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="hinhAnh"
-                  label="Hình Ảnh"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng thêm hình ảnh.",
-                    },
-                  ]}
-                >
+                <Form.Item name="hinhAnh" label="Hình Ảnh">
                   <Input prefix={<PushpinOutlined />} placeholder="Tải hình" />
                 </Form.Item>
               </Col>
@@ -322,7 +351,7 @@ const QuanLyThongTinViTri = () => {
       </Modal>
       <div className="search-container mt-4">
         <Input.Search
-          placeholder="Nhập từ khóa để tìm kiếm..."
+          placeholder="Nhập tỉnh thành để tìm kiếm..."
           enterButton
           style={{ width: "100%" }}
           onSearch={(value) => setSearchKeyword(value)}
@@ -335,13 +364,4 @@ const QuanLyThongTinViTri = () => {
   );
 };
 
-
 export default QuanLyThongTinViTri;
-
-
-
-
-
-
-
-

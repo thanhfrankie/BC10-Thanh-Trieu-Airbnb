@@ -45,7 +45,9 @@ const SignUp = () => {
         }
       },
       validationSchema: Yup.object({
-        name: Yup.string().required("Vui lòng nhập họ và tên"),
+        name: Yup.string().required("Vui lòng nhập họ và tên")
+        .min(1, "Tên yêu cầu tối thiểu 1 ký tự")
+        .max(15, "Tên tối đa 15 ký tự"),
         email: Yup.string()
           .email("Vui lòng kiểm tra định dạng email")
           .required("Vui lòng nhập email"),

@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker, message as antdMessage, Radio } from "antd";
 import moment from "moment";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Row,
-  Col,
-  Table,
-  Tag,
-  Select,
-} from "antd";
+import { Modal, Button, Form, Input, Row, Col, Table, Tag, Select,} from "antd";
 import "./QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {
-  UserOutlined,
-  MailOutlined,
-  LockOutlined,
-  PhoneOutlined,
-  SmileOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, MailOutlined, SmileOutlined,} from "@ant-design/icons";
 
 const { Option } = Select;
 const { TextArea, Search } = Input;
@@ -126,16 +109,33 @@ const QuanLyNguoiDung = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "ID", dataIndex: "id", key: "id" ,
+    render: (id) => <span style={{ fontWeight: "bold"  }}>{id}</span>,
+     },
 
-    { title: "Tên", dataIndex: "name", key: "name" },
-    { title: "Email", dataIndex: "email", key: "email" },
+    {
+      title: "Tên",
+      dataIndex: "name",
+      key: "name",
+      render: (name) => <span style={{ fontWeight: "bold", color:"#008080" }}>{name}</span>,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (email) => (
+        <span style={{ textDecoration: "underline" }}>{email}</span>
+      ),
+    },
     {
       title: "Ngày sinh",
       dataIndex: "birthday",
       key: "birthday",
-      render: (birthday) => moment(birthday).format("DD/MM/YYYY"),
+      render: (birthday) => (
+        <span style={{ color: "#CD950C" }}>{moment(birthday).format("DD/MM/YYYY")}</span>
+      ),
     },
+    
     {
       title: "Giới tính",
       dataIndex: "gender",
@@ -143,9 +143,9 @@ const QuanLyNguoiDung = () => {
       render: (gender) => (
         <span>
           {gender ? (
-            <span style={{ color: "seagreen" }}>Nam</span>
+            <span style={{ fontWeight:"bold", color: "seagreen" }}>Nam</span>
           ) : (
-            <span style={{ color: "indianred" }}>Nữ</span>
+            <span style={{ fontWeight:"bold", color: "magenta" }}>Nữ</span>
           )}
         </span>
       ),
@@ -229,23 +229,47 @@ const QuanLyNguoiDung = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="name" label="Tên">
-                  <Input prefix={<UserOutlined />} placeholder="Tên" />
+                <Form.Item name="name" label="Tên" 
+                 rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập tên.",
+                    },
+                  ]}>
+                  <Input prefix={<UserOutlined />} placeholder="Tên"  />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="email" label="Email">
+                <Form.Item name="email" label="Email"
+                 rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập email.",
+                  },
+                ]} >
                   <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="birthday" label="Ngày sinh">
+                <Form.Item name="birthday" label="Ngày sinh"
+                 rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập ngày sinh.",
+                  },
+                ]}>
                   <Input prefix={<SmileOutlined />} placeholder="Ngày sinh" />
                 </Form.Item>
               </Col>
 
               <Col span={24}>
-                <Form.Item name="role" label="Vai trò">
+                <Form.Item name="role" label="Vai trò" 
+                 rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng chọn vai trò.",
+                  },
+                ]}>
                   <Select
                     style={{ marginBottom: "10px" }}
                     placeholder="Chọn vai trò"
@@ -258,8 +282,8 @@ const QuanLyNguoiDung = () => {
               <Col span={24}>
                 <Form.Item name="gender" label="Giới tính">
                   <Radio.Group>
-                    <Radio value={true}>Nam</Radio>
-                    <Radio value={false}>Nữ</Radio>
+                    <Radio value="true">Nam</Radio>
+                    <Radio value="false">Nữ</Radio>
                   </Radio.Group>
                 </Form.Item>
               </Col>
@@ -305,7 +329,7 @@ const QuanLyNguoiDung = () => {
 
       <div className="search-container mt-4">
         <Input.Search
-          placeholder="Nhập từ khóa để tìm kiếm..."
+          placeholder="Nhập tên để tìm kiếm..."
           enterButton
           style={{ width: "100%" }}
           onSearch={(value) => setSearchKeyword(value)}

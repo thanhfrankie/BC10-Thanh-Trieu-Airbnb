@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker, message as antdMessage } from "antd";
 import moment from "moment";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Row,
-  Col,
-  Table,
-  Tag,
-  Select,
-} from "antd";
+import { Modal,Button,Form,Input,Row,Col,Table,Select,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import {
@@ -119,8 +108,12 @@ const QuanLyDatPhong = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Mã phòng", dataIndex: "maPhong", key: "maPhong" },
+    { title: "ID", dataIndex: "id", key: "id" ,
+    render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+     },
+    { title: "Mã phòng", dataIndex: "maPhong", key: "maPhong",
+    render: (maPhong) => <span style={{ fontWeight: "bold" ,color:"#CD5C5C" }}>{maPhong}</span>,
+     },
 
     {
       title: "Ngày đến",
@@ -137,14 +130,18 @@ const QuanLyDatPhong = () => {
       dataIndex: "ngayDi",
       key: "ngayDi",
       render: (ngayDi) => (
-        <span style={{ color: "red", fontWeight: "bold" }}>
+        <span style={{ color: " #FF8247" , fontWeight: "bold" }}>
           {moment(ngayDi).format("DD/MM/YYYY")}
         </span>
       ),
     },
-    { title: "Số lượng khách", dataIndex: "soLuongKhach", key: "soLuongKhach" },
+    { title: "Số lượng khách", dataIndex: "soLuongKhach", key: "soLuongKhach",
+    render: (soLuongKhach) => <span style={{ fontWeight: "bold" ,color:" #9932CC"}}>{soLuongKhach}</span>,
+     },
 
-    { title: "Mã người dùng", dataIndex: "maNguoiDung", key: "maNguoiDung" },
+    { title: "Mã người dùng", dataIndex: "maNguoiDung", key: "maNguoiDung" ,
+    render: (maNguoiDung) => <span style={{ fontWeight: "bold" ,color:"#FFB90F"}}>{maNguoiDung}</span>,
+    },
     {
       title: "Hành động",
       key: "action",

@@ -7,32 +7,30 @@ import { useNavigate } from "react-router-dom";
 import { getUserById, updateUserById } from "../../services/userManagement"; // Import hàm updateUserById từ userManagement
 import { getLocalStorage } from "../../utils/util";
 import { http } from "../../services/config";
-import { Modal, Button, Input, message, Radio } from "antd";
+import { Modal, Button, Input, message, Radio, notification, Row, Col } from "antd";
 import { getToken } from "../../services/authService"; // Import hàm lấy token
 const { TextArea } = Input;
 
 const ThongTinCaNhan = () => {
   const [editedUserData, setEditedUserData] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [gender, setGender] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null); // Thêm state để lưu trữ ảnh được chọn
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchUserData = async () => {
     const user = getLocalStorage("user");
     if (user) {
       const userId = user.user.id;
-      const fetchUserData = async () => {
-        try {
-          const user = await getUserById(userId);
-          setEditedUserData(user);
-          setGender(user.gender); // Set giá trị ban đầu cho gender
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      };
-      fetchUserData();
+      try {
+        const userData = await getUserById(userId);
+        setEditedUserData(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     }
+  };
+
+  useEffect(() => {
+    fetchUserData();
   }, []);
 
   const handleEditProfile = () => {
@@ -72,54 +70,58 @@ const ThongTinCaNhan = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("formFile", file); // Thêm file vào FormData với key là "formFile"
-  
+
     // Lấy token từ local storage
     const token = getToken();
-  
+
     try {
       const response = await http.post("/users/upload-avatar", formData, {
         headers: {
           token: token, // Thêm token vào header của request
-          
         },
       });
-  
-      const { data } = response;
-      setSelectedImage(data.avatarUrl); // Cập nhật ảnh mới vào state
-      // Cập nhật avatar của người dùng sau khi tải lên thành công
-      setEditedUserData({ ...editedUserData, avatar: data.avatarUrl });
+
+      fetchUserData();
+      // Hiển thị thông báo thành công
+      notification.success({
+        placement: "top",
+        message: "Tải ảnh lên thành công",
+        duration: 3,
+      });
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
-  
 
   if (!editedUserData) {
     return <div>Loading...</div>;
   }
 
   const { name, email, phone, birthday, role, avatar } = editedUserData;
+  const gender = editedUserData.gender ? "Nam" : "Nữ";
 
   return (
     <div className="container">
-      <div>
-        <Header />
-      </div>
-      <div className="grid grid-cols-4 mt-5">
-        <div className="col-span-1 pl-24 mt-5">
+      <Header  />
+      <div className=" mr-32 ml-32 mt-5 mb-5">
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={6}>
           <div className="titleTopLeft">
             <div className="relative">
-              <img className="imgLeft mt-2" src={selectedImage || avatar} alt="Avatar" />
-              <button className="buttonEdit absolute z-5" onClick={handleChooseImage}>
+              <img className="imgLeft mt-2" src={avatar} alt="Avatar" />
+              <button
+                className="buttonEdit absolute z-5"
+                onClick={handleChooseImage}
+              >
                 <i className="fa-duotone fa-camera-retro"></i> Sửa ảnh
               </button>
             </div>
-            <p className="texTopLeft mt-2">
+            <p className="texTopLeft">
               <span
                 style={{
                   color: "gray",
                   fontWeight: "bold",
-                  fontSize: "35px",
+                  fontSize: "25px",
                 }}
               >
                 {name}
@@ -130,9 +132,9 @@ const ThongTinCaNhan = () => {
             <p className="texBotLeft">Xác minh danh tính của bạn</p>
             <i
               class="fa-regular fa-shield-check"
-              style={{ fontSize: "30px" }}
+              style={{ fontSize: "30px", color:"green" }}
             ></i>
-            <p className=" text-center">
+            <p style={{padding:"6px"}} className=" text-center">
               Bạn cần hoàn tất bước này trước khi đặt phòng/đặt chỗ hoặc đón
               tiếp khách trên Airbnb.
             </p>
@@ -142,17 +144,17 @@ const ThongTinCaNhan = () => {
               </button>
             </NavLink>
           </div>
-        </div>
-        <div className="col-span-3 ml-16 pl-24">
+        </Col>
+        <Col className="plThongTin" xs={24} sm={24} md={18}>
           <div className="mt-4 displayUser ">
             <div>
               <p className="texTopLeft">
-                Xin Chào :{" "}
+                Xin Chào : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
                   {name}
@@ -160,26 +162,26 @@ const ThongTinCaNhan = () => {
               </p>
               <hr />
               <p className="texTopLeft">
-                Email:{" "}
+                Email : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
                   {email}
                 </span>{" "}
               </p>
               <hr />
-              
+
               <p className="texTopLeft">
-                Số điện thoại:{" "}
+                Số điện thoại : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
                   {phone}
@@ -187,12 +189,12 @@ const ThongTinCaNhan = () => {
               </p>
               <hr />
               <p className="texTopLeft">
-                Ngày sinh:{" "}
+                Ngày sinh : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
                   {birthday}
@@ -200,32 +202,33 @@ const ThongTinCaNhan = () => {
               </p>
               <hr />
               <p className="texTopLeft">
-                Giới tính:{" "}
+                Giới tính : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
-                  {gender === 1 ? "Nam" : "Nữ"}
+                  {gender}
                 </span>{" "}
               </p>
 
               <hr />
               <p className="texTopLeft">
-                Vai trò:{" "}
+                Vai trò : {" "}
                 <span
                   style={{
                     color: "gray",
                     fontWeight: "bold",
-                    fontSize: "35px",
+                    fontSize: "25px",
                   }}
                 >
                   {role}
                 </span>{" "}
               </p>
               <hr className="mb-4" />
+              <div className="flex justify-between">
               <button
                 onClick={handleEditProfile}
                 className="mr-3 buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  "
@@ -239,9 +242,6 @@ const ThongTinCaNhan = () => {
                 visible={showModal}
                 onCancel={handleCloseModal}
                 footer={[
-                  <Button key="cancel" onClick={handleCloseModal}>
-                    Hủy
-                  </Button>,
                   <Button key="save" type="primary" onClick={handleSaveChanges}>
                     Lưu
                   </Button>,
@@ -254,7 +254,7 @@ const ThongTinCaNhan = () => {
                   value={editedUserData.name}
                   onChange={handleInputChange}
                   placeholder="Tên"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginBottom: "25px" }}
                   rules={[
                     {
                       required: true,
@@ -269,13 +269,12 @@ const ThongTinCaNhan = () => {
                   value={editedUserData.email}
                   onChange={handleInputChange}
                   placeholder="Email"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginBottom: "25px" }}
                   rules={[
                     { required: true, message: "Vui lòng nhập địa chỉ email." },
                     { type: "email", message: "Email không hợp lệ." },
                   ]}
                 />
-
                 Số điện thoại
                 <Input
                   name="phone"
@@ -283,7 +282,7 @@ const ThongTinCaNhan = () => {
                   value={editedUserData.phone}
                   onChange={handleInputChange}
                   placeholder="Số điện thoại"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginBottom: "25px" }}
                   rules={[
                     { required: true, message: "Vui lòng nhập số điện thoại." },
                     {
@@ -326,26 +325,26 @@ const ThongTinCaNhan = () => {
                 Giới tính
                 <Radio.Group
                   name="gender"
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
+                  value={editedUserData.gender}
+                  onChange={(e) => handleInputChange(e)}
                 >
-                  <Radio value={1}>Nam</Radio>
-                  <Radio value={0}>Nữ</Radio>
+                  <Radio value={true}>Nam</Radio>
+                  <Radio value={false}>Nữ</Radio>
                 </Radio.Group>
               </Modal>
 
-              <NavLink to="/tao-ho-so">
+              <NavLink  to="/tao-ho-so">
                 <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
                   Thông tin thêm
                 </button>
               </NavLink>
+              </div>
             </div>
           </div>
-        </div>
+        </Col>
+      </Row>
       </div>
-      <div className="mt-5">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -25,7 +25,7 @@ const Header = () => {
     // Kiểm tra và cập nhật trạng thái đăng nhập khi component được mount
     setIsLoggedIn(checkLocalStorage());
     setUserRole(userLocal?.user.role); // Lấy vai trò của người dùng từ localStorage
-    console.log("User role:", userRole);
+    // console.log("User role:", userRole);
   }, []);
 
   const handleLogout = () => {

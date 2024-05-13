@@ -20,15 +20,15 @@
         width: 80px !important;
     }
 }
-:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark .ant-menu-item-selected, :where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark>.ant-menu .ant-menu-item-selected {
-    background-color: #6C7B8B;
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark > .ant-menu .ant-menu-item-selected {
+    background-color: #6c7b8b;
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-layout .ant-layout-sider {
-    background:#2F4F4F;
+    background: #2f4f4f;
 }
-:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark, :where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark>.ant-menu {
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark,
+:where(.css-dev-only-do-not-override-1kuana8).ant-menu-dark > .ant-menu {
     color: rgba(255, 255, 255, 0.65);
-    background: #2F4F4F;
+    background: #2f4f4f;
 }
-
-

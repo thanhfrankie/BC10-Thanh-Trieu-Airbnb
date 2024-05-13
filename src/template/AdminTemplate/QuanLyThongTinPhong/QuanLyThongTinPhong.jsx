@@ -1,28 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Switch, Upload } from "antd";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-  message,
-  Row,
-  Col,
-  Table,
-  Tag,
-  Select,
-} from "antd";
+import { Modal, Button, Form, Input, message, Row, Col, Table, Select,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {
-  ShopOutlined,
-  FormOutlined,
-  PoundOutlined,
-  InsertRowLeftOutlined,
-  InboxOutlined,
-  InsertRowRightOutlined,
-  InstagramOutlined,
-} from "@ant-design/icons";
+import {ShopOutlined, FormOutlined, PoundOutlined, InsertRowLeftOutlined,InboxOutlined, InsertRowRightOutlined, InstagramOutlined, UploadOutlined,} from "@ant-design/icons";
 import { getToken } from "../../../services/authService"; // Import hàm lấy token
 const { Option } = Select;
 const { TextArea, Search } = Input;
@@ -136,18 +117,60 @@ const QuanLyThongTinPhong = () => {
     }
   };
 
+  const uploadImageToApi = async (info, maPhong) => {
+    try {
+      const formData = new FormData();
+      formData.append("formFile", info.file);
+
+      const token = getToken(); // Lấy token từ localStorage
+      const response = await http.post(
+        `/phong-thue/upload-hinh-phong?maPhong=${maPhong}`,
+        formData,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        message.success("Tải ảnh lên thành công");
+
+        fetchData();
+      } else {
+        message.error("Tải ảnh lên không thành công");
+      }
+    } catch (error) {
+      console.error("Lỗi khi tải ảnh lên API:", error);
+      message.error("Đã có lỗi xảy ra khi tải ảnh lên API");
+    }
+  };
+
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "ID", dataIndex: "id", key: "id" ,
+    render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+    },
     {
       title: "Hình Ảnh",
       dataIndex: "hinhAnh",
       key: "hinhAnh",
-      render: (hinhAnh) => (
-        <img
-          src={hinhAnh}
-          alt="Hình Ảnh"
-          style={{ width: "300px", height: "50px" }}
-        />
+      render: (hinhAnh, record) => (
+        <div
+          style={{ display: "flex", alignItems: "center", marginRight: "40px" }}
+        >
+          <img
+            src={hinhAnh}
+            alt="Hình Ảnh"
+            style={{ width: "100px", height: "50px", marginRight: "10px" }}
+          />
+          <Upload
+            showUploadList={false}
+            beforeUpload={() => false}
+            onChange={(info) => uploadImageToApi(info, record.id)}
+          >
+            <Button icon={<UploadOutlined />} style={{}} />
+          </Upload>
+        </div>
       ),
     },
     {
@@ -158,13 +181,23 @@ const QuanLyThongTinPhong = () => {
         <span style={{ fontWeight: "bold" }}>{tenPhong}</span>
       ),
     },
-    { title: "Mô Tả", dataIndex: "moTa", key: "moTa" },
+    {
+      title: "Mô Tả",
+      dataIndex: "moTa",
+      key: "moTa",
+      render: (moTa) => (
+        <span style={{  color:"brown" }}>
+          {moTa.length > 100 ? `${moTa.substring(0, 100)}...` : moTa}
+        </span>
+      ),
+    },
+
     {
       title: "Giá Tiền ($)",
       dataIndex: "giaTien",
       key: "giaTien",
       render: (giaTien) => (
-        <span style={{ fontWeight: "bold" }}>{giaTien}</span>
+        <span style={{ fontWeight: "bold" ,color:"green" }}>{giaTien}</span>
       ),
     },
     {
@@ -524,7 +557,7 @@ const QuanLyThongTinPhong = () => {
             <img
               src={detailData.hinhAnh}
               alt="Hình Ảnh"
-              style={{ width: "200px", height: "200px" }}
+              style={{ width: "400px", height: "200px" }}
             />
           </p>
         </div>

@@ -2,29 +2,11 @@ import React from "react";
 import "./TaoHoSo.scss";
 import Header from "../../../layout/Header/Header";
 import Footer from "../../../layout/Footer/Footer";
-import { useState } from "react";
 import DetailPopupLeft from "../../../components/Popup/DetailPopupLeft";
 import DetailPopupright from "../../../components/Popup/DetailPopupRight";
 import DetailPopupBot from "../../../components/Popup/DetailPopupBot";
 
 const TaoHoSo = () => {
-  const [image, setImage] = useState(
-  );
-
-  const handleEditImage = () => {
-    // Gọi click() trên input element ẩn
-    inputFileRef.current.click();
-  };
-
-  const handleImageChange = (event) => {
-    const selectedImage = event.target.files[0];
-    const imageUrl = URL.createObjectURL(selectedImage);
-    setImage(imageUrl);
-  };
-
-  // Tham chiếu đến input file element
-  const inputFileRef = React.createRef();
-
   return (
     <div>
       <div className="container">

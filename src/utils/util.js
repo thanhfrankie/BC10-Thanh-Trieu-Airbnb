@@ -7,5 +7,4 @@ export const saveLocalStorage = (key, data) => {
   const stringData = JSON.stringify(data);
   return localStorage.setItem(key, stringData);
 };
-// // Xoá key 'token' khỏi localStorage
-// localStorage.removeItem('token');
+

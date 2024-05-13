@@ -10,7 +10,7 @@ const DetailPopupBot = () => {
   const navigate = useNavigate();
 
   const handleCompleteButtonClick = () => {
-    // Hiển thị thông báo cập nhật thành công (có thể sử dụng thư viện như Ant Design Modal)
+    // Hiển thị thông báo cập nhật thành công 
     alert("Cập nhật thành công");
 
     // Chuyển trang
@@ -79,11 +79,21 @@ const DetailPopupBot = () => {
         </div>
       </Modal>
       <hr className="mt-5 mb-5" />
-      <div className=" text-right">
+      <div className=" flex justify-between  ">
+        <NavLink to="/thong-tin-ca-nhan">
+          <button
+            
+            className="buttonleft mb-8 text-white bg-slate-700 hover:bg-slate-600 "
+          >
+            Quay lại
+          </button>
+        </NavLink>
+      
+      
         <NavLink to="/thong-tin-ca-nhan">
           <button
             onClick={handleCompleteButtonClick}
-            className="buttonleft mb-3 text-white bg-slate-700 hover:bg-slate-600 "
+            className="buttonleft mb-8 text-white bg-slate-700 hover:bg-slate-600 "
           >
             Hoàn Tất
           </button>
