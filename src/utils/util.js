@@ -17,13 +17,4 @@ export const convertToSlug = (text) => {
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
 };
-export const convertFromSlug =(slug)=> {
-  return slug
-    .split("-")
-    .map((word) =>
-      word
-        .replace(/^\w/, (c) => c.toUpperCase())
-        .replace(/-/g, " ")
-    )
-    .join(" "); 
-}
+
