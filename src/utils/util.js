@@ -17,4 +17,6 @@ export const convertToSlug = (text) => {
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
 };
-
+export const  checkEvenOrOdd = (checkedNumber, evenValue , oddValue ) => {
+  return checkedNumber % 2 === 0 ? evenValue: oddValue;
+};

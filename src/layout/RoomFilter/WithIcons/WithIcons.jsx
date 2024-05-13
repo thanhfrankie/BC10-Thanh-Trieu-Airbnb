@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { filterIcon } from "../../assets/filter-icon/filter-icon";
-import "./RoomFilter.scss";
-const RoomFilter = () => {
+import { filterIcon } from "../../../assets/filter-icon/filter-icon";
+import "./WithIcons.scss";
+const WithIcons = () => {
   let [selectedFilter, setSelectedFilter] = useState(0);
   return (
     <div className="filterIconContainer border border-red-300">
@@ -12,7 +12,7 @@ const RoomFilter = () => {
             index == selectedFilter && "selectedIcon"
           } border border-yellow-300`}
           onClick={() => {
-            console.log(index)
+            console.log(index);
             setSelectedFilter(index);
           }}
         >
@@ -24,4 +24,4 @@ const RoomFilter = () => {
   );
 };
 
-export default RoomFilter;
+export default WithIcons;

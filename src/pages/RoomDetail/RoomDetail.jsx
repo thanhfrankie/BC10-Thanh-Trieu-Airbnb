@@ -5,15 +5,17 @@ import "./RoomDetail.scss";
 import Footer from "../../layout/Footer/Footer";
 import Header from "../../layout/Header/Header";
 import { locationManagement } from "../../services/locationManagement";
-import { convertToSlug } from "../../utils/util";
+import { checkEvenOrOdd, convertToSlug } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
+import useChangePageTitle from "../../hooks/useChangePageTitle";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
   const [listLocationArr, setListLocationArr] = useState([]);
+  const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
-
+  useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
@@ -25,7 +27,6 @@ const RoomDetail = () => {
         const locationRes = await locationManagement.getLocation();
         console.log(locationRes.data.content);
         setListLocationArr(locationRes.data.content);
-        setLoading(false);
       } catch (error) {
         console.log(error);
       } finally {
@@ -39,14 +40,20 @@ const RoomDetail = () => {
   useEffect(() => {
     const findRoom = () => {
       if (listRoomArr && listRoomArr.length > 0) {
-        const foundRoom = listRoomArr.find((item) => item.id == roomId);
+        const foundRoom = listRoomArr.find((item, index) => {
+          if (item.id == roomId) {
+            setCurrentRoomIndex(index);
+            return true;
+          }
+          return false;
+        });
+        console.log(currentRoomIndex);
         setWatchingRoom(foundRoom || null);
       }
     };
 
     findRoom();
-  }, [listRoomArr, roomId]);
-
+  }, [listRoomArr, roomId, currentRoomIndex]);
   const checkLocation = (id) => {
     let location = {
       slug: "",
@@ -97,13 +104,19 @@ const RoomDetail = () => {
     tivi,
     wifi,
   } = watchingRoom || {};
+
   const hasLocation = checkLocation(maViTri);
   const { slug, tenViTri, tinhThanh, quocGia } = hasLocation || {};
+  const checkRoomOwner = () => {
+    if (currentRoomIndex !== undefined) {
+      return checkEvenOrOdd(currentRoomIndex, "Thành", "Triệu");
+    }
+  };
   return (
     <div className="h-auto room-detail px-20 border border-red-400">
       <Header />
       <div className="border px-28 border-blue-400">
-        {watchingRoom && (
+        {watchingRoom ? (
           <div>
             <h1 className="room-name">{tenPhong}</h1>
             <div className="flex items-center justify-start gap-5">
@@ -127,7 +140,7 @@ const RoomDetail = () => {
               </NavLink>
             </div>
             <img className="room-img w-full" src={hinhAnh} alt="" />
-            <div>Chủ nhà/ Người tổ chức: Thành</div>
+            <div>Chủ nhà/ Người tổ chức: {checkRoomOwner()}</div>
             {hasLocation && (
               <div>
                 {tenViTri}, {tinhThanh}, {quocGia}
@@ -138,11 +151,13 @@ const RoomDetail = () => {
               ${giaTien} <span className="font-normal">/khách</span>
             </div>
           </div>
-        )}
-        {!watchingRoom && (
+        ) : (
           <div>
             Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
-            <NavLink to="/" className="text-blue-700">trang chủ</NavLink> để tiếp tục
+            <NavLink to="/" className="text-blue-700">
+              trang chủ
+            </NavLink>{" "}
+            để tiếp tục
           </div>
         )}
       </div>

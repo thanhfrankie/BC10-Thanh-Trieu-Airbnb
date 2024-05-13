@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
 import { locationManagement } from "../../services/locationManagement";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { convertToSlug } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
+import { mapInfo } from "../../assets/map/map";
+import Header from "../../layout/Header/Header";
+import useChangePageTitle from "../../hooks/useChangePageTitle";
 
 const RoomLocation = () => {
-  const [listRoomArr, setListRoomArr] = useState([]);
   const [listLocationArr, setListLocationArr] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [listRoomByLocationArr, setListRoomByLocaTionArr] = useState([]);
+  const [embededMap, setEmbededMap] = useState(null);
   const [loading, setLoading] = useState(true);
   const { locationId } = useParams();
+  useChangePageTitle(
+    "Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v."
+  );
   useEffect(() => {
     const fetchRoomData = async () => {
       setLoading(true);
       try {
-        const roomRes = await roomManagement.getAllRoom();
-        setListRoomArr(roomRes.data.content);
-
         const locationRes = await locationManagement.getLocation();
+        console.log(locationRes);
         setListLocationArr(locationRes.data.content);
-        setLoading(false);
       } catch (error) {
         console.log(error);
       } finally {
@@ -50,22 +53,32 @@ const RoomLocation = () => {
   useEffect(() => {
     const fetchRoomByLocation = async () => {
       if (currentLocation) {
-        setLoading(true);
         try {
           const roomRes = await roomManagement.getRoomByLocation(
             currentLocation.id
           );
           console.log(roomRes.data.content);
           setListRoomByLocaTionArr(roomRes.data.content);
-          setLoading(false);
         } catch (error) {
           console.log(error);
-        } finally {
-          setLoading(false);
         }
       }
     };
     fetchRoomByLocation();
+  }, [currentLocation]);
+  useEffect(() => {
+    const findMapByLocation = (location) => {
+      if (!location) return null;
+      const foundLocation = mapInfo.find(
+        (map) =>
+          convertToSlug(map.tinhThanh) === convertToSlug(location.tinhThanh)
+      );
+      return foundLocation ? foundLocation.embed : null;
+    };
+    if (currentLocation) {
+      let embed = findMapByLocation(currentLocation);
+      setEmbededMap(embed);
+    }
   }, [currentLocation]);
 
   if (loading) {
@@ -75,23 +88,42 @@ const RoomLocation = () => {
       </div>
     );
   }
-  const { id, tinhThanh } = currentLocation || {};
+  const { id, tinhThanh, quocGia } = currentLocation || {};
   return (
     <div>
       <div>
-        Có {listRoomByLocationArr.length} chỗ tại {tinhThanh}
+        <Header />
       </div>
+
+      {listRoomByLocationArr.length === 0 ? (
+        <div>
+          Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui lòng quay
+          lại{" "}
+          <NavLink to="/" className="text-blue-700">
+            trang chủ
+          </NavLink>{" "}
+          để tiếp tục
+        </div>
+      ) : (
+        <div>
+          Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
+          {quocGia}
+        </div>
+      )}
       {listRoomByLocationArr.map((room) => (
         <div key={room.id}>
-          <img src={room.hinhAnh} alt="" />
-          <div>{room.tenPhong}</div>
-          <div>{room.moTa}</div>
-          <div className="font-bold">
-            ${room.giaTien} <span className="font-normal">/khách</span>
-          </div>
+          <NavLink to={`/room-detail/${room.id}`}>
+            <img src={room.hinhAnh} alt="" />
+            <div>{room.tenPhong}</div>
+            <div>{room.moTa}</div>
+            <div className="font-bold">
+              ${room.giaTien} <span className="font-normal">/khách</span>
+            </div>
+          </NavLink>
         </div>
       ))}
       <div>{id}</div>
+      <div>{embededMap}</div>
     </div>
   );
 };

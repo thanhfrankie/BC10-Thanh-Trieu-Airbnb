@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Dropdown, Space } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
@@ -9,7 +9,6 @@ import { getLocalStorage } from "../../utils/util";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 
 const Header = () => {
-
   const navigate = useNavigate();
   const notify = useContext(NotifyContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,23 +21,19 @@ const Header = () => {
     const checkLocalStorage = () => {
       return userLocal !== null;
     };
-    // Kiểm tra và cập nhật trạng thái đăng nhập khi component được mount
     setIsLoggedIn(checkLocalStorage());
-    setUserRole(userLocal?.user.role); // Lấy vai trò của người dùng từ localStorage
-    // console.log("User role:", userRole);
+    setUserRole(userLocal?.user.role);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    setUserRole(null); // Reset vai trò của người dùng khi đăng xuất
+    setUserRole(null); 
     notify("Đăng xuất thành công , đang quay về trang chủ");
     setTimeout(() => {
       navigate("/");
-    }, 3000);
+    }, 1000);
   };
-
-  
 
   const isAdmin = isLoggedIn && userRole === "ADMIN";
 
@@ -47,7 +42,7 @@ const Header = () => {
         {
           label: `Xin chào : ${userLocal.user.name}`,
           key: "greeting",
-          className: "greeting-style"
+          className: "greeting-style",
         },
         {
           label: "Đăng xuất",
@@ -70,9 +65,7 @@ const Header = () => {
           key: "6",
         },
         {
-          label: (
-            <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>
-          ),
+          label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
           key: "3",
         },
         {
@@ -101,8 +94,7 @@ const Header = () => {
           key: "4",
         },
       ];
-  
-  
+
   const [activeButton, setActiveButton] = useState("Chỗ ở");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -171,7 +163,11 @@ const Header = () => {
                           <i className="fa-regular fa-bars"></i>
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
-                          <i className="fa-solid fa-circle-user"></i>
+                          {isLoggedIn ? (
+                            <img src={userLocal.avatar} alt="" />
+                          ) : (
+                            <i className="fa-solid fa-circle-user"></i>
+                          )}
                         </div>
                       </button>
                     </Space>
