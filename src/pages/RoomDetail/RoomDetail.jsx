@@ -29,8 +29,8 @@ const RoomDetail = () => {
   const [averageRating, setAverageRating] = useState();
   const [guest, setGuest] = useState(1)
   const [loading, setLoading] = useState(true);
-
   const { roomId } = useParams();
+  
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   useEffect(() => {
     const fetchUserData = () => {

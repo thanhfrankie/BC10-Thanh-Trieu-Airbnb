@@ -17,6 +17,9 @@ const Trips = () => {
       const userLocal = getLocalStorage("user");
       if (userLocal && userLocal.user) {
         setUserLocalInfo(userLocal.user);
+      } else {
+        setLoadingRooms(false);
+        setLoadingBookings(false);
       }
     };
 
@@ -74,30 +77,6 @@ const Trips = () => {
       </div>
     );
   }
-  // const handleCancel = async (index) => {
-  //   const roomToCancel = showedRoomArr[index];
-  //   const bookingToCancel = listBookedRoomArr.find(
-  //     (bookedRoom) => bookedRoom.maPhong === roomToCancel.id
-  //   );
-
-  //   if (bookingToCancel && window.confirm("Bạn muốn hủy chứ?")) {
-  //     try {
-  //       await bookingManagement.deleteBookedRoom(bookingToCancel.id);
-
-  //       const updatedBookedRooms = listBookedRoomArr.filter(
-  //         (bookedRoom) => bookedRoom.id !== bookingToCancel.id
-  //       );
-  //       setListBookedRoomArr(updatedBookedRooms);
-
-  //       const updatedShowedRooms = showedRoomArr.filter(
-  //         (_, roomIndex) => roomIndex !== index
-  //       );
-  //       setShowedRoomArr(updatedShowedRooms);
-  //     } catch (error) {
-  //       console.error("Lỗi khi hủy đặt phòng:", error);
-  //     }
-  //   }
-  // };
   const handleCancel = async (bookedRoomId) => {
     const bookingToCancel = listBookedRoomArr.find(
       (bookedRoom) => bookedRoom.maPhong === bookedRoomId
@@ -120,8 +99,17 @@ const Trips = () => {
       }
     }
   };
+  if (!userLocalInfo) {
+    return (
+      <div>
+        <h1>Vui lòng đăng nhập để tiếp tục</h1>
+        <NavLink to="/sign-in">Đăng nhập</NavLink>
+      </div>
+    );
+  }
   return (
     <div>
+      
       {showedRoomArr.length > 0 ? (
         showedRoomArr
           .map((room, index) => (
