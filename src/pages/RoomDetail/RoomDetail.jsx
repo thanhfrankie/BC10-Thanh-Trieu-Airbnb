@@ -30,14 +30,15 @@ const RoomDetail = () => {
   const [guest, setGuest] = useState(1)
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const userLocal = getLocalStorage("user");
-    setUserLocalInfo(userLocal.user);
-  }, []);
-
   const { roomId } = useParams();
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   useEffect(() => {
+    const fetchUserData = () => {
+      const userLocal = getLocalStorage("user");
+      if (userLocal && userLocal.user) {
+        setUserLocalInfo(userLocal.user);
+      }
+    };
     const fetchRoomData = async () => {
       try {
         setLoading(true);
@@ -54,8 +55,9 @@ const RoomDetail = () => {
         setLoading(false);
       }
     };
+    fetchUserData()
     fetchRoomData();
-  }, [setListRoomArr]);
+  }, []);
 
   useEffect(() => {
     const findRoom = () => {
