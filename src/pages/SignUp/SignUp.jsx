@@ -29,18 +29,13 @@ const SignUp = () => {
         phone: "",
       },
       onSubmit: async (values) => {
-        console.log(values);
-        // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
-          // gửi dữ liệu lên backend
           const res = await userManagementServ.signUp(values);
-          // console.log(res);
           notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
           setTimeout(() => {
             navigate("/sign-in");
           }, 1000);
         } catch (error) {
-          console.log(error);
           notify(error.response.data.content);
         }
       },

@@ -44,11 +44,7 @@ const Header = () => {
           key: "greeting",
           className: "greeting-style",
         },
-        {
-          label: "Đăng xuất",
-          onClick: handleLogout,
-          key: "logout",
-        },
+       
         ...(isAdmin
           ? [
               {
@@ -62,7 +58,11 @@ const Header = () => {
         },
         {
           label: <NavLink to="/thong-tin-ca-nhan">Thông tin cá nhân</NavLink>,
-          key: "6",
+          key: "1",
+        },
+        {
+          label: <NavLink to="/trips">Chuyến đi</NavLink>,
+          key: "2",
         },
         {
           label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
@@ -71,7 +71,12 @@ const Header = () => {
         {
           label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
           key: "4",
-        },
+      },
+      {
+        label: "Đăng xuất",
+        onClick: handleLogout,
+        key: "logout",
+      },
       ]
     : [
         {

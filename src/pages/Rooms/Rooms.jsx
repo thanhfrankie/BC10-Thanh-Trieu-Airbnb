@@ -8,6 +8,7 @@ import useChangePageTitle from "../../hooks/useChangePageTitle";
 const Rooms = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useChangePageTitle("Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v.")
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -56,6 +57,7 @@ const Rooms = () => {
             </div>
           ))}
       </div>
+     
     </div>
   );
 };

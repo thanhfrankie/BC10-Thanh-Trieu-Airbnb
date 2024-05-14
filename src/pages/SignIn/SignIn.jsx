@@ -23,12 +23,9 @@ const SignIn = () => {
       },
       onSubmit: async (values) => {
         console.log(values);
-        // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
-          // gửi dữ liệu lên backend
           const res = await userManagementServ.signIn(values);
           console.log(res);
-          // lưu trữ dữ liệu xuống localstorage để lưu trữ
           saveLocalStorage("user", res.data.content);
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
@@ -37,7 +34,6 @@ const SignIn = () => {
             navigate("/");
           }, 1000);
         } catch (error) {
-          console.log(error);
           notify(error.response.data.content);
         }
       },

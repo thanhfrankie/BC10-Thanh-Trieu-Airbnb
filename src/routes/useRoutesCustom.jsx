@@ -11,6 +11,7 @@ import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanh
 import RoomDetail from "../pages/RoomDetail/RoomDetail";
 import RoomLocation from "../pages/RoomLocation/RoomLocation";
 import Rooms from "../pages/Rooms/Rooms";
+import Trips from "../pages/Trips/Trips";
 
 const useRoutesCustom = () => {
   const navigate = useNavigate();
@@ -60,6 +61,10 @@ const useRoutesCustom = () => {
         {
           path: "rooms/:locationId",
           element: <RoomLocation />,
+        },
+        {
+          path: "trips",
+          element: <Trips />,
         },
       ],
     },

@@ -1,5 +1,5 @@
 import { http } from "./config";
-import { getToken } from "../services/authService"; // Import hàm lấy token
+import { getToken } from "../services/authService";
 
 export const userManagementServ = {
     signUp: (data) => {

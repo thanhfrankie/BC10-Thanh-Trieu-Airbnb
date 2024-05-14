@@ -22,7 +22,7 @@ const ListRoom = () => {
     };
 
     fetchRoomData();
-  }, [setListRoomArr]);
+  }, []);
 
   if (loading) {
     return (
