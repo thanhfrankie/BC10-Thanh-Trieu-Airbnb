@@ -36,7 +36,7 @@ const Rooms = () => {
   return (
     <div>
       {listRoomArr && (
-        <h2>Hiện có {listRoomArr.length} địa điểm cho thuê tại Việt Nam</h2>
+        <h2>Hiện có {listRoomArr.length} địa điểm cho thuê tại quốc gia Việt Nam</h2>
       )}
 
       <div className="w-full h-auto mx-auto flex items-center justify-center flex-wrap mt-3 py-2 border border-red-300">
