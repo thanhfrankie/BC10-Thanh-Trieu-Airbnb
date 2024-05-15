@@ -108,7 +108,7 @@ const Header = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
- 
+
   return (
     <div className="header">
       <div className="flex items-center mt-1">
@@ -171,7 +171,9 @@ const Header = () => {
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
                           {isLoggedIn ? (
-                            userLocal && renderAvatar(userLocal.user)
+                            <div className="w-8 h-8">
+                            {  userLocal && renderAvatar(userLocal.user)}
+                             </div>
                           ) : (
                             <i className="fa-solid fa-circle-user"></i>
                           )}
