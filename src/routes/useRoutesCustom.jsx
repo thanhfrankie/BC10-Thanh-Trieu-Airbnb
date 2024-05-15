@@ -11,14 +11,20 @@ import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanh
 import RoomDetail from "../pages/RoomDetail/RoomDetail";
 import RoomLocation from "../pages/RoomLocation/RoomLocation";
 import Rooms from "../pages/Rooms/Rooms";
+import Trips from "../pages/Trips/Trips";
+import { getLocalStorage } from "../utils/util";
 
 const useRoutesCustom = () => {
   const navigate = useNavigate();
   useEffect(() => {
+    const userLocal = getLocalStorage("user");
     if (window.location.pathname === "/room-detail") {
       navigate("/room-detail/1");
     }
-  }, []);
+    if (userLocal && window.location.pathname === "/sign-in") {
+      navigate("/");
+    }
+  }, [navigate]);
   const routes = useRoutes([
     {
       path: "/",
@@ -60,6 +66,10 @@ const useRoutesCustom = () => {
         {
           path: "rooms/:locationId",
           element: <RoomLocation />,
+        },
+        {
+          path: "trips",
+          element: <Trips />,
         },
       ],
     },

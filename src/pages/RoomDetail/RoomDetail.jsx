@@ -1,22 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
 import { NavLink, useParams } from "react-router-dom";
-import "./RoomDetail.scss";
 import Footer from "../../layout/Footer/Footer";
 import Header from "../../layout/Header/Header";
 import { locationManagement } from "../../services/locationManagement";
-import { checkEvenOrOdd, convertToSlug } from "../../utils/util";
+import {
+  checkEvenOrOdd,
+  convertToSlug,
+  getLocalStorage,
+  calculateTimeAgo,
+  calculateAverage,
+} from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
+import { commentManagement } from "../../services/commentManagement";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Rate } from "antd";
+import { bookingManagement } from "../../services/bookingRoomManagement";
+import "./RoomDetail.scss";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
   const [listLocationArr, setListLocationArr] = useState([]);
   const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
+  const [userLocalInfo, setUserLocalInfo] = useState(null);
+  const [listCommentArr, setListCommentArr] = useState([]);
+  const [averageRating, setAverageRating] = useState();
+  const [guest, setGuest] = useState(1)
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
+  
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   useEffect(() => {
+    const fetchUserData = () => {
+      const userLocal = getLocalStorage("user");
+      if (userLocal && userLocal.user) {
+        setUserLocalInfo(userLocal.user);
+      }
+    };
     const fetchRoomData = async () => {
       try {
         setLoading(true);
@@ -33,9 +55,9 @@ const RoomDetail = () => {
         setLoading(false);
       }
     };
-
+    fetchUserData()
     fetchRoomData();
-  }, [setListRoomArr]);
+  }, []);
 
   useEffect(() => {
     const findRoom = () => {
@@ -51,9 +73,80 @@ const RoomDetail = () => {
         setWatchingRoom(foundRoom || null);
       }
     };
-
     findRoom();
   }, [listRoomArr, roomId, currentRoomIndex]);
+  useEffect(() => {
+    if (watchingRoom !== null) {
+      const fetchCommentData = async () => {
+        try {
+          const commentRes = await commentManagement.getRoomComment(
+            watchingRoom.maViTri
+          );
+          console.log(commentRes.data.content);
+          setListCommentArr(commentRes.data.content);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchCommentData();
+    }
+  }, [watchingRoom]);
+  useEffect(() => {
+    const calculateAverageRating = () => {
+      const extractRatings = (commentArr) => {
+        return commentArr.map((comment) => comment.saoBinhLuan);
+      };
+      if (listCommentArr.length === 0) {
+        setAverageRating(0);
+        return;
+      }
+      const ratingsArray = extractRatings(listCommentArr);
+      const averageRating = calculateAverage(ratingsArray, 2);
+      setAverageRating(averageRating);
+    };
+
+    calculateAverageRating();
+  }, [listCommentArr]);
+
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    resetForm,
+    values,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {
+      noiDung: "",
+      saoBinhLuan: 0,
+    },
+    onSubmit: async (values) => {
+      try {
+        const commentInfo = {
+          maPhong: watchingRoom.maViTri,
+          maNguoiBinhLuan: id,
+          ngayBinhLuan: new Date().toISOString(),
+          noiDung: values.noiDung,
+          saoBinhLuan: values.saoBinhLuan,
+        };
+        const res = await commentManagement.postComment(commentInfo);
+        setListCommentArr((prevComments) => [
+          ...prevComments,
+          res.data.content,
+        ]);
+        // notify("Thêm bình luận thành công");
+        resetForm();
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    validationSchema: Yup.object({
+      noiDung: Yup.string().required("Vui lòng không bỏ trống"),
+    }),
+  });
   const checkLocation = (id) => {
     let location = {
       slug: "",
@@ -74,7 +167,6 @@ const RoomDetail = () => {
         };
       }
     }
-
     return location;
   };
   if (loading) {
@@ -104,12 +196,33 @@ const RoomDetail = () => {
     tivi,
     wifi,
   } = watchingRoom || {};
-
+  const { name, id } = userLocalInfo || {};
   const hasLocation = checkLocation(maViTri);
   const { slug, tenViTri, tinhThanh, quocGia } = hasLocation || {};
   const checkRoomOwner = () => {
     if (currentRoomIndex !== undefined) {
       return checkEvenOrOdd(currentRoomIndex, "Thành", "Triệu");
+    }
+  };
+  const checkIsLoggedIn = (user) => {
+    return user !== null;
+  };
+  const handleBookRoom = async () => {
+    try {
+    let info;
+    if (watchingRoom && userLocalInfo) {
+      info = {
+        maPhong: watchingRoom.id,
+        ngayDen: new Date(),
+        ngayDi: new Date(),
+        soLuongKhach: guest,
+        maNguoiDung: userLocalInfo.id,
+      };
+    }
+      const res = await bookingManagement.bookRoom(info)
+    }
+    catch (error){
+      console.log(error)
     }
   };
   return (
@@ -147,9 +260,6 @@ const RoomDetail = () => {
               </div>
             )}
             <div className="room-desc">{moTa}</div>
-            <div className="room-price font-bold">
-              ${giaTien} <span className="font-normal">/khách</span>
-            </div>
           </div>
         ) : (
           <div>
@@ -161,8 +271,79 @@ const RoomDetail = () => {
           </div>
         )}
       </div>
+      <div>
+        <div className="room-price font-bold">
+          ${giaTien} <span className="font-normal">/khách</span>
+        </div>
+        <div>{averageRating}</div>
+        <div>
+          ({listCommentArr.length}) <span>đánh giá</span>
+        </div>
+        <div></div>
+        <div>
+          <button onClick={handleBookRoom}>Đặt phòng</button>
+        </div>
+      </div>
+      <div>
+        {watchingRoom && checkIsLoggedIn(userLocalInfo) ? (
+          <div>
+            <div>{name}</div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                {" "}
+                <Rate
+                  onChange={(value) => {
+                    setFieldValue("saoBinhLuan", value);
+                  }}
+                  value={values.saoBinhLuan}
+                />
+              </div>
+              <div>
+                <textarea
+                  placeholder="Viết đánh giá..."
+                  name="noiDung"
+                  id="commentText"
+                  value={values.noiDung}
+                  onChange={handleChange}
+                  error={errors.noiDung}
+                  onBlur={handleBlur}
+                ></textarea>
+                {errors.noiDung && touched.noiDung ? (
+                  <p className="text-red-500 text-sm">{errors.noiDung}</p>
+                ) : null}
+              </div>
+              <div>
+                <button type="submit">Đánh giá</button>
+              </div>
+            </form>
+           
+          </div>
+        ) : (
+          <p>
+            Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
+          </p>
+        )}
+         <div className="border border-red-400">
+              {listCommentArr &&
+                listCommentArr
+                  .slice()
+                  .reverse()
+                  .map((comment) => (
+                    <div key={comment.id}>
+                      <div>{comment.tenNguoiBinhLuan}</div>
+                      <img className="w-8 h-8" src={comment.avatar} alt="" />
+                      <div>{comment.noiDung}</div>
+                      <div>
+                        <Rate value={comment.saoBinhLuan} />
+                      </div>
+                      <div>{calculateTimeAgo(comment.ngayBinhLuan)}</div>
+                    </div>
+                  ))}
+            </div>
+      </div>
       <Footer />
     </div>
+    
   );
 };
 
