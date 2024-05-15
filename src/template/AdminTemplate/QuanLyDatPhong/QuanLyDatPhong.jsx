@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker, message as antdMessage } from "antd";
 import moment from "moment";
-import { Modal,Button,Form,Input,Row,Col,Table,Select,} from "antd";
+import { Modal, Button, Form, Input, Row, Col, Table, Select } from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import {
@@ -86,9 +86,9 @@ const QuanLyDatPhong = () => {
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record); // Lưu thông tin người dùng được chỉnh sửa
-    form.setFieldsValue(record); // Điền thông tin người dùng được chọn vào form
-    setVisible(true); // Hiển thị lại popup thêm quản trị viên
+    setEditingUser(record);
+    form.setFieldsValue(record);
+    setVisible(true);
   };
 
   const handleDelete = async (record) => {
@@ -96,7 +96,6 @@ const QuanLyDatPhong = () => {
       const response = await http.delete(`/dat-phong/${record.id}`);
       if (response.status === 200) {
         antdMessage.success("Xoá đặt phòng thành công!");
-        // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
         antdMessage.error("Đã có lỗi xảy ra khi xoá .");
@@ -108,12 +107,20 @@ const QuanLyDatPhong = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" ,
-    render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
-     },
-    { title: "Mã phòng", dataIndex: "maPhong", key: "maPhong",
-    render: (maPhong) => <span style={{ fontWeight: "bold" ,color:"#CD5C5C" }}>{maPhong}</span>,
-     },
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+    },
+    {
+      title: "Mã phòng",
+      dataIndex: "maPhong",
+      key: "maPhong",
+      render: (maPhong) => (
+        <span style={{ fontWeight: "bold", color: "#CD5C5C" }}>{maPhong}</span>
+      ),
+    },
 
     {
       title: "Ngày đến",
@@ -130,17 +137,31 @@ const QuanLyDatPhong = () => {
       dataIndex: "ngayDi",
       key: "ngayDi",
       render: (ngayDi) => (
-        <span style={{ color: " #FF8247" , fontWeight: "bold" }}>
+        <span style={{ color: " #FF8247", fontWeight: "bold" }}>
           {moment(ngayDi).format("DD/MM/YYYY")}
         </span>
       ),
     },
-    { title: "Số lượng khách", dataIndex: "soLuongKhach", key: "soLuongKhach",
-    render: (soLuongKhach) => <span style={{ fontWeight: "bold" ,color:" #9932CC"}}>{soLuongKhach}</span>,
-     },
+    {
+      title: "Số lượng khách",
+      dataIndex: "soLuongKhach",
+      key: "soLuongKhach",
+      render: (soLuongKhach) => (
+        <span style={{ fontWeight: "bold", color: " #9932CC" }}>
+          {soLuongKhach}
+        </span>
+      ),
+    },
 
-    { title: "Mã người dùng", dataIndex: "maNguoiDung", key: "maNguoiDung" ,
-    render: (maNguoiDung) => <span style={{ fontWeight: "bold" ,color:"#FFB90F"}}>{maNguoiDung}</span>,
+    {
+      title: "Mã người dùng",
+      dataIndex: "maNguoiDung",
+      key: "maNguoiDung",
+      render: (maNguoiDung) => (
+        <span style={{ fontWeight: "bold", color: "#FFB90F" }}>
+          {maNguoiDung}
+        </span>
+      ),
     },
     {
       title: "Hành động",

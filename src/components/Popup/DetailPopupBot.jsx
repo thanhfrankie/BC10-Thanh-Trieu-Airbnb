@@ -10,10 +10,7 @@ const DetailPopupBot = () => {
   const navigate = useNavigate();
 
   const handleCompleteButtonClick = () => {
-    // Hiển thị thông báo cập nhật thành công 
     alert("Cập nhật thành công");
-
-    // Chuyển trang
     navigate("/thong-tin-ca-nhan");
   };
 

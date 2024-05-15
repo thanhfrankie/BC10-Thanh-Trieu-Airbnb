@@ -15,12 +15,10 @@ function DetailPopupLeft() {
 
   const handleDateChange = (date, dateString) => {
     console.log("Selected date:", dateString);
-    // Thực hiện xử lý với ngày tháng được chọn ở đây
   };
 
   const handleSearch = (value) => {
     console.log("Search value:", value);
-    // Thực hiện xử lý tìm kiếm tại đây
   };
 
   const handleCommentChange = (e) => {
@@ -38,7 +36,6 @@ function DetailPopupLeft() {
   const [visible4, setVisible4] = useState(false);
   const [visible5, setVisible5] = useState(false);
   const [visible6, setVisible6] = useState(false);
-  // Thêm các trạng thái visible cho các Modal khác
 
   const showModal1 = () => {
     setVisible1(true);
@@ -61,7 +58,6 @@ function DetailPopupLeft() {
   const showModal6 = () => {
     setVisible6(true);
   };
-  // Thêm các hàm showModal cho các Modal khác
 
   const handleOk1 = () => {
     setVisible1(false);
@@ -84,7 +80,6 @@ function DetailPopupLeft() {
   const handleOk6 = () => {
     setVisible6(false);
   };
-  // Thêm các hàm handleOk cho các Modal khác
   const handleCancel1 = () => {
     setVisible1(false);
   };
@@ -106,7 +101,6 @@ function DetailPopupLeft() {
   const handleCancel6 = () => {
     setVisible6(false);
   };
-  // Thêm các hàm handleCancel cho các Modal khác
 
   return (
     <div className="  ">

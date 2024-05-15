@@ -1,13 +1,13 @@
 .form_signUp {
-  width: 100%; // Đặt chiều rộng ban đầu là 100% để làm cho nó responsive
+  width: 100%; 
 }
 
-/* Bạn có thể thêm các media query khác nếu cần để điều chỉnh responsiveness chi tiết hơn */
+
 .form_signUp {
   // Base styles
   width: 90%;
   @media (min-width: 640px) {
-    width: 70%; // Điều chỉnh chiều rộng cho màn hình kích thước trung bình
+    width: 70%; 
   }
 
   @media (min-width: 768px) {
@@ -35,15 +35,7 @@
       width: 80%;
     }
   }
-  // .datePicker {
-  //   .ant-picker-panel-container,
-  //   .ant-picker-date-panel-container {
-  //     color: blue;
-  //     .ant-picker-panel-layout {
-  //       min-width: 20rem !important;
-  //     }
-  //   }
-  // }
+
   .selectorInput {
     min-width: 20rem !important;
     border-radius: 0.5rem;

@@ -8,13 +8,14 @@ import QuanLyNguoiDung from "./QuanLyNguoiDung/QuanLyNguoiDung";
 import QuanLyThongTinViTri from "./QuanLyThongTinViTri/QuanLyThongTinViTri";
 import QuanLyThongTinPhong from "./QuanLyThongTinPhong/QuanLyThongTinPhong";
 import QuanLyDatPhong from "./QuanLyDatPhong/QuanLyDatPhong";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedPage, setSelectedPage] = useState(""); // State để lưu trữ trang được chọn
+  const [selectedPage, setSelectedPage] = useState(""); 
   const navigate = useNavigate();
   const handleMenuClick = (key) => {
-    setSelectedPage(key); // Cập nhật trang được chọn khi click vào MenuItem
+    setSelectedPage(key); 
   };
   const renderContent = () => {
     switch (selectedPage) {
@@ -27,7 +28,7 @@ const AdminTemplate = () => {
       case "4":
         return <QuanLyDatPhong />;
       default:
-        return <QuanLyNguoiDung />; // Mặc định không hiển thị nội dung nào
+        return <QuanLyNguoiDung />; 
     }
   };
   const {
@@ -105,6 +106,7 @@ const AdminTemplate = () => {
           </Content>
         </Layout>
       </Layout>
+      <ScrollToTopButton/>
     </div>
   );
 };

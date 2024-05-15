@@ -6,6 +6,7 @@ import WithIcons from "../../layout/RoomFilter/WithIcons/WithIcons";
 import WithLocation from "../../layout/RoomFilter/WithLocation/WithLocation";
 import PastExperiences from "../../layout/RoomFilter/PastExperiences/PastExperiences";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 
 const HomePage = () => {
   useChangePageTitle("Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v.")
@@ -25,6 +26,7 @@ const HomePage = () => {
       <div className="h-3/4 w-full mt-3 ">
         <Footer />
       </div>
+      <ScrollToTopButton/>
     </div>
   );
 };
