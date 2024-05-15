@@ -17,7 +17,9 @@ const Header = () => {
 
   useEffect(() => {
     const userLocal = getLocalStorage("user");
-    setUserLocal(userLocal);
+    if (userLocal) {
+      setUserLocal(userLocal);
+    }
     const checkLocalStorage = () => {
       return userLocal !== null;
     };
@@ -28,7 +30,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    setUserRole(null); 
+    setUserRole(null);
     notify("Đăng xuất thành công , đang quay về trang chủ");
     setTimeout(() => {
       navigate("/");
@@ -44,7 +46,7 @@ const Header = () => {
           key: "greeting",
           className: "greeting-style",
         },
-       
+
         ...(isAdmin
           ? [
               {
@@ -71,12 +73,12 @@ const Header = () => {
         {
           label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
           key: "4",
-      },
-      {
-        label: "Đăng xuất",
-        onClick: handleLogout,
-        key: "logout",
-      },
+        },
+        {
+          label: "Đăng xuất",
+          onClick: handleLogout,
+          key: "logout",
+        },
       ]
     : [
         {
@@ -106,7 +108,19 @@ const Header = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
-
+  const renderAvatar = (user) => {
+    if (user) {
+      return user.avatar === "" ? (
+        <div className="w-8 h-8 flex items-center justify-center bg-indigo-400 text-white text-sm rounded-full ">
+          {" "}
+          {user.name.substring(0, 2).toUpperCase()}
+        </div>
+      ) : (
+        <img src={user.avatar} alt="" className="rounded-full w-8 h-8" />
+      );
+    }
+    return null;
+  };
   return (
     <div className="header">
       <div className="flex items-center mt-1">
@@ -169,7 +183,7 @@ const Header = () => {
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
                           {isLoggedIn ? (
-                            <img src={userLocal.avatar} alt="" />
+                            userLocal && renderAvatar(userLocal.user)
                           ) : (
                             <i className="fa-solid fa-circle-user"></i>
                           )}

@@ -27,14 +27,14 @@ const WithIcons = () => {
           key={index}
           className={`filterIconDiv ${
             index === selectedFilter ? "selectedIcon" : ""
-          } border border-red-500`}
+          } min-w-56 border border-red-500`}
           onClick={() => {
             console.log(index);
             setSelectedFilter(index);
           }}
         >
           <img src={item.icon} alt="" className="filterIcon" />
-          <p className="label text-sm text-center min-w-56 border border-red-500">
+          <p className="label text-sm text-center  border border-red-500">
             {item.label}
           </p>
         </div>
