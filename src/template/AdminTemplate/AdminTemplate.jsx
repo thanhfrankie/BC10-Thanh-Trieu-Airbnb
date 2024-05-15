@@ -8,6 +8,7 @@ import QuanLyNguoiDung from "./QuanLyNguoiDung/QuanLyNguoiDung";
 import QuanLyThongTinViTri from "./QuanLyThongTinViTri/QuanLyThongTinViTri";
 import QuanLyThongTinPhong from "./QuanLyThongTinPhong/QuanLyThongTinPhong";
 import QuanLyDatPhong from "./QuanLyDatPhong/QuanLyDatPhong";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -105,6 +106,7 @@ const AdminTemplate = () => {
           </Content>
         </Layout>
       </Layout>
+      <ScrollToTopButton/>
     </div>
   );
 };

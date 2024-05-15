@@ -1,22 +1,17 @@
 import React, { useContext, useState } from "react";
 import InputSign from "../../components/Input/InputSign";
 import * as registerAnimation from "./../../assets/animation/register.json";
-import Lottie from "react-lottie";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import { userManagementServ } from "../../services/userManagement";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
-import { saveLocalStorage, validationMessage } from "../../utils/util";
-
 import SignInMobile from "../SignInMobile/SignInMobile";
 
-// import useResponsive from "../../hooks/useResponsive";
 import "./SignUp.scss";
 const SignUp = () => {
   
-  // const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
@@ -69,14 +64,6 @@ const SignUp = () => {
       }),
     });
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: registerAnimation,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   return (
     <div className="w-screen h-screen bg-gray-400 relative">
       <div className="container flex justify-center items-center">

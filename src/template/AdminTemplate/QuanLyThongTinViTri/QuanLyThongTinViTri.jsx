@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Upload } from "antd";
-import { Modal, Button, Form, Input, message, Row, Col, Table,} from "antd";
+import { Modal, Button, Form, Input, message, Row, Col, Table } from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import { PushpinOutlined, ShopOutlined,GlobalOutlined, UploadOutlined,} from "@ant-design/icons";
+import {
+  ShopOutlined,
+  GlobalOutlined,
+  UploadOutlined,
+  EnvironmentOutlined,
+  PictureOutlined,
+} from "@ant-design/icons";
 import { getToken } from "../../../services/authService"; // Import hàm lấy token
 
 const QuanLyThongTinViTri = () => {
@@ -256,13 +262,13 @@ const QuanLyThongTinViTri = () => {
           >
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item name="id" label="ID Vị Trí">
+                <Form.Item name="id" label="ID ">
                   <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item name="hinhAnh" label="Hình Ảnh">
-                  <Input prefix={<PushpinOutlined />} placeholder="Tải hình" />
+                  <Input prefix={<PictureOutlined />} placeholder="Tải hình" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -276,7 +282,10 @@ const QuanLyThongTinViTri = () => {
                     },
                   ]}
                 >
-                  <Input prefix={<PushpinOutlined />} placeholder="Vị trí" />
+                  <Input
+                    prefix={<EnvironmentOutlined />}
+                    placeholder="Vị trí"
+                  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -344,7 +353,7 @@ const QuanLyThongTinViTri = () => {
             <img
               src={detailData.hinhAnh}
               alt="Hình Ảnh"
-              style={{ width: "150px", height: "150px" }}
+              style={{ width: "250px", height: "250px" }}
             />
           </p>
         </div>

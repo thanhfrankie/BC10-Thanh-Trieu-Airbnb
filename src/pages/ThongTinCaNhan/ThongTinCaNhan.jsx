@@ -9,6 +9,7 @@ import { getLocalStorage } from "../../utils/util";
 import { http } from "../../services/config";
 import { Modal, Button, Input, message, Radio, notification, Row, Col } from "antd";
 import { getToken } from "../../services/authService"; // Import hàm lấy token
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 const { TextArea } = Input;
 
 const ThongTinCaNhan = () => {
@@ -102,7 +103,11 @@ const ThongTinCaNhan = () => {
 
   return (
     <div className="container">
+     
       <Header  />
+      <div style={{height:"100px", background:"#7A8B8B", color:"white" ,fontSize:"50px",fontWeight:"bold" ,marginTop:"20px" ,textAlign:"center"}}> 
+        Thông Tin Của Bạn
+      </div>
       <div className=" mr-32 ml-32 mt-5 mb-5">
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={6}>
@@ -344,7 +349,11 @@ const ThongTinCaNhan = () => {
         </Col>
       </Row>
       </div>
+      <div style={{height:"50px", background:"#7A8B8B", color:"white" ,fontSize:"50px",fontWeight:"bold" ,marginTop:"20px" ,textAlign:"center"}}> 
+        
+      </div>
       <Footer />
+      <ScrollToTopButton/>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { message as antdMessage, Switch, Upload } from "antd";
 import { Modal, Button, Form, Input, message, Row, Col, Table, Select,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {ShopOutlined, FormOutlined, PoundOutlined, InsertRowLeftOutlined,InboxOutlined, InsertRowRightOutlined, InstagramOutlined, UploadOutlined,} from "@ant-design/icons";
+import {ShopOutlined, FormOutlined, PoundOutlined, InsertRowLeftOutlined,InboxOutlined, InsertRowRightOutlined,  UploadOutlined, PictureOutlined,} from "@ant-design/icons";
 import { getToken } from "../../../services/authService"; // Import hàm lấy token
 const { Option } = Select;
 const { TextArea, Search } = Input;
@@ -186,7 +186,7 @@ const QuanLyThongTinPhong = () => {
       dataIndex: "moTa",
       key: "moTa",
       render: (moTa) => (
-        <span style={{  color:"brown" }}>
+        <span style={{  color:"#2F4F4F" }}>
           {moTa.length > 100 ? `${moTa.substring(0, 100)}...` : moTa}
         </span>
       ),
@@ -273,15 +273,9 @@ const QuanLyThongTinPhong = () => {
                 <Form.Item
                   name="hinhAnh"
                   label="Hình Ảnh"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng thêm hình ảnh.",
-                    },
-                  ]}
                 >
                   <Input
-                    prefix={<InstagramOutlined />}
+                    prefix={<PictureOutlined />}
                     placeholder="Hình ảnh"
                   />
                 </Form.Item>

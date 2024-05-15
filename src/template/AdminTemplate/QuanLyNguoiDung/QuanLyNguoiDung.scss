@@ -1,14 +1,12 @@
-
 :where(.css-dev-only-do-not-override-1kuana8).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
     width: 470px !important;
     height: 35px !important;
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-btn-link {
-    color: #8B8989;
-    
+    color: #8b8989;
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-btn-link:not(:disabled):not(.ant-btn-disabled):hover {
-    color: #2F4F4F;
+    color: #2f4f4f;
     background: transparent;
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-select .ant-select-arrow {
@@ -16,19 +14,21 @@
 }
 :where(.css-dev-only-do-not-override-1kuana8).ant-pagination .ant-pagination-options {
     display: none;
-   
 }
 
 :where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-pagination-right {
     justify-content: center;
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-input-search .ant-input:hover, :where(.css-dev-only-do-not-override-1kuana8).ant-input-search .ant-input:focus {
-    border-color:#8B8989;
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-search .ant-input:hover,
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-search .ant-input:focus {
+    border-color: #8b8989;
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-tbody > tr > td {
+    padding: 8px 8px;
+}
 
-
-.widthModalPhong{
+.widthModalPhong {
     width: 666px !important;
 }
