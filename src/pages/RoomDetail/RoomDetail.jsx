@@ -290,7 +290,7 @@ const RoomDetail = () => {
           <div>
             <div>
               <div>{name}</div>
-              <div>{renderAvatar(userLocalInfo, 12, 12)}</div>
+              <div className="w-12 h-12">{renderAvatar(userLocalInfo, 12, 12)}</div>
             </div>
             <form onSubmit={handleSubmit}>
               <div>
