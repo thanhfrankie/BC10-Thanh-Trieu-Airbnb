@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { bookingManagement } from "../../services/bookingRoomManagement";
 import { roomManagement } from "../../services/roomManagement";
 import { getLocalStorage } from "../../utils/util";
-import "./Trips.scss";
 import Loading from "../../components/Loading/Loading";
 import { NavLink } from "react-router-dom";
+import useChangePageTitle from "../../hooks/useChangePageTitle";
+import "./Trips.scss";
 const Trips = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [listBookedRoomArr, setListBookedRoomArr] = useState([]);
@@ -12,6 +13,7 @@ const Trips = () => {
   const [showedRoomArr, setShowedRoomArr] = useState([]);
   const [loadingRooms, setLoadingRooms] = useState(true);
   const [loadingBookings, setLoadingBookings] = useState(true);
+  useChangePageTitle("Chuyến đi của bạn - Airbnb");
   useEffect(() => {
     const fetchUserData = () => {
       const userLocal = getLocalStorage("user");
@@ -99,26 +101,16 @@ const Trips = () => {
       }
     }
   };
-  if (!userLocalInfo) {
-    return (
-      <div>
-        <h1>Vui lòng đăng nhập để tiếp tục</h1>
-        <NavLink to="/sign-in">Đăng nhập</NavLink>
-      </div>
-    );
-  }
   return (
     <div>
-      
-      {showedRoomArr.length > 0 ? (
-        showedRoomArr
-          .map((room, index) => (
-            <div key={index}>
-              {room.hinhAnh}
-              <div>{ room.id}</div>
-              <button onClick={() => handleCancel(room.id)}>Hủy</button>
-            </div>
-          ))
+      {showedRoomArr.length > 0 && userLocalInfo ? (
+        showedRoomArr.map((room, index) => (
+          <div key={index}>
+            <img src={room.hinhAnh} alt="" />
+            <div>{room.id}</div>
+            <button onClick={() => handleCancel(room.id)}>Hủy</button>
+          </div>
+        ))
       ) : (
         <div>
           <h1>Chưa có chuyến đi nào được đặt... vẫn chưa!</h1>
@@ -126,7 +118,13 @@ const Trips = () => {
             Đã đến lúc phủi bụi vali và bắt đầu chuẩn bị cho chuyến phiêu lưu
             tiếp theo của bạn rồi.
           </h2>
-          <NavLink to="/">Bắt đầu tìm kiếm</NavLink>
+          <div>
+            Bắt đầu {""}
+            <NavLink to="/" className="text-blue-700">
+              tìm kiếm
+            </NavLink>
+            {""} nào
+          </div>
         </div>
       )}
     </div>

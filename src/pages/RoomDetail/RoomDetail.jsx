@@ -316,7 +316,14 @@ const RoomDetail = () => {
                 <button type="submit">Đánh giá</button>
               </div>
             </form>
-            <div className="border border-red-400">
+           
+          </div>
+        ) : (
+          <p>
+            Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
+          </p>
+        )}
+         <div className="border border-red-400">
               {listCommentArr &&
                 listCommentArr
                   .slice()
@@ -333,15 +340,10 @@ const RoomDetail = () => {
                     </div>
                   ))}
             </div>
-          </div>
-        ) : (
-          <p>
-            Bạn cần <NavLink to="/sign-up">đăng nhập</NavLink> để bình luận.
-          </p>
-        )}
       </div>
       <Footer />
     </div>
+    
   );
 };
 
