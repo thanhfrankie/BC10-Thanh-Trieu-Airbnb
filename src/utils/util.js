@@ -72,3 +72,18 @@ export const calculateAverage = (array, fixed) => {
   const average =sum / array.length;
 return parseFloat(average.toFixed(fixed))
 }
+export const renderAvatar = (user, widthValue=8, heightValue=8) => {
+  if (user) {
+    const width = `${widthValue}`
+    const height = `${heightValue}`
+    return user.avatar === "" ? (
+      <div className={`w-${width} h-${height} flex items-center justify-center bg-indigo-400 text-white text-sm rounded-full `}>
+        {" "}
+        {user.name.substring(0, 2).toUpperCase()}
+      </div>
+    ) : (
+      <img src={user.avatar} alt="" className={`flex items-center justify-center rounded-full object-cover w-${width} h-${height}`} />
+    );
+  }
+  return null;
+};

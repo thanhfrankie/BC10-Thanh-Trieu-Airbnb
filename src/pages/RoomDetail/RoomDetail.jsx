@@ -10,6 +10,7 @@ import {
   getLocalStorage,
   calculateTimeAgo,
   calculateAverage,
+  renderAvatar,
 } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
@@ -197,7 +198,7 @@ const RoomDetail = () => {
     tivi,
     wifi,
   } = watchingRoom || {};
-  const { name, id } = userLocalInfo || {};
+  const { name, id, avatar } = userLocalInfo || {};
   const hasLocation = checkLocation(maViTri);
   const { slug, tenViTri, tinhThanh, quocGia } = hasLocation || {};
   const checkRoomOwner = () => {
@@ -287,7 +288,10 @@ const RoomDetail = () => {
       <div>
         {watchingRoom && checkIsLoggedIn(userLocalInfo) ? (
           <div>
-            <div>{name}</div>
+            <div>
+              <div>{name}</div>
+              <div>{renderAvatar(userLocalInfo, 12, 12)}</div>
+            </div>
             <form onSubmit={handleSubmit}>
               <div>
                 {" "}

@@ -5,7 +5,7 @@ import logo from "./../../assets/img/logo.png";
 import "./Header.scss";
 import ButtonCustom from "../../components/Button/ButtonCustom";
 import InputSearchBar from "../../components/Input/InputSearchBar";
-import { getLocalStorage } from "../../utils/util";
+import { getLocalStorage, renderAvatar } from "../../utils/util";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 
 const Header = () => {
@@ -108,19 +108,7 @@ const Header = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
-  const renderAvatar = (user) => {
-    if (user) {
-      return user.avatar === "" ? (
-        <div className="w-8 h-8 flex items-center justify-center bg-indigo-400 text-white text-sm rounded-full ">
-          {" "}
-          {user.name.substring(0, 2).toUpperCase()}
-        </div>
-      ) : (
-        <img src={user.avatar} alt="" className="rounded-full w-8 h-8" />
-      );
-    }
-    return null;
-  };
+ 
   return (
     <div className="header">
       <div className="flex items-center mt-1">

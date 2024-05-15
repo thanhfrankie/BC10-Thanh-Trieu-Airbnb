@@ -1,5 +1,5 @@
 import { Rate } from "antd";
-import { calculateTimeAgo } from "../../utils/util";
+import { calculateTimeAgo, renderAvatar } from "../../utils/util";
 
 export const RoomComment = ({
   id,
@@ -12,7 +12,7 @@ export const RoomComment = ({
   return (
     <div key={id}>
       <div>{tenNguoiBinhLuan}</div>
-      <img className="w-8 h-8" src={avatar} alt="" />
+      {renderAvatar({ name: tenNguoiBinhLuan, avatar }, 10, 10)}
       <div>{noiDung}</div>
       <div>
         <Rate value={saoBinhLuan} disabled />
