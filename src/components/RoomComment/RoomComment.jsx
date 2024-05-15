@@ -12,10 +12,10 @@ export const RoomComment = ({
   return (
     <div key={id}>
       <div>{tenNguoiBinhLuan}</div>
-      <div className="w-10 h-10">
+      {/* <div className="w-10 h-10"> */}
         {{ name: tenNguoiBinhLuan, avatar } &&
           renderAvatar({ name: tenNguoiBinhLuan, avatar }, 10, 10)}
-      </div>
+      {/* </div> */}
       <div>{noiDung}</div>
       <div>
         <Rate value={saoBinhLuan} disabled />
