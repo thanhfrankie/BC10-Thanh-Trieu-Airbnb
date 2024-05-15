@@ -1,11 +1,10 @@
 .filterIconContainer {
   overflow-x: auto;
   margin-top: 1.5rem;
-  padding-top: 2rem;
+  padding-top: 1.3rem;
   display: flex;
   align-items: start;
   justify-content: start;
-  gap: 2rem;
   .filterIconDiv {
     padding-bottom: 0.65rem;
     display: flex;
@@ -33,5 +32,42 @@
   }
   .iconLabel {
     font-size: 0.5rem;
+  }
+  .filterIconContainer {
+    display: flex;
+  }
+  
+  .filterIconDiv {
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .filterIconDiv:hover::after,
+  .filterIconDiv.selectedIcon::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 1px;
+    background-color: black;
+  }
+  
+  .label {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .label:hover::after,
+  .filterIconDiv.selectedIcon .label::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: black;
   }
 }

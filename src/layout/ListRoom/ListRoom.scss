@@ -1,0 +1,25 @@
+.truncate-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3em; /* approximate height for 2 lines of text */
+  }
+  
+  .truncate-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 1.5em; /* approximate height for 1 line of text */
+  }
+  .RoomCard {
+    /* Các quy tắc CSS khác */
+    transition: transform 0.5s ease; /* Thêm transition cho thuộc tính transform */
+  }
+  
+//   .RoomCard:hover {
+//     transform: translateY(-5px); /* Dịch chuyển CardRoom lên trên khi hover */
+//   }

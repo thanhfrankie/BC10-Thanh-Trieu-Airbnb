@@ -19,6 +19,7 @@ import * as Yup from "yup";
 import { Rate } from "antd";
 import { bookingManagement } from "../../services/bookingRoomManagement";
 import "./RoomDetail.scss";
+import RoomComment from "../../components/RoomComment/RoomComment";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
@@ -27,10 +28,10 @@ const RoomDetail = () => {
   const [userLocalInfo, setUserLocalInfo] = useState(null);
   const [listCommentArr, setListCommentArr] = useState([]);
   const [averageRating, setAverageRating] = useState();
-  const [guest, setGuest] = useState(1)
+  const [guest, setGuest] = useState(1);
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
-  
+
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   useEffect(() => {
     const fetchUserData = () => {
@@ -55,7 +56,7 @@ const RoomDetail = () => {
         setLoading(false);
       }
     };
-    fetchUserData()
+    fetchUserData();
     fetchRoomData();
   }, []);
 
@@ -209,20 +210,19 @@ const RoomDetail = () => {
   };
   const handleBookRoom = async () => {
     try {
-    let info;
-    if (watchingRoom && userLocalInfo) {
-      info = {
-        maPhong: watchingRoom.id,
-        ngayDen: new Date(),
-        ngayDi: new Date(),
-        soLuongKhach: guest,
-        maNguoiDung: userLocalInfo.id,
-      };
-    }
-      const res = await bookingManagement.bookRoom(info)
-    }
-    catch (error){
-      console.log(error)
+      let info;
+      if (watchingRoom && userLocalInfo) {
+        info = {
+          maPhong: watchingRoom.id,
+          ngayDen: new Date(),
+          ngayDi: new Date(),
+          soLuongKhach: guest,
+          maNguoiDung: userLocalInfo.id,
+        };
+      }
+      const res = await bookingManagement.bookRoom(info);
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -316,34 +316,31 @@ const RoomDetail = () => {
                 <button type="submit">Đánh giá</button>
               </div>
             </form>
-           
           </div>
         ) : (
           <p>
             Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
           </p>
         )}
-         <div className="border border-red-400">
-              {listCommentArr &&
-                listCommentArr
-                  .slice()
-                  .reverse()
-                  .map((comment) => (
-                    <div key={comment.id}>
-                      <div>{comment.tenNguoiBinhLuan}</div>
-                      <img className="w-8 h-8" src={comment.avatar} alt="" />
-                      <div>{comment.noiDung}</div>
-                      <div>
-                        <Rate value={comment.saoBinhLuan} />
-                      </div>
-                      <div>{calculateTimeAgo(comment.ngayBinhLuan)}</div>
-                    </div>
-                  ))}
-            </div>
+        <div className="border border-red-400">
+          {listCommentArr &&
+            listCommentArr
+              .slice()
+              .reverse()
+              .map((comment) => (
+                <RoomComment
+                  id={comment.id}
+                  tenNguoiBinhLuan={comment.tenNguoiBinhLuan}
+                  avatar={comment.avatar}
+                  noiDung={comment.noiDung}
+                  saoBinhLuan={comment.saoBinhLuan}
+                  ngayBinhLuan={comment.ngayBinhLuan}
+                />
+              ))}
+        </div>
       </div>
       <Footer />
     </div>
-    
   );
 };
 
