@@ -22,7 +22,7 @@ function DetailPopupRight() {
   const [comment, setComment] = useState("");
   const handleSearch = (value) => {
     console.log("Search value:", value);
-    // Thực hiện xử lý tìm kiếm tại đây
+    
   };
 
   const handleCommentChange = (e) => {
@@ -40,7 +40,6 @@ function DetailPopupRight() {
   const [visible4, setVisible4] = useState(false);
   const [visible5, setVisible5] = useState(false);
   const [visible6, setVisible6] = useState(false);
-  // Thêm các trạng thái visible cho các Modal khác
 
   const showModal1 = () => {
     setVisible1(true);
@@ -63,7 +62,6 @@ function DetailPopupRight() {
   const showModal6 = () => {
     setVisible6(true);
   };
-  // Thêm các hàm showModal cho các Modal khác
 
   const handleOk1 = () => {
     setVisible1(false);
@@ -86,7 +84,7 @@ function DetailPopupRight() {
   const handleOk6 = () => {
     setVisible6(false);
   };
-  // Thêm các hàm handleOk cho các Modal khác
+  
   const handleCancel1 = () => {
     setVisible1(false);
   };
@@ -108,7 +106,7 @@ function DetailPopupRight() {
   const handleCancel6 = () => {
     setVisible6(false);
   };
-  // Thêm các hàm handleCancel cho các Modal khác
+
 
   return (
     <div className=" w-full ">

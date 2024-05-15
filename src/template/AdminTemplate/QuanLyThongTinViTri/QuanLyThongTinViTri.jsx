@@ -10,7 +10,7 @@ import {
   EnvironmentOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { getToken } from "../../../services/authService"; // Import hàm lấy token
+import { getToken } from "../../../services/authService"; 
 
 const QuanLyThongTinViTri = () => {
   const [usersData, setUsersData] = useState([]);

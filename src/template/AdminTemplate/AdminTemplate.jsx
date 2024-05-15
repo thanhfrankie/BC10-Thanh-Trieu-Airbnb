@@ -12,10 +12,10 @@ import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopBut
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedPage, setSelectedPage] = useState(""); // State để lưu trữ trang được chọn
+  const [selectedPage, setSelectedPage] = useState(""); 
   const navigate = useNavigate();
   const handleMenuClick = (key) => {
-    setSelectedPage(key); // Cập nhật trang được chọn khi click vào MenuItem
+    setSelectedPage(key); 
   };
   const renderContent = () => {
     switch (selectedPage) {
@@ -28,7 +28,7 @@ const AdminTemplate = () => {
       case "4":
         return <QuanLyDatPhong />;
       default:
-        return <QuanLyNguoiDung />; // Mặc định không hiển thị nội dung nào
+        return <QuanLyNguoiDung />; 
     }
   };
   const {

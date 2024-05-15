@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Switch, Upload } from "antd";
-import { Modal, Button, Form, Input, message, Row, Col, Table, Select,} from "antd";
+import { Modal, Button,  Form,Input, message, Row, Col, Table, Select,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {ShopOutlined, FormOutlined, PoundOutlined, InsertRowLeftOutlined,InboxOutlined, InsertRowRightOutlined,  UploadOutlined, PictureOutlined,} from "@ant-design/icons";
-import { getToken } from "../../../services/authService"; // Import hàm lấy token
+import { ShopOutlined,  FormOutlined,PoundOutlined,InsertRowLeftOutlined,InboxOutlined,InsertRowRightOutlined,UploadOutlined,PictureOutlined,} from "@ant-design/icons";
+import { getToken } from "../../../services/authService"; 
 const { Option } = Select;
 const { TextArea, Search } = Input;
 
@@ -147,8 +147,11 @@ const QuanLyThongTinPhong = () => {
   };
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" ,
-    render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
     },
     {
       title: "Hình Ảnh",
@@ -186,7 +189,7 @@ const QuanLyThongTinPhong = () => {
       dataIndex: "moTa",
       key: "moTa",
       render: (moTa) => (
-        <span style={{  color:"#2F4F4F" }}>
+        <span style={{ color: "#2F4F4F" }}>
           {moTa.length > 100 ? `${moTa.substring(0, 100)}...` : moTa}
         </span>
       ),
@@ -197,7 +200,7 @@ const QuanLyThongTinPhong = () => {
       dataIndex: "giaTien",
       key: "giaTien",
       render: (giaTien) => (
-        <span style={{ fontWeight: "bold" ,color:"green" }}>{giaTien}</span>
+        <span style={{ fontWeight: "bold", color: "green" }}>{giaTien}</span>
       ),
     },
     {
@@ -270,14 +273,8 @@ const QuanLyThongTinPhong = () => {
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item
-                  name="hinhAnh"
-                  label="Hình Ảnh"
-                >
-                  <Input
-                    prefix={<PictureOutlined />}
-                    placeholder="Hình ảnh"
-                  />
+                <Form.Item name="hinhAnh" label="Hình Ảnh">
+                  <Input prefix={<PictureOutlined />} placeholder="Hình ảnh" />
                 </Form.Item>
               </Col>
               <Col span={8}>
