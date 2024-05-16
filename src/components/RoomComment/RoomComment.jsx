@@ -12,7 +12,7 @@ export const RoomComment = ({
     <div key={id} className="flex gap-3">
       <div >
         {{ name: tenNguoiBinhLuan, avatar } &&
-          renderAvatar({ name: tenNguoiBinhLuan, avatar }, 10, 10)}
+          renderAvatar({ name: tenNguoiBinhLuan, avatar })}
       </div>
       <div className="">
         <div className="font-semibold text-lg">{tenNguoiBinhLuan}</div>

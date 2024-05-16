@@ -29,11 +29,11 @@
   .room-booking {
     border: 2px solid #e5e7eb;
   }
-  .room-booking__button {
-    background-color: #f2285f;
-    &:hover {
-      background-color: #ff5a83;
-    }
+}
+.room-booking__button {
+  background-color: #f2285f;
+  &:hover {
+    background-color: #ff5a83;
   }
 }
 .room-comment__info {

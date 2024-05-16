@@ -6,6 +6,10 @@ import Loading from "../../components/Loading/Loading";
 import { NavLink } from "react-router-dom";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
 import "./Trips.scss";
+import Footer from "../../layout/Footer/Footer";
+import Header from "../../layout/Header/Header";
+import RoomCard from "../../components/RoomCard/RoomCard";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 const Trips = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [listBookedRoomArr, setListBookedRoomArr] = useState([]);
@@ -103,30 +107,65 @@ const Trips = () => {
   };
   return (
     <div>
-      {showedRoomArr.length > 0 && userLocalInfo ? (
-        showedRoomArr.map((room, index) => (
-          <div key={index}>
-            <img src={room.hinhAnh} alt="" />
-            <div>{room.id}</div>
-            <button onClick={() => handleCancel(room.id)}>Hủy</button>
-          </div>
-        ))
-      ) : (
-        <div>
-          <h1>Chưa có chuyến đi nào được đặt... vẫn chưa!</h1>
-          <h2>
-            Đã đến lúc phủi bụi vali và bắt đầu chuẩn bị cho chuyến phiêu lưu
-            tiếp theo của bạn rồi.
-          </h2>
-          <div>
-            Bắt đầu {""}
-            <NavLink to="/" className="text-blue-700">
-              tìm kiếm
-            </NavLink>
-            {""} nào
-          </div>
+      <div className="px-56">
+        <Header />
+        {showedRoomArr.length !== 0 && (
+          <h1 className="text-2xl font-bold my-4 ">Phòng đã thuê</h1>
+        )}
+        <div className="w-full h-auto mx-auto flex items-center justify-start flex-wrap py-2 ">
+          {showedRoomArr &&
+            showedRoomArr.map((room) => (
+              <RoomCard
+                key={room.id}
+                to={`/room-detail/${room.id}`}
+                id={room.id}
+                hinhAnh={room.hinhAnh}
+                tenPhong={room.tenPhong}
+                moTa={room.moTa}
+                giaTien={room.giaTien}
+                btnClass="trips-cancel__button py-3 flex items-center justify-center rounded-lg text-white"
+                handle={handleCancel}
+                contentButton="Hủy"
+              />
+            ))}
+          {showedRoomArr.length === 0 && (
+            <div>
+              <div className="h-auto px-56">
+                <div className="h-screen-70 mt-4">
+                  <h1 className="font-bold text-3xl">Chuyến đi</h1>
+                  <div className="trips-find__trip flex flex-col gap-4 py-5 my-5">
+                    <h1 className="font-semibold text-xl">
+                      Chưa có chuyến đi nào được đặt... vẫn chưa!
+                    </h1>
+                    <h2>
+                      Đã đến lúc phủi bụi vali và bắt đầu chuẩn bị cho chuyến
+                      phiêu lưu tiếp theo của bạn rồi.
+                    </h2>
+                    <div>
+                      Bắt đầu {""}
+                      <NavLink
+                        to="/"
+                        className="trips-find__room hover:underline"
+                      >
+                        tìm kiếm
+                      </NavLink>
+                      {""} nào
+                    </div>
+                  </div>
+                  <div>
+                    Bạn không tìm thấy đặt phòng/đặt chỗ của mình ở đây?{" "}
+                    <button className="underline font-medium">
+                      Truy cập Trung tâm trợ giúp
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
+      <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

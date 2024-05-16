@@ -34,10 +34,11 @@ const ListRoom = () => {
   }
   return (
    
-    <div className="w-full h-auto mx-auto flex items-center justify-center flex-wrap  py-2 border border-red-300">
+    <div className="w-full h-auto mx-auto flex items-center justify-center flex-wrap  py-2">
     {listRoomArr &&
       listRoomArr.map((room) => (
         <RoomCard
+          to={`room-detail/${room.id}`}
         key={room.id}
         id={room.id}
         hinhAnh={room.hinhAnh}

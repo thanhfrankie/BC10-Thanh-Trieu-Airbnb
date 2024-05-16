@@ -5,6 +5,10 @@
   display: flex;
   align-items: start;
   justify-content: start;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
   .filterIconDiv {
     padding-bottom: 0.65rem;
     display: flex;
@@ -18,12 +22,10 @@
     border-bottom: 1px solid white;
     &:hover {
       transition: all 0.4s;
-      border-bottom: 1px solid black;
       opacity: 1;
     }
   }
   .selectedIcon {
-    border-bottom: 1px solid black;
     opacity: 1;
   }
   .filterIcon {
@@ -36,30 +38,15 @@
   .filterIconContainer {
     display: flex;
   }
-  
   .filterIconDiv {
     position: relative;
     margin-right: 10px;
     cursor: pointer;
   }
-  
-  .filterIconDiv:hover::after,
-  .filterIconDiv.selectedIcon::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 1px;
-    background-color: black;
-  }
-  
   .label {
     position: relative;
     z-index: 1;
   }
-  
   .label:hover::after,
   .filterIconDiv.selectedIcon .label::after {
     content: "";
@@ -70,4 +57,7 @@
     height: 1px;
     background-color: black;
   }
+}
+.filterIconContainer::-webkit-scrollbar {
+  display: none; 
 }

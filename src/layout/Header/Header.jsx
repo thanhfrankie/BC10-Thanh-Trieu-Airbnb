@@ -93,11 +93,19 @@ const Header = () => {
           type: "divider",
         },
         {
-          label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
+          label: (
+            <NavLink to="https://www.airbnb.com.vn/host/homes">
+              Cho thuê chỗ ở qua Airbnb
+            </NavLink>
+          ),
           key: "3",
         },
         {
-          label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
+          label: (
+            <NavLink to="https://www.airbnb.com.vn/help">
+              Trung tâm trợ giúp
+            </NavLink>
+          ),
           key: "4",
         },
       ];
@@ -112,7 +120,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="flex items-center mt-1">
-        <nav className="w-full bg-white  py-2.5 h-20 pt-4">
+        <div className="w-full bg-white  py-2.5 h-20 pt-4 ">
           <div className="w-full flex  justify-between items-center">
             <NavLink
               to="/"
@@ -136,7 +144,7 @@ const Header = () => {
                 }`}
                 onClick={() => handleButtonClick("Trải nghiệm")}
               />
-              <NavLink to="/s/experiences/online">
+              <NavLink to="https://www.airbnb.com.vn/s/experiences/online">
                 <ButtonCustom
                   value="Trải nghiệm trực tuyến"
                   classNameBtn="btnHover"
@@ -144,7 +152,7 @@ const Header = () => {
               </NavLink>
             </div>
             <div className="flex items-center justify-between ">
-              <NavLink to="/host/homes">
+              <NavLink to="https://www.airbnb.com.vn/host/homes">
                 <ButtonCustom
                   value="Cho thuê chỗ ở qua Airbnb"
                   classNameBtn="btnRent font-semibold text-black"
@@ -183,7 +191,8 @@ const Header = () => {
               </div>
             </div>
           </div>
-        </nav>
+          
+        </div>
       </div>
       <div
         className="h-auto w-1/2  flex items-center justify-center mx-auto gap-1 rounded-full border border-gray-500 "

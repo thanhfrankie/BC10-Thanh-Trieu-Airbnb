@@ -7,11 +7,10 @@ import { NavLink } from "react-router-dom";
 import { userManagementServ } from "../../services/userManagement";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
-import SignInMobile from "../SignInMobile/SignInMobile";
 
 import "./SignUp.scss";
+import SignInBg from "../SignInMobile/SignInBg";
 const SignUp = () => {
-  
   const [showPassword, setShowPassword] = useState(false);
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
@@ -63,7 +62,7 @@ const SignUp = () => {
     <div className="w-screen h-screen bg-gray-400 relative">
       <div className="container flex justify-center items-center">
         <div className="container absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-50 pointer-events-none">
-          <SignInMobile />
+          <SignInBg />
         </div>
 
         <div className="form_signUp  w-1/3 h-auto  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 ">

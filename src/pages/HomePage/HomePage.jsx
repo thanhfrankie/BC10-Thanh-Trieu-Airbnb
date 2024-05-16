@@ -15,7 +15,7 @@ const HomePage = () => {
       <div className="px-20">
         <Header />
       </div>
-      <div className="h-full sm:px-3 lg:px-10 md:px-8 xl:px-20 border border-red-500">
+      <div className="h-full sm:px-3 lg:px-10 md:px-8 xl:px-20">
         <WithIcons />
         <WithLocation/>
         <ListRoom />

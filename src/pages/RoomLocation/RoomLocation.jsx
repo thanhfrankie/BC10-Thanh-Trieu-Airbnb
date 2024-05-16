@@ -8,6 +8,7 @@ import { mapInfo } from "../../assets/map/map";
 import Header from "../../layout/Header/Header";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
 import Footer from "../../layout/Footer/Footer";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 
 const RoomLocation = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
@@ -91,18 +92,26 @@ const RoomLocation = () => {
   }
   const { id, tinhThanh, quocGia } = currentLocation || {};
   return (
-    <div className="border border-red-400">
+    <div className="">
       <div className="h-auto px-56 mb-5">
         <Header />
         <div>
           {listRoomByLocationArr.length === 0 ? (
-            <div>
+            <div className="h-screen-70 mt-3">
+              <div className="my-3">
               Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui lòng
               quay lại{" "}
               <NavLink to="/" className="text-blue-700">
                 trang chủ
               </NavLink>{" "}
               để tiếp tục
+              </div>
+              <button
+             
+                className="room-booking__button py-5 px-7 flex items-center justify-center rounded-lg text-white border border-pink-500"
+              >
+                Yêu cầu
+              </button>
             </div>
           ) : (
             <div>
@@ -166,6 +175,7 @@ const RoomLocation = () => {
         </div>
       </div>
       <Footer />
+      <ScrollToTopButton/>
     </div>
   );
 };

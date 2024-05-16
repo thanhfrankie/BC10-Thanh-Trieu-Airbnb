@@ -20,7 +20,7 @@ const WithLocation = () => {
   }, []);
 
   return (
-    <div className="location-container border border-red-400 mx-auto p-4">
+    <div className="location-container mx-auto p-4">
       <h2 className="text-lg font-semibold mb-4">
         Hiện có {listLocationArr.length} tỉnh, thành phố tại Việt Nam đang liên kết với Airbnb
       </h2>

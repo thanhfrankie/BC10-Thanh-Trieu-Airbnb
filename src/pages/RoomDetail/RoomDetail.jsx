@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../layout/Footer/Footer";
 import Header from "../../layout/Header/Header";
 import { locationManagement } from "../../services/locationManagement";
@@ -11,6 +11,7 @@ import {
   calculateAverage,
   renderAvatar,
   handleCountDaysBetweenDates,
+  calculateNext7DaysTime,
 } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
@@ -22,6 +23,8 @@ import { bookingManagement } from "../../services/bookingRoomManagement";
 import RoomComment from "../../components/RoomComment/RoomComment";
 import dayjs from "dayjs";
 import "./RoomDetail.scss";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
+import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
@@ -31,14 +34,16 @@ const RoomDetail = () => {
   const [listCommentArr, setListCommentArr] = useState([]);
   const [averageRating, setAverageRating] = useState();
   const [guest, setGuest] = useState(1);
-  const [dayStay, setDayStay] = useState();
+  const [dayStay, setDayStay] = useState(0);
   const [totalPayment, setTotalPayment] = useState();
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
   const [error, setError] = useState("");
   const { RangePicker } = DatePicker;
+  const notify = useContext(NotifyContext);
 
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = () => {
       const userLocal = getLocalStorage("user");
@@ -139,11 +144,12 @@ const RoomDetail = () => {
           saoBinhLuan: values.saoBinhLuan,
         };
         const res = await commentManagement.postComment(commentInfo);
-        setListCommentArr((prevComments) => [
-          ...prevComments,
-          res.data.content,
-        ]);
-        // notify("Thêm bình luận thành công");
+        const userCommentInfo = {
+          ...res.data.content,
+          avatar: userLocalInfo.avatar,
+          tenNguoiBinhLuan: userLocalInfo.name,
+        };
+        setListCommentArr((prevComments) => [...prevComments, userCommentInfo]);
         resetForm();
         console.log(res);
       } catch (error) {
@@ -227,20 +233,15 @@ const RoomDetail = () => {
         };
       }
       const res = await bookingManagement.bookRoom(info);
+      notify("Đặt phòng thành công, hãy xem chuyến đi của bạn");
+      setTimeout(() => {
+        navigate("/trips");
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
   };
   let cleanFee = 8;
-  const handleCountPayment = (day, fee) => {
-    const payment = day * fee
-    setTotalPayment(payment);
-    return payment;
-  };
-  const handleCountPaymentBeforeTax = (price, day) => {
-    return handleCountPayment(price, day)
-  };
-
   const rangePresets = [
     {
       label: "Next 3 Days",
@@ -260,10 +261,14 @@ const RoomDetail = () => {
     },
   ];
   const handleGetTotalDay = (dateStrings) => {
+  
     const totalDay = handleCountDaysBetweenDates(
       dateStrings[1],
       dateStrings[0]
     );
+    if (totalDay === null) {
+      setDayStay(0);
+    }
     setDayStay(totalDay);
   };
   const handleChangeCount = (delta) => {
@@ -274,7 +279,7 @@ const RoomDetail = () => {
         setError("Phòng chỉ nhận tối đa 3 người");
         return prevCount;
       } else if (newCount < 1) {
-        setError("Tối thiểu 1 người")
+        setError("Tối thiểu 1 người");
         return prevCount;
       } else {
         return newCount;
@@ -699,6 +704,11 @@ const RoomDetail = () => {
                             textAlign: "center",
                           }}
                         />
+                        {dayStay === 0 && (
+                          <p className="text-pink-600 font-semibold text-sm mt-2 text-center">
+                            Vui lòng chọn số đêm ở lại
+                          </p>
+                        )}
                       </div>
                       <div className="w-full flex flex-col items-center">
                         <div className="w-full flex  gap-3 mb-3 items-center justify-between">
@@ -721,13 +731,15 @@ const RoomDetail = () => {
                       <div className="text-center text-gray-400 font-semibold">
                         Bạn vẫn chưa bị trừ tiền
                       </div>
-                      <div className="">
-                        <div className="flex gap-3 flex-col ">
+                      <div>
+                        <div className="flex mb-3 gap-3 items-center justify-between">
                           <div className="text-gray-700 underline ">
-                            ${giaTien} x {dayStay} đêm
+                            {giaTien && dayStay
+                              ? `$${giaTien} x ${dayStay} đêm`
+                              : `$${giaTien} x đêm `}
                           </div>
                           <div>
-                            {totalPayment}
+                            {giaTien && dayStay ? giaTien * dayStay : ""}
                           </div>
                         </div>
                         <div className="room-detail__clean flex items-center justify-between ">
@@ -739,12 +751,19 @@ const RoomDetail = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <div>Tổng trước thuế</div>
-                        {/* <div>{handleCountPaymentBeforeTax(giaTien, dayStay) + cleanFee}</div> */}
+                        <div>
+                          {giaTien && dayStay
+                            ? giaTien * dayStay + cleanFee
+                            : ""}
+                        </div>
                       </div>
                     </div>
                     <button
                       onClick={handleBookRoom}
-                      className="room-booking__button py-3 flex items-center justify-center rounded-lg text-white border border-pink-500"
+                      className={`room-booking__button py-3 flex items-center justify-center rounded-lg text-white border border-pink-500 ${
+                        dayStay === 0 ? "cursor-not-allowed" : ""
+                      }`}
+                      disabled={dayStay === 0}
                     >
                       Đặt phòng
                     </button>
@@ -753,12 +772,14 @@ const RoomDetail = () => {
               </div>
             </div>
           ) : (
-            <div>
-              Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
-              <NavLink to="/" className="text-blue-700">
-                trang chủ
-              </NavLink>{" "}
-              để tiếp tục
+            <div className="mt-3">
+              <div>
+                Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
+                <NavLink to="/" className="text-blue-700">
+                  trang chủ
+                </NavLink>{" "}
+                để tiếp tục
+              </div>
             </div>
           )}
         </div>
@@ -767,7 +788,7 @@ const RoomDetail = () => {
           {watchingRoom && checkIsLoggedIn(userLocalInfo) ? (
             <div className="room-comment__info pb-4">
               <div className="py-3 flex items-center justify-start gap-4">
-                <div>{renderAvatar(userLocalInfo, 10, 10)}</div>
+                <div>{renderAvatar(userLocalInfo)}</div>
                 <div className="font-bold text-xl">{name}</div>
               </div>
               <form
@@ -809,12 +830,16 @@ const RoomDetail = () => {
               </form>
             </div>
           ) : (
-            <p>
-              Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
-            </p>
+            watchingRoom !== null && (
+              <p>
+                Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
+              </p>
+            )
           )}
           <div>
-            <h2 className="font-bold text-2xl py-3">Bình luận</h2>
+            {watchingRoom !== null && (
+              <h2 className="font-bold text-2xl py-3">Bình luận</h2>
+            )}
             <div className="h-1/2-screen grid grid-cols-2 my-3 gap-6 overflow-y-auto">
               {listCommentArr &&
                 listCommentArr
@@ -835,6 +860,7 @@ const RoomDetail = () => {
         </div>
       </div>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };

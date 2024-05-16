@@ -14,7 +14,7 @@ const ButtonCustom = ({
     >
       {value}
 
-      <span className={`btnLabel block text-start text-base font-medium ${classNameSpan}`}>{span}</span>
+      <span className={`btnLabel block text-start text-sm font-medium ${classNameSpan}`}>{span}</span>
     </button>
   );
 };
