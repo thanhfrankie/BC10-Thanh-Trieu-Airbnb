@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import "./AdminTemplate.scss";
 import logo from "./../../assets/img/logo.png";
 import {HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined, SafetyCertificateOutlined, UserOutlined,} from "@ant-design/icons";
@@ -13,7 +13,6 @@ const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedPage, setSelectedPage] = useState(""); 
-  const navigate = useNavigate();
   const handleMenuClick = (key) => {
     setSelectedPage(key); 
   };
@@ -102,7 +101,6 @@ const AdminTemplate = () => {
             }}
           >
             {renderContent()}{" "}
-            {/* Hiển thị nội dung tùy thuộc vào trang được chọn */}
           </Content>
         </Layout>
       </Layout>

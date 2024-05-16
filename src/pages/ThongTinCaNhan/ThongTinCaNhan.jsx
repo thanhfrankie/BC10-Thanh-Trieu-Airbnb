@@ -3,29 +3,17 @@ import "./ThongTinCaNhan.scss";
 import { NavLink } from "react-router-dom";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
-import { useNavigate } from "react-router-dom";
 import { getUserById, updateUserById } from "../../services/userManagement";
 import { getLocalStorage } from "../../utils/util";
 import { http } from "../../services/config";
-import {
-  Modal,
-  Button,
-  Input,
-  message,
-  Radio,
-  notification,
-  Row,
-  Col,
-} from "antd";
+import { Modal, Button, Input, message, Radio, notification, Row, Col,} from "antd";
 import { getToken } from "../../services/authService";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CheckOutlined } from "@ant-design/icons";
-const { TextArea } = Input;
 
 const ThongTinCaNhan = () => {
   const [editedUserData, setEditedUserData] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     const user = getLocalStorage("user");
@@ -197,7 +185,7 @@ const ThongTinCaNhan = () => {
                     fontSize: "20px",
                   }}
                 />{" "}
-                Địa chỉ email
+                địa chỉ email
               </p>
             </div>
           </Col>
@@ -292,7 +280,6 @@ const ThongTinCaNhan = () => {
                     Chỉnh sửa hồ sơ
                   </button>
 
-                  {/* Modal của Ant Design */}
                   <Modal
                     title="Chỉnh sửa thông tin người dùng"
                     visible={showModal}

@@ -9,7 +9,7 @@ import DetailPopupBot from "../../../components/Popup/DetailPopupBot";
 const TaoHoSo = () => {
   return (
     <div>
-      <div className="container">
+      <div className="container" >
         <div>
           <Header />
         </div>

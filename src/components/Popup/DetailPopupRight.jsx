@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import { Checkbox, Input, message, Select } from "antd";
+import { Checkbox, Input, message } from "antd";
 import "./DetailPopup.scss";
 
-const { TextArea, Search } = Input;
-const { Option } = Select;
+const { TextArea} = Input;
+
 const languages = require("../../data/languages.json");
 
 function DetailPopupRight() {
