@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Switch, Upload } from "antd";
-import { Modal, Button,  Form,Input, message, Row, Col, Table, Select,} from "antd";
+import { Modal, Button,  Form,Input, message, Row, Col, Table,} from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import { ShopOutlined,  FormOutlined,PoundOutlined,InsertRowLeftOutlined,InboxOutlined,InsertRowRightOutlined,UploadOutlined,PictureOutlined,} from "@ant-design/icons";
 import { getToken } from "../../../services/authService"; 
-const { Option } = Select;
-const { TextArea, Search } = Input;
 
 const QuanLyThongTinPhong = () => {
   const [usersData, setUsersData] = useState([]);
@@ -34,7 +32,7 @@ const QuanLyThongTinPhong = () => {
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
-    setEditingUser(null); // Reset thông tin vị trí đang chỉnh sửa khi đóng popup
+    setEditingUser(null); 
   };
 
   const handleCancel = () => {
@@ -44,7 +42,7 @@ const QuanLyThongTinPhong = () => {
 
   const onFinish = async (values) => {
     try {
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       if (editingUser) {
         const response = await http.put(
           `/phong-thue/${editingUser.id}`,
@@ -60,7 +58,7 @@ const QuanLyThongTinPhong = () => {
           form.resetFields();
           setVisible(false);
           setEditingUser(null);
-          fetchData(); // Cập nhật lại dữ liệu sau khi cập nhật thành công
+          fetchData(); 
         } else {
           antdMessage.error("Cập nhật không thành công!");
         }
@@ -74,7 +72,7 @@ const QuanLyThongTinPhong = () => {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Cập nhật lại dữ liệu sau khi thêm mới thành công
+          fetchData(); 
         } else {
           antdMessage.error("Thêm không thành công!");
         }
@@ -91,14 +89,14 @@ const QuanLyThongTinPhong = () => {
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record); // Lưu thông tin người dùng được chỉnh sửa
-    form.setFieldsValue(record); // Điền thông tin người dùng được chọn vào form
-    setVisible(true); // Hiển thị lại popup thêm quản trị viên
+    setEditingUser(record); 
+    form.setFieldsValue(record); 
+    setVisible(true); 
   };
 
   const handleDelete = async (record) => {
     try {
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       const response = await http.delete(`/phong-thue/${record.id}`, {
         headers: {
           token: `${token}`,
@@ -106,7 +104,6 @@ const QuanLyThongTinPhong = () => {
       });
       if (response.status === 200) {
         antdMessage.success("Xoá phòng thuê thành công!");
-        // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
         antdMessage.error("Không xoá được phòng thuê.");
@@ -122,7 +119,7 @@ const QuanLyThongTinPhong = () => {
       const formData = new FormData();
       formData.append("formFile", info.file);
 
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       const response = await http.post(
         `/phong-thue/upload-hinh-phong?maPhong=${maPhong}`,
         formData,

@@ -6,7 +6,7 @@ import "./DetailPopup.scss";
 import { Select } from "antd";
 const { Option } = Select;
 
-const { TextArea, Search } = Input;
+const { TextArea } = Input;
 
 const countries = require("../../data/countries.json");
 

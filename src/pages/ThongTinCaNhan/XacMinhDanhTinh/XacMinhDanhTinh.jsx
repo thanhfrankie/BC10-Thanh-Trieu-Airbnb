@@ -11,10 +11,7 @@ const XacMinhDanhTinh = () => {
   const navigate = useNavigate();
 
   const handleCompleteButtonClick = () => {
-    // Hiển thị thông báo cập nhật thành công (có thể sử dụng thư viện như Ant Design Modal)
     alert("Cập nhật thành công");
-
-    // Chuyển trang
     navigate("/thong-tin-ca-nhan");
   };
 
@@ -35,8 +32,6 @@ const XacMinhDanhTinh = () => {
     const file = e.target.files[0];
     // Xử lý file ảnh mặt sau ở đây
     setBackImage(file);
-
-    // Lấy đường dẫn của hình ảnh và cập nhật vào state
     const imageUrl = URL.createObjectURL(file);
     setBackImageUrl(imageUrl);
   };
@@ -56,11 +51,11 @@ const XacMinhDanhTinh = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" >
       <div className="mb-10">
         <Header />
       </div>
-      <div className="grid grid-cols-4 mt-5">
+      <div className="grid grid-cols-4 mt-5" >
         <div className=" ml-40 col-span-2 ">
           <div style={{ width: "450px" }} className="borderXacMinh ">
             <p

@@ -12,7 +12,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 const { Option } = Select;
-const { TextArea, Search } = Input;
 
 const QuanLyNguoiDung = () => {
   const [usersData, setUsersData] = useState([]);

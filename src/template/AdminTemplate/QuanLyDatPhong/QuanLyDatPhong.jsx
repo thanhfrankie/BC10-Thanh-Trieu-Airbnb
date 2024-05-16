@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, message as antdMessage } from "antd";
+import { message as antdMessage } from "antd";
 import moment from "moment";
-import { Modal, Button, Form, Input, Row, Col, Table, Select } from "antd";
+import { Modal, Button, Form, Input, Row, Col, Table } from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
 import {
@@ -11,9 +11,6 @@ import {
   TeamOutlined,
   FieldNumberOutlined,
 } from "@ant-design/icons";
-
-const { Option } = Select;
-const { TextArea, Search } = Input;
 
 const QuanLyDatPhong = () => {
   const [usersData, setUsersData] = useState([]);
@@ -41,7 +38,7 @@ const QuanLyDatPhong = () => {
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
-    setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa khi đóng popup
+    setEditingUser(null); 
   };
 
   const handleCancel = () => {
@@ -52,14 +49,13 @@ const QuanLyDatPhong = () => {
   const onFinish = async (values) => {
     try {
       if (editingUser) {
-        // Nếu có người dùng đang được chỉnh sửa
-        const response = await http.put(`/dat-phong/${editingUser.id}`, values); // Gửi yêu cầu cập nhật thông tin người dùng
+        const response = await http.put(`/dat-phong/${editingUser.id}`, values); 
         if (response.status === 200) {
           antdMessage.success("Cập nhật thành công!");
           form.resetFields();
           setVisible(false);
-          setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa
-          fetchData(); // Load lại dữ liệu sau khi cập nhật thành công
+          setEditingUser(null);
+          fetchData(); 
         } else {
           antdMessage.error("Đã có lỗi xảy ra khi cập nhật đặt phòng.");
         }
@@ -69,7 +65,7 @@ const QuanLyDatPhong = () => {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Load lại dữ liệu sau khi thêm thành công
+          fetchData(); 
         } else {
           antdMessage.error("Đã có lỗi xảy ra khi thêm người dùng.");
         }
@@ -118,7 +114,7 @@ const QuanLyDatPhong = () => {
       dataIndex: "maPhong",
       key: "maPhong",
       render: (maPhong) => (
-        <span style={{ fontWeight: "bold", color: "#CD5C5C" }}>{maPhong}</span>
+        <span style={{ fontWeight: "bold", color: "#CD5C5C",marginLeft:"30px" }}>{maPhong}</span>
       ),
     },
 
@@ -147,7 +143,7 @@ const QuanLyDatPhong = () => {
       dataIndex: "soLuongKhach",
       key: "soLuongKhach",
       render: (soLuongKhach) => (
-        <span style={{ fontWeight: "bold", color: " #9932CC" }}>
+        <span style={{ fontWeight: "bold", color: " #9932CC",marginLeft:"30px" }}>
           {soLuongKhach}
         </span>
       ),
