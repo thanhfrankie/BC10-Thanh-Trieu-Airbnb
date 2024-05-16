@@ -3,8 +3,6 @@ import { roomManagement } from "../../services/roomManagement";
 import Loading from "../../components/Loading/Loading";
 import Footer from "../../layout/Footer/Footer";
 import Header from "../../layout/Header/Header";
-import "./Rooms.scss";
-import { NavLink } from "react-router-dom";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";

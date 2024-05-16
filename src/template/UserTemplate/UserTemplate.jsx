@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet } from "react-router-dom";
@@ -7,12 +7,9 @@ import { useSelector } from "react-redux";
 export const NotifyContext = React.createContext(null);
 const UserTemplate = () => {
   const { isLoading } = useSelector((state) => state.loadingSlice);
-  const [closeTime, setCloseTime] = useState(2000);
+  const [closeTime, setCloseTime] = useState(1000);
   const renderNotify = (notify) => {
     return toast(notify);
-  };
-  const handleCloseTime = (time) => {
-    setCloseTime(time);
   };
   
     return (

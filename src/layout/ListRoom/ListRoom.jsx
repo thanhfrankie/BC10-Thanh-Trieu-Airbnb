@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
-import { NavLink } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import "./ListRoom.scss";
 import RoomCard from "../../components/RoomCard/RoomCard";
@@ -13,7 +12,6 @@ const ListRoom = () => {
       try {
         setLoading(true);
         const res = await roomManagement.getAllRoom();
-        console.log(res.data.content);
         setListRoomArr(res.data.content.filter((room) => room.maViTri !== 0));
       } catch (error) {
         console.log(error);

@@ -4,7 +4,6 @@
 
 
 .form_signUp {
-  // Base styles
   width: 90%;
   @media (min-width: 640px) {
     width: 70%; 
@@ -60,21 +59,18 @@
     }
   }
 
-  // For tablets
   @media only screen and (max-width: 1024px) {
     .formInput {
       width: 100%;
     }
   }
 
-  // For mobile devices
   @media only screen and (max-width: 768px) {
     .formInput {
       width: 70%;
     }
   }
 
-  // For smaller mobile devices
   @media only screen and (max-width: 480px) {
     .formInput {
       width: 100%;

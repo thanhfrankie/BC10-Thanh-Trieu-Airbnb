@@ -14,7 +14,6 @@ const InputSign = ({
   readOnly,
   type = "text",
 }) => {
-  // id, label, placeholder sẽ khác nhau giữa các input
 
   return (
     <div>

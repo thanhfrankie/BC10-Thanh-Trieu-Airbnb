@@ -11,7 +11,6 @@ import {
   calculateAverage,
   renderAvatar,
   handleCountDaysBetweenDates,
-  calculateNext7DaysTime,
 } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
@@ -35,7 +34,6 @@ const RoomDetail = () => {
   const [averageRating, setAverageRating] = useState();
   const [guest, setGuest] = useState(1);
   const [dayStay, setDayStay] = useState(0);
-  const [totalPayment, setTotalPayment] = useState();
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
   const [error, setError] = useState("");
@@ -73,7 +71,7 @@ const RoomDetail = () => {
     const findRoom = () => {
       if (listRoomArr && listRoomArr.length > 0) {
         const foundRoom = listRoomArr.find((item, index) => {
-          if (item.id == roomId) {
+          if (item.id === roomId) {
             setCurrentRoomIndex(index);
             return true;
           }
@@ -204,7 +202,7 @@ const RoomDetail = () => {
     tivi,
     wifi,
   } = watchingRoom || {};
-  const { name, id, avatar } = userLocalInfo || {};
+  const { name, id } = userLocalInfo || {};
   const hasLocation = checkLocation(maViTri);
   const { slug, tenViTri, tinhThanh, quocGia } = hasLocation || {};
   const checkRoomOwner = () => {

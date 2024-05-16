@@ -5,7 +5,6 @@ const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
-    // Kiểm tra vị trí cuộn của trang
     if (window.pageYOffset > 300) {
       setIsVisible(true);
     } else {
@@ -13,7 +12,6 @@ const ScrollToTopButton = () => {
     }
   };
 
-  //  listener cho sự kiện cuộn trang khi component được mount
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -21,11 +19,10 @@ const ScrollToTopButton = () => {
     };
   }, []);
 
-  //  xử lý sự kiện khi nhấn nút
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Cuộn lên đầu trang một cách mượt mà
+      behavior: 'smooth'
     });
   };
 

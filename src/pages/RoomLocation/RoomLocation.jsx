@@ -38,7 +38,7 @@ const RoomLocation = () => {
   useEffect(() => {
     let location = null;
     listLocationArr?.forEach((place) => {
-      if (locationId == convertToSlug(place.tinhThanh)) {
+      if (locationId === convertToSlug(place.tinhThanh)) {
         location = {
           id: place.id,
           tenViTri: place.tenViTri,
@@ -88,7 +88,7 @@ const RoomLocation = () => {
       </div>
     );
   }
-  const { id, tinhThanh, quocGia } = currentLocation || {};
+  const { tinhThanh, quocGia } = currentLocation || {};
   return (
     <div className="">
       <div className="h-auto px-56 mb-5">

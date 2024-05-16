@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import InputSign from "../../components/Input/InputSign";
-import * as registerAnimation from "./../../assets/animation/register.json";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";

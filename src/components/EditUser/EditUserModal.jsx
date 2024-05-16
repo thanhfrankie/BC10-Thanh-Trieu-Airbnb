@@ -48,7 +48,6 @@ const EditUserModal = ({ visible, onCancel, onFinish, userData }) => {
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
           </Col>
-          {/* Thêm các trường khác tương tự */}
         </Row>
       </Form>
     </Modal>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { locationManagement } from "../../../services/locationManagement";
 import { NavLink } from "react-router-dom";
 import { convertToSlug } from "../../../utils/util";
-import RoomCard from "../../../components/RoomCard/RoomCard";
 
 const PastExperiences = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
