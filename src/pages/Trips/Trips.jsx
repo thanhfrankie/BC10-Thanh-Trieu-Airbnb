@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { bookingManagement } from "../../services/bookingRoomManagement";
 import { roomManagement } from "../../services/roomManagement";
 import { getLocalStorage } from "../../utils/util";
 import Loading from "../../components/Loading/Loading";
 import { NavLink } from "react-router-dom";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
-import "./Trips.scss";
 import Footer from "../../layout/Footer/Footer";
 import Header from "../../layout/Header/Header";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
+import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
+import "./Trips.scss";
 const Trips = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [listBookedRoomArr, setListBookedRoomArr] = useState([]);
@@ -17,6 +18,7 @@ const Trips = () => {
   const [showedRoomArr, setShowedRoomArr] = useState([]);
   const [loadingRooms, setLoadingRooms] = useState(true);
   const [loadingBookings, setLoadingBookings] = useState(true);
+  const notify = useContext(NotifyContext);
   useChangePageTitle("Chuyến đi của bạn - Airbnb");
   useEffect(() => {
     const fetchUserData = () => {
@@ -100,6 +102,7 @@ const Trips = () => {
           (room) => room.id !== bookedRoomId
         );
         setShowedRoomArr(updatedShowedRooms);
+        notify("Hủy phòng thành công");
       } catch (error) {
         console.error("Lỗi khi hủy đặt phòng:", error);
       }

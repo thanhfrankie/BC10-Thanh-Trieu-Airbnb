@@ -19,24 +19,35 @@ const Header = () => {
     const userLocal = getLocalStorage("user");
     if (userLocal) {
       setUserLocal(userLocal);
+      setIsLoggedIn(true); 
     }
     const checkLocalStorage = () => {
       return userLocal !== null;
     };
+
     setIsLoggedIn(checkLocalStorage());
     setUserRole(userLocal?.user.role);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    setUserRole(null);
-    notify("Đăng xuất thành công , đang quay về trang chủ");
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+    const user = localStorage.getItem("user");
+    if (user) {
+      localStorage.removeItem("user");
+      setIsLoggedIn(false);
+      setUserRole(null);
+      if (window.location.pathname === "/") {
+        notify("Đăng xuất thành công");
+      } else {
+        notify("Đăng xuất thành công, đang quay về trang chủ");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
+    } else {
+      setIsLoggedIn(false);
+      setUserRole(null);
+    }
   };
-
   const isAdmin = isLoggedIn && userRole === "ADMIN";
 
   const items = isLoggedIn
@@ -76,7 +87,7 @@ const Header = () => {
         },
         {
           label: "Đăng xuất",
-          onClick: handleLogout,
+          onClick: () => handleLogout(),
           key: "logout",
         },
       ]
@@ -116,7 +127,8 @@ const Header = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
-
+ 
+  
   return (
     <div className="header">
       <div className="flex items-center mt-1">
@@ -171,7 +183,7 @@ const Header = () => {
                   trigger={["click"]}
                   placement="topRight"
                 >
-                  <a onClick={(e) => e.preventDefault()}>
+                  <button onClick={(e) => e.preventDefault()}>
                     <Space>
                       <button className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
                         <div className="flex items-center justify-center text-sm text-black">
@@ -186,7 +198,7 @@ const Header = () => {
                         </div>
                       </button>
                     </Space>
-                  </a>
+                  </button>
                 </Dropdown>
               </div>
             </div>

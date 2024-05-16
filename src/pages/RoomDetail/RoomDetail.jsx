@@ -758,6 +758,7 @@ const RoomDetail = () => {
                         </div>
                       </div>
                     </div>
+                  
                     <button
                       onClick={handleBookRoom}
                       className={`room-booking__button py-3 flex items-center justify-center rounded-lg text-white border border-pink-500 ${
