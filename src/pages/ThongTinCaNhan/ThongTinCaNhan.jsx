@@ -10,6 +10,7 @@ import { Modal, Button, Input, message, Radio, notification, Row, Col,} from "an
 import { getToken } from "../../services/authService";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CheckOutlined } from "@ant-design/icons";
+import Loading from "../../components/Loading/Loading";
 
 const ThongTinCaNhan = () => {
   const [editedUserData, setEditedUserData] = useState(null);
@@ -92,7 +93,7 @@ const ThongTinCaNhan = () => {
   };
 
   if (!editedUserData) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   const { name, email, phone, birthday, role, avatar } = editedUserData;
