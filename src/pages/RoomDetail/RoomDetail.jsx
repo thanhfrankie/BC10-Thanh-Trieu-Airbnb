@@ -238,7 +238,7 @@ const RoomDetail = () => {
         navigate("/trips");
       }, 1000);
     } catch (error) {
-      console.log(error);
+      notify("Vui lòng đăng nhập trước khi đặt phòng")
     }
   };
   let cleanFee = 8;
