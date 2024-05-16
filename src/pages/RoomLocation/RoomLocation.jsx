@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import { mapInfo } from "../../assets/map/map";
 import Header from "../../layout/Header/Header";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
+import Footer from "../../layout/Footer/Footer";
 
 const RoomLocation = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
@@ -90,40 +91,81 @@ const RoomLocation = () => {
   }
   const { id, tinhThanh, quocGia } = currentLocation || {};
   return (
-    <div>
-      <div>
+    <div className="border border-red-400">
+      <div className="h-auto px-56 mb-5">
         <Header />
-      </div>
-
-      {listRoomByLocationArr.length === 0 ? (
         <div>
-          Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui lòng quay
-          lại{" "}
-          <NavLink to="/" className="text-blue-700">
-            trang chủ
-          </NavLink>{" "}
-          để tiếp tục
-        </div>
-      ) : (
-        <div>
-          Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
-          {quocGia}
-        </div>
-      )}
-      {listRoomByLocationArr.map((room) => (
-        <div key={room.id}>
-          <NavLink to={`/room-detail/${room.id}`}>
-            <img src={room.hinhAnh} alt="" />
-            <div>{room.tenPhong}</div>
-            <div>{room.moTa}</div>
-            <div className="font-bold">
-              ${room.giaTien} <span className="font-normal">/khách</span>
+          {listRoomByLocationArr.length === 0 ? (
+            <div>
+              Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui lòng
+              quay lại{" "}
+              <NavLink to="/" className="text-blue-700">
+                trang chủ
+              </NavLink>{" "}
+              để tiếp tục
             </div>
-          </NavLink>
+          ) : (
+            <div>
+              <div className="py-1">
+                Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
+                {quocGia}
+              </div>
+              <div className="font-bold text-2xl py-2">
+                Chỗ ở tại khu vực bản đồ đã chọn
+              </div>
+            </div>
+          )}
         </div>
-      ))}
-      <div>{id}</div>
-      <div>{embededMap}</div>
+        <div className="flex gap-3 ">
+          <div className="w-1/2 flex flex-col gap-4 ">
+            {listRoomByLocationArr.map((room) => (
+              <div key={room.id}>
+                <NavLink
+                  to={`/room-detail/${room.id}`}
+                  className="w-full flex gap-4 py-3 rounded-lg hover:shadow-lg  transition duration-300 ease-in-out"
+                >
+                  <div className="w-1/2 rounded-lg">
+                    <img
+                      src={room.hinhAnh}
+                      alt=""
+                      className="w-full h-48 rounded-lg object-cover"
+                    />
+                  </div>
+                  <div className="w-1/2 flex flex-col items-start justify-between gap-3">
+                    <div className="w-full flex flex-col gap-3 ">
+                      <div className="w-full text-xl font-semibold truncate ">
+                        {room.tenPhong}
+                      </div>
+                      <div className="w-full truncate">
+                        {" "}
+                        {room.khach} khách • {room.phongNgu} phòng ngủ •{" "}
+                        {room.giuong} giường •{room.phongTam} phòng tắm
+                      </div>
+                      <div className="w-full flex flex-wrap gap-3 ">
+                        {room.bep && <p>Bếp</p>}
+                        {room.wifi && <p>Wifi</p>}
+                        {room.tivi && <p>Tivi</p>}
+                        {room.dieuHoa && <p>Điều hòa</p>}
+                        {room.mayGiat && <p>Máy giặt</p>}
+                        {room.banLa && <p>Bàn là</p>}
+                        {room.banUi && <p>Bàn ủi</p>}
+                        {room.doXe && <p>Đỗ xe</p>}
+                        {room.hoBoi && <p>Hồ bơi</p>}
+                      </div>
+                    </div>
+                    <div className="w-full font-bold  text-end ">
+                      ${room.giaTien}{" "}
+                      <span className="font-normal">/khách</span>
+                    </div>
+                  </div>
+                </NavLink>
+              </div>
+            ))}
+          </div>
+          <div className="w-1/2">{embededMap}</div>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };

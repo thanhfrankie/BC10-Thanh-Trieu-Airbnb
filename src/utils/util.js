@@ -87,3 +87,28 @@ export const renderAvatar = (user, widthValue=8, heightValue=8) => {
   }
   return null;
 };
+export const calculateNext7DaysTime =() => {
+  const today = new Date();
+  const next7Days = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+  next7Days.setHours(12);
+  next7Days.setMinutes(0);
+  
+  const formattedDate = next7Days.toLocaleString('vi-VN', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+  
+  return formattedDate;
+}
+export const  handleCountDaysBetweenDates =(date1, date2) =>{
+  const oneDay = 24 * 60 * 60 * 1000; 
+  const firstDate = new Date(date1);
+  const secondDate = new Date(date2);
+
+  const diffInMilliseconds = Math.abs(firstDate - secondDate);
+
+  return Math.round(diffInMilliseconds / oneDay);
+}

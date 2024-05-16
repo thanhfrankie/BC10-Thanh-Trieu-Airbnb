@@ -171,9 +171,7 @@ const Header = () => {
                         </div>
                         <div className="flex items-center justify-center text-3xl text-gray-500">
                           {isLoggedIn ? (
-                            // <div className="w-8 h-8">
                             userLocal && renderAvatar(userLocal.user)
-                            //  </div>
                           ) : (
                             <i className="fa-solid fa-circle-user"></i>
                           )}
