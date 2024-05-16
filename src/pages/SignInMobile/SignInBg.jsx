@@ -18,10 +18,7 @@ const SignInBg = () => {
         matKhau: "",
       },
       onSubmit: async (values) => {
-        console.log(values);
-       
         try {
-       
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
           );

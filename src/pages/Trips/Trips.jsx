@@ -66,15 +66,12 @@ const Trips = () => {
 
   useEffect(() => {
     if (listRoomArr.length > 0 && listBookedRoomArr.length > 0) {
-      console.log("List Room Array:", listRoomArr);
-      console.log("List Booked Room Array:", listBookedRoomArr);
       const matchedRooms = listRoomArr.reduce((accumulator, room) => {
         const matchedBookings = listBookedRoomArr.filter(
           (bookedRoom) => bookedRoom.maPhong === room.id
         );
         return accumulator.concat(matchedBookings.map(() => room));
       }, []);
-      console.log("Matched Rooms:", matchedRooms);
       setShowedRoomArr(matchedRooms.reverse());
     }
   }, [listRoomArr, listBookedRoomArr]);

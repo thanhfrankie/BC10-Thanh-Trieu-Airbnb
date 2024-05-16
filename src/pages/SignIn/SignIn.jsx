@@ -22,7 +22,6 @@ const SignIn = () => {
         password: "",
       },
       onSubmit: async (values) => {
-        console.log(values);
         try {
           const res = await userManagementServ.signIn(values);
           console.log(res);

@@ -55,11 +55,9 @@ const RoomDetail = () => {
       try {
         setLoading(true);
         const roomRes = await roomManagement.getAllRoom();
-        console.log(roomRes.data.content);
         setListRoomArr(roomRes.data.content);
 
         const locationRes = await locationManagement.getLocation();
-        console.log(locationRes.data.content);
         setListLocationArr(locationRes.data.content);
       } catch (error) {
         console.log(error);
@@ -81,7 +79,6 @@ const RoomDetail = () => {
           }
           return false;
         });
-        console.log(currentRoomIndex);
         setWatchingRoom(foundRoom || null);
       }
     };
@@ -94,7 +91,6 @@ const RoomDetail = () => {
           const commentRes = await commentManagement.getRoomComment(
             watchingRoom.maViTri
           );
-          console.log(commentRes.data.content);
           setListCommentArr(commentRes.data.content);
         } catch (error) {
           console.log(error);
@@ -151,7 +147,6 @@ const RoomDetail = () => {
         };
         setListCommentArr((prevComments) => [...prevComments, userCommentInfo]);
         resetForm();
-        console.log(res);
       } catch (error) {
         console.log(error);
       }

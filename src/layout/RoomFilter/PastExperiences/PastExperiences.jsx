@@ -10,7 +10,6 @@ const PastExperiences = () => {
     const fetchRoomData = async () => {
       try {
         const locationRes = await locationManagement.getLocation();
-        console.log(locationRes.data.content);
         setListLocationArr(locationRes.data.content.slice(8, 12));
       } catch (error) {
         console.log(error);

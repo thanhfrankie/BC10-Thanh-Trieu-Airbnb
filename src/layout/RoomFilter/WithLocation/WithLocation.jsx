@@ -9,7 +9,6 @@ const WithLocation = () => {
     const fetchRoomData = async () => {
       try {
         const locationRes = await locationManagement.getLocation();
-        console.log(locationRes);
         setListLocationArr(locationRes.data.content.slice(0, 10));
       } catch (error) {
         console.log(error);

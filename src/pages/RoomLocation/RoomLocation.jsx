@@ -25,7 +25,6 @@ const RoomLocation = () => {
       setLoading(true);
       try {
         const locationRes = await locationManagement.getLocation();
-        console.log(locationRes);
         setListLocationArr(locationRes.data.content);
       } catch (error) {
         console.log(error);
@@ -59,7 +58,6 @@ const RoomLocation = () => {
           const roomRes = await roomManagement.getRoomByLocation(
             currentLocation.id
           );
-          console.log(roomRes.data.content);
           setListRoomByLocaTionArr(roomRes.data.content);
         } catch (error) {
           console.log(error);
