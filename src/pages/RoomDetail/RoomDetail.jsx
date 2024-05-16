@@ -833,7 +833,7 @@ const RoomDetail = () => {
           ) : (
             watchingRoom !== null && (
               <p>
-                Bạn cần <NavLink to="/sign-in">đăng nhập</NavLink> để bình luận.
+                Bạn cần <NavLink to="/sign-in" className="text-blue-500 hover:underline">đăng nhập</NavLink> để bình luận.
               </p>
             )
           )}
