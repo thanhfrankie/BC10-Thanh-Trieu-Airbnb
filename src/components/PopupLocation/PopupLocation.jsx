@@ -9,7 +9,7 @@ const PopupLocation = ({ locations, onSelectLocation, onClose }) => {
         Đóng
       </button>
       <div className="popup-content">
-        <ul className="grid">
+        <ul className="popup-grid">
           {locations.map((location) => (
             <li key={location.id}>
               <NavLink

@@ -840,7 +840,7 @@ const RoomDetail = () => {
             {watchingRoom !== null && (
               <h2 className="font-bold text-2xl py-3">Bình luận</h2>
             )}
-            <div className="room-list__comment h-1/2-screen my-3 gap-6 overflow-y-auto">
+            <div className="grid grid-cols-2 h-1/2-screen my-3 gap-6 overflow-y-auto">
               {listCommentArr &&
                 listCommentArr
                   .slice()
