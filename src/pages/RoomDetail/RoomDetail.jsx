@@ -231,7 +231,7 @@ const RoomDetail = () => {
         navigate("/trips");
       }, 1000);
     } catch (error) {
-      notify("Vui lòng đăng nhập trước khi đặt phòng")
+      notify("Vui lòng đăng nhập trước khi đặt phòng");
     }
   };
   let cleanFee = 8;
@@ -254,7 +254,6 @@ const RoomDetail = () => {
     },
   ];
   const handleGetTotalDay = (dateStrings) => {
-  
     const totalDay = handleCountDaysBetweenDates(
       dateStrings[1],
       dateStrings[0]
@@ -751,7 +750,7 @@ const RoomDetail = () => {
                         </div>
                       </div>
                     </div>
-                  
+
                     <button
                       onClick={handleBookRoom}
                       className={`room-booking__button py-3 flex items-center justify-center rounded-lg text-white border border-pink-500 ${
@@ -826,7 +825,14 @@ const RoomDetail = () => {
           ) : (
             watchingRoom !== null && (
               <p>
-                Bạn cần <NavLink to="/sign-in" className="text-blue-500 hover:underline">đăng nhập</NavLink> để bình luận.
+                Bạn cần{" "}
+                <NavLink
+                  to="/sign-in"
+                  className="text-blue-500 hover:underline"
+                >
+                  đăng nhập
+                </NavLink>{" "}
+                để bình luận.
               </p>
             )
           )}
@@ -834,7 +840,7 @@ const RoomDetail = () => {
             {watchingRoom !== null && (
               <h2 className="font-bold text-2xl py-3">Bình luận</h2>
             )}
-            <div className="h-1/2-screen grid grid-cols-2 my-3 gap-6 overflow-y-auto">
+            <div className="room-list__comment h-1/2-screen my-3 gap-6 overflow-y-auto">
               {listCommentArr &&
                 listCommentArr
                   .slice()
