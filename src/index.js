@@ -4,7 +4,6 @@ import "./index.scss";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
-// redux toolkit
 import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
 

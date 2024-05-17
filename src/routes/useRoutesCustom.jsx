@@ -1,5 +1,5 @@
-import React from "react";
-import { useRoutes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useRoutes } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";
 import UserTemplate from "../template/UserTemplate/UserTemplate";
 import AdminTemplate from "../template/AdminTemplate/AdminTemplate";
@@ -10,8 +10,21 @@ import TaoHoSo from "../pages/ThongTinCaNhan/TaoHoSo/TaoHoSo";
 import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanhTinh";
 import RoomDetail from "../pages/RoomDetail/RoomDetail";
 import RoomLocation from "../pages/RoomLocation/RoomLocation";
+import Rooms from "../pages/Rooms/Rooms";
+import Trips from "../pages/Trips/Trips";
+import { getLocalStorage } from "../utils/util";
 
 const useRoutesCustom = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userLocal = getLocalStorage("user");
+    if (window.location.pathname === "/room-detail") {
+      navigate("/room-detail/1");
+    }
+    if (userLocal && window.location.pathname === "/sign-in") {
+      navigate("/");
+    }
+  }, [navigate]);
   const routes = useRoutes([
     {
       path: "/",
@@ -41,15 +54,23 @@ const useRoutesCustom = () => {
           path: "xac-minh",
           element: <XacMinhDanhTinh />,
         },
+
         {
           path: "room-detail/:roomId",
           element: <RoomDetail />,
-          
+        },
+        {
+          path: "rooms",
+          element: <Rooms />,
         },
         {
           path: "rooms/:locationId",
-          element: <RoomLocation/>
-        }
+          element: <RoomLocation />,
+        },
+        {
+          path: "trips",
+          element: <Trips />,
+        },
       ],
     },
     {

@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, message as antdMessage, Radio } from "antd";
+import { message as antdMessage, Radio } from "antd";
 import moment from "moment";
-import { Modal, Button, Form, Input, Row, Col, Table, Tag, Select,} from "antd";
+import { Modal, Button, Form, Input, Row, Col, Table, Tag, Select } from "antd";
 import "./QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import { UserOutlined, MailOutlined, SmileOutlined,} from "@ant-design/icons";
-
+import {
+  FormOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  SafetyOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 const { Option } = Select;
-const { TextArea, Search } = Input;
 
 const QuanLyNguoiDung = () => {
   const [usersData, setUsersData] = useState([]);
@@ -17,17 +21,45 @@ const QuanLyNguoiDung = () => {
   const [form] = Form.useForm();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [editingUser, setEditingUser] = useState(null);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pageIndex, pageSize]);
 
   const fetchData = async () => {
     try {
-      const response = await http.get("/users");
-      setUsersData(response.data.content);
+      const [responseUsers, responseAdditional] = await Promise.all([
+        http.get(`/users`),
+        http.get(`/users/phan-trang-tim-kiem`, {
+          params: {
+            pageIndex,
+            pageSize,
+          },
+        }),
+      ]);
+
+      const usersData = responseUsers.data.content;
+      const additionalData = responseAdditional.data.content.data;
+
+      const mergedData = usersData.map((user) => {
+        const additionalInfo = additionalData.find(
+          (item) => item.id === user.id
+        );
+        return {
+          ...user,
+          avatar: additionalInfo ? additionalInfo.avatar : "",
+          password: additionalInfo ? additionalInfo.password : "",
+          phone: additionalInfo ? additionalInfo.phone : "",
+        };
+      });
+
+      setUsersData(mergedData);
+      setTotal(responseAdditional.data.content.totalRow);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Lỗi khi lấy dữ liệu:", error);
     }
   };
 
@@ -35,7 +67,7 @@ const QuanLyNguoiDung = () => {
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
-    setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa khi đóng popup
+    setEditingUser(null);
   };
 
   const handleCancel = () => {
@@ -46,14 +78,13 @@ const QuanLyNguoiDung = () => {
   const onFinish = async (values) => {
     try {
       if (editingUser) {
-        // Nếu có người dùng đang được chỉnh sửa
-        const response = await http.put(`/users/${editingUser.id}`, values); // Gửi yêu cầu cập nhật thông tin người dùng
+        const response = await http.put(`/users/${editingUser.id}`, values);
         if (response.status === 200) {
           antdMessage.success("Cập nhật thành công!");
           form.resetFields();
           setVisible(false);
-          setEditingUser(null); // Reset thông tin người dùng đang chỉnh sửa
-          fetchData(); // Load lại dữ liệu sau khi cập nhật thành công
+          setEditingUser(null);
+          fetchData();
         } else {
           antdMessage.error("Đã có lỗi xảy ra khi cập nhật người dùng.");
         }
@@ -63,13 +94,13 @@ const QuanLyNguoiDung = () => {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Load lại dữ liệu sau khi thêm thành công
+          fetchData();
         } else {
           antdMessage.error("Thêm người dùng không thành công");
         }
       }
     } catch (error) {
-      console.error("Error adding/updating user:", error);
+      console.error("Lỗi khi thêm/cập nhật người dùng:", error);
       antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật người dùng.");
     }
   };
@@ -80,12 +111,12 @@ const QuanLyNguoiDung = () => {
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record); // Lưu thông tin người dùng được chỉnh sửa
+    setEditingUser(record);
     form.setFieldsValue({
       ...record,
-      gender: record.gender ? true : false, // Thiết lập giá trị mặc định cho Radio.Group
-    }); // Điền thông tin người dùng được chọn vào form
-    setVisible(true); // Hiển thị lại popup thêm quản trị viên
+      gender: record.gender ? true : false,
+    });
+    setVisible(true);
   };
 
   const handleDelete = async (record) => {
@@ -93,31 +124,44 @@ const QuanLyNguoiDung = () => {
       const response = await http.delete(`/users?id=${record.id}`);
       if (response.status === 200) {
         antdMessage.success("Xoá người dùng thành công!");
-        // Cập nhật danh sách người dùng sau khi xoá thành công
         setUsersData(usersData.filter((user) => user.id !== record.id));
       } else {
         antdMessage.error("Xoá người dùng không thành công!");
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Lỗi khi xoá người dùng:", error);
       antdMessage.error("Đã có lỗi xảy ra khi xoá người dùng.");
     }
   };
 
-  const getGenderLabel = (gender) => {
-    return gender ? "Nam" : "Nữ";
-  };
-
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id" ,
-    render: (id) => <span style={{ fontWeight: "bold"  }}>{id}</span>,
-     },
-
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
+    },
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+      render: (avatar, record) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={avatar}
+            alt=""
+            style={{ width: "80px", height: "80px", marginRight: "5px" }}
+          />
+        </div>
+      ),
+    },
     {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (name) => <span style={{ fontWeight: "bold", color:"#008080" }}>{name}</span>,
+      render: (name) => (
+        <span style={{ fontWeight: "bold", color: "#008080" }}>{name}</span>
+      ),
     },
     {
       title: "Email",
@@ -128,14 +172,23 @@ const QuanLyNguoiDung = () => {
       ),
     },
     {
+      title: "Mật khẩu",
+      dataIndex: "password",
+      key: "password",
+      render: (password) => (
+        <span style={{ fontWeight: "bold", color: "#006400" }}>{password}</span>
+      ),
+    },
+    {
       title: "Ngày sinh",
       dataIndex: "birthday",
       key: "birthday",
       render: (birthday) => (
-        <span style={{ color: "#CD950C" }}>{moment(birthday).format("DD/MM/YYYY")}</span>
+        <span style={{ color: "#CD950C" }}>
+          {moment(birthday).format("DD/MM/YYYY")}
+        </span>
       ),
     },
-    
     {
       title: "Giới tính",
       dataIndex: "gender",
@@ -143,9 +196,9 @@ const QuanLyNguoiDung = () => {
       render: (gender) => (
         <span>
           {gender ? (
-            <span style={{ fontWeight:"bold", color: "seagreen" }}>Nam</span>
+            <span style={{ fontWeight: "bold", color: "seagreen" }}>Nam</span>
           ) : (
-            <span style={{ fontWeight:"bold", color: "magenta" }}>Nữ</span>
+            <span style={{ fontWeight: "bold", color: "magenta" }}>Nữ</span>
           )}
         </span>
       ),
@@ -191,15 +244,20 @@ const QuanLyNguoiDung = () => {
     },
   ];
 
+  const handleTableChange = (pagination) => {
+    setPageIndex(pagination.current);
+    setPageSize(pagination.pageSize);
+  };
+
   const filteredUsersData = usersData.filter((user) =>
     user.name.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
   return (
-    <div className="container">
+    <div className="">
       <div>
         <Button type="primary" onClick={handleOpenModal}>
-          <i class="fa-regular fa-circle-plus mr-1"></i> Thêm Quản Trị Viên
+          <i className="fa-regular fa-circle-plus mr-1"></i> Thêm Quản Trị Viên
         </Button>
 
         <Modal
@@ -229,47 +287,95 @@ const QuanLyNguoiDung = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="name" label="Tên" 
-                 rules={[
+                <Form.Item
+                  name="name"
+                  label="Tên"
+                  rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập tên.",
+                      message: "Vui lòng nhập tên người dùng!",
                     },
-                  ]}>
-                  <Input prefix={<UserOutlined />} placeholder="Tên"  />
+                  ]}
+                >
+                  <Input prefix={<FormOutlined />} placeholder="Tên" />
                 </Form.Item>
               </Col>
+            </Row>
+
+            <Row gutter={[16, 0]}>
               <Col span={12}>
-                <Form.Item name="email" label="Email"
-                 rules={[
-                  {
-                    required: true,
-                    message: "Vui lòng nhập email.",
-                  },
-                ]} >
+                <Form.Item
+                  name="email"
+                  label="Email"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập email!" },
+                    { type: "email", message: "Email không hợp lệ!" },
+                  ]}
+                >
                   <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="birthday" label="Ngày sinh"
-                 rules={[
-                  {
-                    required: true,
-                    message: "Vui lòng nhập ngày sinh.",
-                  },
-                ]}>
-                  <Input prefix={<SmileOutlined />} placeholder="Ngày sinh" />
+                <Form.Item
+                  name="phone"
+                  label="Số điện thoại"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số điện thoại!" },
+                  ]}
+                >
+                  <Input
+                    prefix={<PhoneOutlined />}
+                    placeholder="Số điện thoại"
+                  />
                 </Form.Item>
               </Col>
+            </Row>
 
+            <Row gutter={[16, 0]}>
+              <Col span={12}>
+                <Form.Item
+                  name="password"
+                  label="Mật khẩu"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập mật khẩu!" },
+                  ]}
+                >
+                  <Input prefix={<SafetyOutlined />} placeholder="Mật khẩu" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="birthday"
+                  label="Ngày sinh"
+                  rules={[
+                    { required: true, message: "Vui lòng nhập ngày sinh!" },
+                  ]}
+                >
+                  <Input prefix={<UserOutlined />} placeholder=" Ngày sinh" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="gender"
+                  label="Giới tính"
+                  rules={[
+                    { required: true, message: "Vui lòng chọn giới tính." },
+                  ]}
+                >
+                  <Radio.Group>
+                    <Radio value="true">Nam</Radio>
+                    <Radio value="false">Nữ</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </Col>
               <Col span={24}>
-                <Form.Item name="role" label="Vai trò" 
-                 rules={[
-                  {
-                    required: true,
-                    message: "Vui lòng chọn vai trò.",
-                  },
-                ]}>
+                <Form.Item
+                  name="role"
+                  label="Vai trò"
+                  rules={[
+                    { required: true, message: "Vui lòng chọn vai trò." },
+                  ]}
+                >
                   <Select
                     style={{ marginBottom: "10px" }}
                     placeholder="Chọn vai trò"
@@ -277,14 +383,6 @@ const QuanLyNguoiDung = () => {
                     <Option value="USER">User</Option>
                     <Option value="ADMIN">Admin</Option>
                   </Select>
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Form.Item name="gender" label="Giới tính">
-                  <Radio.Group>
-                    <Radio value="true">Nam</Radio>
-                    <Radio value="false">Nữ</Radio>
-                  </Radio.Group>
                 </Form.Item>
               </Col>
             </Row>
@@ -300,6 +398,14 @@ const QuanLyNguoiDung = () => {
         <div>
           <p>
             <strong>ID: </strong> {detailData.id}
+          </p>
+          <p>
+            <strong>Avatar: </strong>
+            <img
+              src={detailData.avatar}
+              alt=""
+              style={{ width: "150px", height: "150px" }}
+            />
           </p>
           <p>
             <strong>Tên: </strong> {detailData.name}
@@ -320,7 +426,6 @@ const QuanLyNguoiDung = () => {
           <p>
             <strong>Giới tính: </strong> {detailData.gender ? "Nam" : "Nữ"}
           </p>
-
           <p>
             <strong>Vai trò: </strong> {detailData.role}
           </p>
@@ -336,7 +441,20 @@ const QuanLyNguoiDung = () => {
         />
       </div>
       <div className="table-container mt-4">
-        <Table columns={columns} dataSource={filteredUsersData} />
+        <Table
+          columns={columns}
+          dataSource={filteredUsersData}
+          pagination={{
+            current: pageIndex,
+            pageSize: pageSize,
+            total: total,
+            onChange: (page, pageSize) => {
+              setPageIndex(page);
+              setPageSize(pageSize);
+            },
+          }}
+          onChange={handleTableChange}
+        />
       </div>
     </div>
   );

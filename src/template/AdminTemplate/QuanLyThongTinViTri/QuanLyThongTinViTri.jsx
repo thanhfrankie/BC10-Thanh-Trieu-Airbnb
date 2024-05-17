@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { message as antdMessage, Upload } from "antd";
-import { Modal, Button, Form, Input, message, Row, Col, Table,} from "antd";
+import { Modal, Button, Form, Input, message, Row, Col, Table } from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import { PushpinOutlined, ShopOutlined,GlobalOutlined, UploadOutlined,} from "@ant-design/icons";
-import { getToken } from "../../../services/authService"; // Import hàm lấy token
+import {
+  ShopOutlined,
+  GlobalOutlined,
+  UploadOutlined,
+  EnvironmentOutlined,
+  PictureOutlined,
+} from "@ant-design/icons";
+import { getToken } from "../../../services/authService";
 
 const QuanLyThongTinViTri = () => {
   const [usersData, setUsersData] = useState([]);
@@ -32,7 +38,7 @@ const QuanLyThongTinViTri = () => {
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
-    setEditingUser(null); // Reset thông tin vị trí đang chỉnh sửa khi đóng popup
+    setEditingUser(null); 
   };
 
   const handleCancel = () => {
@@ -42,7 +48,7 @@ const QuanLyThongTinViTri = () => {
 
   const onFinish = async (values) => {
     try {
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       if (editingUser) {
         const response = await http.put(`/vi-tri/${editingUser.id}`, values, {
           headers: {
@@ -54,7 +60,7 @@ const QuanLyThongTinViTri = () => {
           form.resetFields();
           setVisible(false);
           setEditingUser(null);
-          fetchData(); // Cập nhật lại dữ liệu sau khi cập nhật thành công
+          fetchData(); 
         } else {
           antdMessage.error("Cập nhật không thành công!");
         }
@@ -68,7 +74,7 @@ const QuanLyThongTinViTri = () => {
           antdMessage.success("Thêm thành công!");
           form.resetFields();
           setVisible(false);
-          fetchData(); // Cập nhật lại dữ liệu sau khi thêm mới thành công
+          fetchData(); 
         } else {
           antdMessage.error("Thêm không thành công!");
         }
@@ -85,14 +91,14 @@ const QuanLyThongTinViTri = () => {
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record); // Lưu thông tin người dùng được chỉnh sửa
-    form.setFieldsValue(record); // Điền thông tin người dùng được chọn vào form
-    setVisible(true); // Hiển thị lại popup thêm quản trị viên
+    setEditingUser(record); 
+    form.setFieldsValue(record); 
+    setVisible(true); 
   };
 
   const handleDelete = async (record) => {
     try {
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       const response = await http.delete(`/vi-tri/${record.id}`, {
         headers: {
           token: `${token}`,
@@ -115,7 +121,7 @@ const QuanLyThongTinViTri = () => {
       const formData = new FormData();
       formData.append("formFile", info.file);
 
-      const token = getToken(); // Lấy token từ localStorage
+      const token = getToken(); 
       const response = await http.post(
         `/vi-tri/upload-hinh-vitri?maViTri=${maViTri}`,
         formData,
@@ -256,13 +262,13 @@ const QuanLyThongTinViTri = () => {
           >
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item name="id" label="ID Vị Trí">
+                <Form.Item name="id" label="ID ">
                   <Input disabled placeholder="ID" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item name="hinhAnh" label="Hình Ảnh">
-                  <Input prefix={<PushpinOutlined />} placeholder="Tải hình" />
+                  <Input prefix={<PictureOutlined />} placeholder="Hình ảnh" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -276,7 +282,10 @@ const QuanLyThongTinViTri = () => {
                     },
                   ]}
                 >
-                  <Input prefix={<PushpinOutlined />} placeholder="Vị trí" />
+                  <Input
+                    prefix={<EnvironmentOutlined />}
+                    placeholder="Vị trí"
+                  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -287,10 +296,6 @@ const QuanLyThongTinViTri = () => {
                     {
                       required: true,
                       message: "Vui lòng nhập tỉnh thành.",
-                    },
-                    {
-                      pattern: /^[^\d]+$/,
-                      message: "Tên không được chứa chữ số.",
                     },
                   ]}
                 >
@@ -305,10 +310,6 @@ const QuanLyThongTinViTri = () => {
                     {
                       required: true,
                       message: "Vui lòng nhập quốc gia.",
-                    },
-                    {
-                      pattern: /^[^\d]+$/,
-                      message: "Tên không được chứa chữ số.",
                     },
                   ]}
                 >
@@ -344,7 +345,7 @@ const QuanLyThongTinViTri = () => {
             <img
               src={detailData.hinhAnh}
               alt="Hình Ảnh"
-              style={{ width: "150px", height: "150px" }}
+              style={{ width: "250px", height: "250px" }}
             />
           </p>
         </div>

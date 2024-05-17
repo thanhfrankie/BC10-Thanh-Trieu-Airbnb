@@ -1,5 +1,5 @@
 import { http } from "./config";
-import { getToken } from "../services/authService"; // Import hàm lấy token
+import { getToken } from "../services/authService";
 
 export const userManagementServ = {
     signUp: (data) => {
@@ -10,25 +10,11 @@ export const userManagementServ = {
     }
 };
 
-export const getViTriById = async (vitriId) => {
-    try {
-        const token = getToken(); // Lấy token từ localStorage
-        const response = await http.get(`/vi-tri/${vitriId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề Authorization
-            },
-        });
-        return response.data.content; // Trả về dữ liệu của người dùng
-    } catch (error) {
-        console.error("Error fetching user data:", error);
-        return null;
-    }
-};
 
 export const getUserById = async (userId) => {
     try {
         const response = await http.get(`/users/${userId}`);
-        return response.data.content; // Trả về dữ liệu của người dùng
+        return response.data.content;
     } catch (error) {
         console.error("Error fetching user data:", error);
         return null;
@@ -40,7 +26,7 @@ export const updateUserById = async (userId, updatedUserData) => {
     try {
       const response = await http.put(`/users/${userId}`, updatedUserData);
       if (response.status === 200) {
-        return response.data; // Trả về dữ liệu người dùng sau khi cập nhật thành công
+        return response.data; 
       } else {
         throw new Error("Error updating user data");
       }

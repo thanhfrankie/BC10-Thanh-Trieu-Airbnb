@@ -4,30 +4,28 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="footer h-full w-full space-x-3  mx-auto flex items-center justify-center flex-col ">
-      <div className="subFooter">
-        <div>Nguồn cảm hứng cho những kỳ nghỉ sau này</div>
-      </div>
+   
       <div className="mainFooter w-full border border-t-2 py-3">
         <div className="mx-auto w-3/4  flex items-start justify-between gap-13 ">
           <div className="support  h-full w-1/3 flex items-center justify-center">
             <ul className="flex h-full items-start justify-center flex-col text-start gap-3">
               <li className="firstLi">Hỗ trợ</li>
-              <NavLink to="/help">
+              <NavLink to="https://www.airbnb.com.vn/help">
                 <li>Trung tâm trợ giúp</li>
               </NavLink>
-              <NavLink to="/aircover">
+              <NavLink to="https://www.airbnb.com.vn/aircover">
                 <li>AirCover</li>
               </NavLink>
-              <NavLink to="/against-discrimination">
+              <NavLink to="https://www.airbnb.com.vn/against-discrimination">
                 <li>Chống phân biệt đối xử</li>
               </NavLink>
-              <NavLink to="/accessibility">
+              <NavLink to="https://www.airbnb.com.vn/accessibility">
                 <li>Hỗ trợ người khuyết tật</li>
               </NavLink>
-              <NavLink to="/help/article/2701">
+              <NavLink to="https://www.airbnb.com.vn/help/article/2701">
                 <li>Các tùy chọn hủy</li>
               </NavLink>
-              <NavLink to="/neighbor">
+              <NavLink to="https://www.airbnb.com.vn/neighbor">
                 <li>Báo cáo lo ngại của khu dân cư</li>
               </NavLink>
             </ul>
@@ -35,22 +33,22 @@ const Footer = () => {
           <div className="hosting h-auto w-1/3 flex items-center justify-center ">
             <ul className="px-2 flex items-start justify-center flex-col text-start gap-3">
               <li className="firstLi">Đón tiếp khách</li>
-              <NavLink to="/host">
+              <NavLink to="https://www.airbnb.com.vn/host">
                 <li>Cho thuê nhà trên Airbnb</li>
               </NavLink>
-              <NavLink to="/aircover-for-hosts">
+              <NavLink to="https://www.airbnb.com.vn/aircover-for-hosts">
                 <li>AirCover cho Chủ nhà</li>
               </NavLink>
-              <NavLink to="/resources">
+              <NavLink to="https://www.airbnb.com.vn/resources">
                 <li>Tài nguyên về đón tiếp khách</li>
               </NavLink>
-              <NavLink to="/help/community">
+              <NavLink to="https://www.airbnb.com.vn/help/community">
                 <li>Diễn đàn cộng đồng</li>
               </NavLink>
-              <NavLink to="/help/responsible-hosting">
+              <NavLink to="https://www.airbnb.com.vn/help/responsible-hosting">
                 <li>Đón tiếp khách có trách nhiệm</li>
               </NavLink>
-              <NavLink to="/ambassadors/joinaclass">
+              <NavLink to="https://www.airbnb.com.vn/ambassadors/joinaclass">
                 <li>Tham gia khóa học miễn phí về công việc Đón tiếp khách</li>
               </NavLink>
             </ul>
@@ -58,16 +56,16 @@ const Footer = () => {
           <div className="airbnb h-auto  w-1/3 flex items-center justify-center ">
             <ul className="flex items-start justify-center flex-col text-start gap-3">
               <li className="firstLi ">Airbnb</li>
-              <NavLink to="/press/news">
+              <NavLink to="https://www.airbnb.com.vn/press/news">
                 <li>Trang tin tức</li>
               </NavLink>
-              <NavLink to="/release">
+              <NavLink to="https://www.airbnb.com.vn/release">
                 <li>Tính năng mới</li>
               </NavLink>
-              <NavLink to="/carreers">
+              <NavLink to="https://www.airbnb.com.vn/carreers">
                 <li>Cơ hội nghề nghiệp</li>
               </NavLink>
-              <NavLink to="/investors">
+              <NavLink to="https://www.airbnb.com.vn/investors">
                 <li>Nhà đầu tư</li>
               </NavLink>
               <NavLink to="https://vi.airbnb.org">
@@ -87,15 +85,15 @@ const Footer = () => {
               <span>2024 Airbnb, Inc.</span>
             </div>
             <span>·</span>
-            <NavLink to="/terms/privacy_policy">
+            <NavLink to="https://www.airbnb.com.vn/terms/privacy_policy">
               <button className="copyrightLink">Quyền riêng tư</button>
             </NavLink>
             <span>·</span>
-            <NavLink to="/terms">
+            <NavLink to="https://www.airbnb.com.vn/terms">
               <button className="copyrightLink">Điều khoản</button>
             </NavLink>
             <span>·</span>
-            <NavLink to="sitemaps/v2">
+            <NavLink to="https://www.airbnb.com.vn/sitemaps/v2">
               <button className="copyrightLink">Sơ đồ trang web</button>
             </NavLink>
           </div>

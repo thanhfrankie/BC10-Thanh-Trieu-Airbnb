@@ -9,12 +9,12 @@ import DetailPopupBot from "../../../components/Popup/DetailPopupBot";
 const TaoHoSo = () => {
   return (
     <div>
-      <div className="container">
+      <div className="container" >
         <div>
           <Header />
         </div>
         <div className=" mt-5 pr-24">
-          <div className=" pr-60 pl-60">
+          <div className=" pr-60 pl-80">
             <div className=" pb-4">
               <p className="textTitle">Hồ sơ của bạn</p>
               <p>

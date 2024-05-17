@@ -22,26 +22,26 @@
   align-items: center;
   justify-content: space-around;
   border-radius: 10px;
-  height: 280px; /* Giảm chiều cao đi 20% */
-  width: 240px; /* Giảm chiều rộng đi 20% */
+  height: 280px; 
+  width: 240px; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .imgLeft {
-  width: 120px; /* Giảm kích thước ảnh đi 20% */
-  height: 120px; /* Giảm kích thước ảnh đi 20% */
+  width: 120px; 
+  height: 120px; 
   border-radius: 50%;
 }
 
 .texTopLeft {
-  font-size: 25px; /* Giảm kích thước font chữ đi 20% */
+  font-size: 25px; 
   overflow: hidden;
-  padding: 16px 0; /* Giảm padding đi 20% theo chiều dọc */
-  text-overflow: ellipsis; /* Hiển thị "..." khi nội dung quá dài */
-  white-space: nowrap; /* Ngăn chặn quá trình ngắt dòng */
+  padding: 16px 5px; 
+  text-overflow: ellipsis; 
+ 
 }
 .texBotLeft {
-  font-size: 16px; /* Giảm kích thước font chữ đi 20% */
+  font-size: 16px; 
   font-weight: 700;
   text-align: center;
 }
@@ -49,13 +49,13 @@
 .buttonleft {
   border: 0.5px solid gray;
   border-radius: 10px;
-  padding: 8px 16px; /* Giảm padding đi 20% */
+  padding: 8px 16px; 
   cursor: pointer;
   margin-top: 10px;
   font-weight: bold;
 }
 .borderXacMinh {
-  // border: 1px solid gray !important;
+ 
   margin-right: 24px;
   padding-left: 20px;
   padding-top: 20px;
@@ -67,7 +67,7 @@
 .buttonEdit {
   border: 0.5px solid gray;
   border-radius: 20px;
-  padding: 4px 8px; /* Giảm padding đi 20% */
+  padding: 4px 8px; 
   cursor: pointer;
   background-color: white;
   color: black;
@@ -91,22 +91,22 @@
 .displayUser {
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-select .ant-select-arrow {
+.ant-select .ant-select-arrow {
   inset-inline-end: -185px;
   height: 28px;
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   width: 410px !important;
   height: 45px !important;
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-radio-wrapper span.ant-radio + * {
+.ant-radio-wrapper span.ant-radio + * {
   padding-inline-start: 6px;
   padding-inline-end: 288px;
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
   border-color: gray;
   background-color: gray;
 }

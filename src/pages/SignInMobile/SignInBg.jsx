@@ -5,12 +5,10 @@ import Lottie from "react-lottie";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-// import { quanLyNguoiDungServ } from "../../services/quanLyNguoiDung";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
-import { saveLocalStorage } from "../../utils/util";
-import "./SignInMobile.scss";
-const SignInMobile = () => {
+import "./SignInBg.scss";
+const SignInBg = () => {
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
   const { handleChange, handleBlur, values, errors, touched, handleSubmit } =
@@ -20,14 +18,7 @@ const SignInMobile = () => {
         matKhau: "",
       },
       onSubmit: async (values) => {
-        console.log(values);
-        // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
-          // gửi dữ liệu lên backend
-          // const res = await quanLyNguoiDungServ.dangNhap(values);
-          // console.log(res);
-          // lưu trữ dữ liệu xuống localstorage để lưu trữ
-          // saveLocalStorage("user", res.data.content);
           notify(
             "Đăng nhập thành công, khách hàng sẽ được chuyển hướng về trang chủ"
           );
@@ -36,7 +27,6 @@ const SignInMobile = () => {
           }, 1000);
         } catch (error) {
           console.log(error);
-          // notify(error.response.data.content);
         }
       },
       validationSchema: Yup.object({
@@ -109,4 +99,4 @@ const SignInMobile = () => {
   );
 };
 
-export default SignInMobile;
+export default SignInBg;

@@ -1,22 +1,15 @@
 import React, { useContext, useState } from "react";
 import InputSign from "../../components/Input/InputSign";
-import * as registerAnimation from "./../../assets/animation/register.json";
-import Lottie from "react-lottie";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import { userManagementServ } from "../../services/userManagement";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import { useNavigate } from "react-router-dom";
-import { saveLocalStorage, validationMessage } from "../../utils/util";
 
-import SignInMobile from "../SignInMobile/SignInMobile";
-
-// import useResponsive from "../../hooks/useResponsive";
 import "./SignUp.scss";
+import SignInBg from "../SignInMobile/SignInBg";
 const SignUp = () => {
-  
-  // const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const notify = useContext(NotifyContext);
   const navigate = useNavigate();
@@ -29,18 +22,13 @@ const SignUp = () => {
         phone: "",
       },
       onSubmit: async (values) => {
-        console.log(values);
-        // đưa dữ liệu lên backend xử lí và hiển thị thông báo cho người dùng
         try {
-          // gửi dữ liệu lên backend
           const res = await userManagementServ.signUp(values);
-          // console.log(res);
           notify("Đăng ký thành công, vui lòng đăng nhập để tiếp tục");
           setTimeout(() => {
             navigate("/sign-in");
           }, 1000);
         } catch (error) {
-          console.log(error);
           notify(error.response.data.content);
         }
       },
@@ -69,19 +57,11 @@ const SignUp = () => {
       }),
     });
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: registerAnimation,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   return (
     <div className="w-screen h-screen bg-gray-400 relative">
       <div className="container flex justify-center items-center">
         <div className="container absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-50 pointer-events-none">
-          <SignInMobile />
+          <SignInBg />
         </div>
 
         <div className="form_signUp  w-1/3 h-auto  flex items-center justify-center flex-col absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 border  rounded-md space-y-5 z-10 bg-white bg-opacity-80 ">

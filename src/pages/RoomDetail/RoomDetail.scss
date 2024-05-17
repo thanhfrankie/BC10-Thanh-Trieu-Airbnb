@@ -1,14 +1,51 @@
-.room-detail {
-    .room-name {
+.room-detail-container {
+  border-top: 2px solid #e5e7eb;
 
+  .room-slug {
+    &:hover {
+      color: #ff5a83;
     }
-    .room-img {
+  }
+  .room-owner,
+  .room-right,
+  .room-info {
+    border-bottom: 2px solid #e5e7eb;
+  }
 
+  .room-desc {
+    border-bottom: 2px solid #e5e7eb;
+    .room-show__more {
+      &:hover {
+        color: #ff5a83;
+      }
     }
-    .room-desc {
-
+    .room-translate {
+      background-color: #F7F7F7;
     }
-    .room-price {
-        
-    }
+  }
+  .star-icon {
+    color: #ff5a83;
+  }
+  .room-booking {
+    border: 2px solid #e5e7eb;
+  }
+}
+.room-booking__button {
+  background-color: #f2285f;
+  &:hover {
+    background-color: #ff5a83;
+  }
+}
+.room-comment__info {
+  border-bottom: 2px solid #e5e7eb;
+}
+.room-comment__button, .room-count__button {
+  background-color: #f2285f;
+  &:hover {
+    background-color: #ff5a83;
+  }
+}
+.room-detail__clean {
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 1rem;
 }

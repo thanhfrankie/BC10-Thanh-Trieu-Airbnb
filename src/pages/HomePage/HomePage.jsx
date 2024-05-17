@@ -2,24 +2,31 @@ import React from "react";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
 import ListRoom from "../../layout/ListRoom/ListRoom";
-import RoomFilter from "../../layout/RoomFilter/RoomFilter";
+import WithIcons from "../../layout/RoomFilter/WithIcons/WithIcons";
+import WithLocation from "../../layout/RoomFilter/WithLocation/WithLocation";
+import PastExperiences from "../../layout/RoomFilter/PastExperiences/PastExperiences";
+import useChangePageTitle from "../../hooks/useChangePageTitle";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 
 const HomePage = () => {
-  
+  useChangePageTitle("Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v.")
   return (
-    <div className="h-full ">
-      {/* Header  */}
+    <div className="h-full container ">
       <div className="px-20">
         <Header />
       </div>
-      <div className="h-full px-20">
-        <RoomFilter/>
+      <div className="h-full sm:px-3 lg:px-10 md:px-8 xl:px-20">
+        <WithIcons />
+        <WithLocation/>
         <ListRoom />
+        <div>
+          <PastExperiences/>
+        </div>
       </div>
-      {/* Footer */}
       <div className="h-3/4 w-full mt-3 ">
         <Footer />
       </div>
+      <ScrollToTopButton/>
     </div>
   );
 };
