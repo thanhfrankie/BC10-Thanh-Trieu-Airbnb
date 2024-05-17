@@ -11,7 +11,7 @@ import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopBut
 const HomePage = () => {
   useChangePageTitle("Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v.")
   return (
-    <div className="h-full ">
+    <div className="h-full container ">
       <div className="px-20">
         <Header />
       </div>

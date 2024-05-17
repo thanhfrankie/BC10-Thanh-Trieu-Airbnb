@@ -159,9 +159,9 @@ const Header = () => {
   
   return (
     <div className="header">
-      <div className="flex items-center mt-1">
-        <div className="w-full bg-white  py-2.5 h-20 pt-4 ">
-          <div className="w-full flex  justify-between items-center">
+      <div className="flex items-center  mt-1">
+        <div style={{ top:"1%",left:"50%",transform:"translate(-50%, -50%)",position:"fixed"}} className="w-full bg-white container py-2.5 h-36 pt-8 absolute z-99999">
+          <div className="w-full flex pt-12 justify-between items-center">
             <NavLink
               to="/"
               className="logo text-sm flex items-center  font-bold"
@@ -234,7 +234,7 @@ const Header = () => {
           
         </div>
       </div>
-      <div
+      <div style={{marginTop:"80px"}}
         className="h-auto w-1/2  flex items-center justify-center mx-auto gap-1 rounded-full border border-gray-500 "
         onBlur={() => setIsFocused(false)}
         onFocus={() => setIsFocused(true)}
