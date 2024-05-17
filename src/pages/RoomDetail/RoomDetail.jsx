@@ -71,7 +71,7 @@ const RoomDetail = () => {
     const findRoom = () => {
       if (listRoomArr && listRoomArr.length > 0) {
         const foundRoom = listRoomArr.find((item, index) => {
-          if (item.id === roomId) {
+          if (item.id == roomId) {
             setCurrentRoomIndex(index);
             return true;
           }
