@@ -1,11 +1,8 @@
 .header {
-  width: 100%;
-  .inputLabel {
-    border: none;
-  }
+ 
 }
 .logo {
-  color: #ff385c;
+  color: #FF385C;
 }
 .ant-dropdown {
   .ant-dropdown-menu {
@@ -19,24 +16,30 @@
     }
   }
 }
-.btn {
-  color: #6a6a6a;
-}
+// .btn {
+//   color: #6a6a6a;
+// }
 .active {
   color: black;
   font-weight: 600;
 }
+.search {
+  border: 1px solid gray;
+}
 .active:hover {
   background-color: white;
 }
-.search,
-.inputLabel {
+.search-input,
+.input-label,
+.search-button {
   cursor: pointer;
 }
 
-
+.input-label {
+  border: none;
+}
 .btn:hover,
-.search:hover,
+.search-input:hover,
 .globe:hover {
   background-color: #ebebeb;
 }
@@ -46,8 +49,8 @@
 .active.btnHover {
   background-color: white;
 }
-.search:hover {
-  .InputSearchBar {
+.search-input:hover {
+  .input-search__bar {
     background-color: #ebebeb;
   }
 }
@@ -75,21 +78,34 @@
   font-weight: bold !important;
   color:#ff385c !important;
 }
-
+// Điện thoại di động nhỏ
 @media (max-width: 575.98px) {
+
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+  .header-logo {
+    width: 120px;
+    border: 1px solid red;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
 }
 
 @media (min-width: 1200px) and (max-width: 1439.98px) {
+  .header-logo {
+    width: 120px;
+    border: 1px solid red;
+  }
 }
 
 @media (min-width: 1440px) {
+  .header-logo {
+    width: 100px;
+    border: 1px solid red;
+  }
 }

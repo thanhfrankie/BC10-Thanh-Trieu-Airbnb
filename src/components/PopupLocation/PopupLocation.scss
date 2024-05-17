@@ -1,9 +1,9 @@
 .popup-location {
     position: absolute;
-    top: 16%;
-    left: 86px;
-    width: 40%;
-    height: 60%; 
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -11,7 +11,9 @@
     z-index: 999;
     padding: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
   
   .popup-content {
@@ -20,7 +22,7 @@
     margin-top: 18px;
   }
   
-  .close-btn {
+  .popup-close__btn {
     font-weight: bold;
     position: absolute;
     top: 10px;
@@ -33,4 +35,6 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
   }
-  
+  .popup-location__item {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }

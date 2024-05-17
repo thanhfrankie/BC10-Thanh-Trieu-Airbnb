@@ -1,6 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-const InputSearchBar = ({
+const InputSearchBar = forwardRef(({
   id,
   label,
   placeholder,
@@ -9,30 +9,30 @@ const InputSearchBar = ({
   name,
   onChange,
   value,
-  onBlur,
   type = "text",
+  ref
 }) => {
   return (
     <div>
       <label
         htmlFor={id}
-        className={`inputLabel px-4  block text-sm font-medium text-gray-900 ${classNameLabel}`}
+        className={`input-label px-4  block text-sm font-medium text-gray-900 ${classNameLabel}`}
       >
         {label}
       </label>
       <input
-        onBlur={onBlur}
+    ref={ref}
         value={value}
         onChange={onChange}
         type={type}
         name={name}
         id={id}
-        className={` min-w-sm border text-gray-700 text-sm rounded-lg block w-full  ${className} InputSearchBar `}
+        className={`border text-gray-700 text-sm rounded-lg block w-full  ${className} input-search__bar `}
         placeholder={placeholder}
       />
   
     </div>
   );
-};
+});
 
 export default InputSearchBar;
