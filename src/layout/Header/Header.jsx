@@ -4,9 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
 import "./Header.scss";
 import ButtonCustom from "../../components/Button/ButtonCustom";
-import InputSearchBar from "../../components/Input/InputSearchBar";
 import { getLocalStorage, renderAvatar } from "../../utils/util";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
+import { locationManagement } from "../../services/locationManagement";
+import { convertToSlug } from "../../utils/util";
+import PopupLocation from "../../components/PopupLocation/PopupLocation";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,6 +16,32 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [userLocal, setUserLocal] = useState(null);
+  
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await locationManagement.getLocation();
+        setLocations(response.data.content.slice(0, 10));
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      }
+    };
+
+    fetchLocations();
+  }, []);
+
+  const handleSearch = () => {
+    if (selectedLocation) {
+      navigate(`/rooms/${convertToSlug(selectedLocation)}`);
+    } else {
+      alert("Vui lòng chọn một điểm đến để tìm kiếm!");
+    }
+  };
+
 
   useEffect(() => {
     const userLocal = getLocalStorage("user");
@@ -213,13 +241,16 @@ const Header = () => {
       >
         <div className="search w-1/3  px-6 rounded-full ">
           <button className="w-full py-2 text-start ">
-            <InputSearchBar
-              placeholder="Tìm kiếm điểm đến"
-              id="Địa điểm"
-              label="Địa điểm"
-              className=" border-none px-4 outline-none "
-              classNameLabel="font-bold"
-            />
+          <button style={{fontWeight:"bold"}} onClick={() => setShowPopup(true)}>
+        {selectedLocation ? selectedLocation : "Tìm kiếm điểm đến"}
+      </button>
+      {showPopup && (
+        <PopupLocation
+          locations={locations}
+          onSelectLocation={(location) => setSelectedLocation(location)}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
           </button>
         </div>
 
@@ -253,7 +284,7 @@ const Header = () => {
             span="Thêm khách"
             classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
           />
-          <button>
+          <button onClick={handleSearch}>
             {isFocused ? (
               <div className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
                 <i className="fa-regular fa-magnifying-glass"></i>
@@ -272,3 +303,9 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
+
+
+
