@@ -157,10 +157,10 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full h-40 py-4 flex items-center justify-center flex-col border border-red-400">
+    <div className="w-full h-40 py-4 flex items-center justify-center flex-col ">
       <div
         // style={{ top: "1%", left: "50%", transform: "translate(-50%, -50%)", position: "fixed" }}
-        className="w-full  border border-blue-400"
+        className="w-full bg-white  px-20"
       >
         <div className="w-full flex justify-between items-center ">
           <div className="w-1/3">
@@ -168,7 +168,7 @@ const Header = () => {
               <img src={logo} className="w-full" alt="Airbnb Logo" />
             </NavLink>
           </div>
-          <div className="w-1/3 flex items-center justify-center border border-yellow-300">
+          <div className="w-1/3 flex items-center justify-center ">
             <ButtonCustom
               value="Chỗ ở"
               classNameBtn={`btnHover  ${
@@ -190,7 +190,7 @@ const Header = () => {
               />
             </NavLink>
           </div>
-          <div className="w-1/3 flex items-center justify-end border border-green-500">
+          <div className="w-1/3 flex items-center justify-end ">
             <NavLink to="https://www.airbnb.com.vn/host/homes">
               <ButtonCustom
                 value="Cho thuê chỗ ở qua Airbnb"
@@ -231,7 +231,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="h-36 w-full flex items-center justify-center border border-green-400">
+      <div className="h-36 w-full flex items-center justify-center ">
         <div
           tabindex="-1"
           className="search w-1/2 flex items-center justify-center gap-1 rounded-full shadow-lg relative"
@@ -242,10 +242,6 @@ const Header = () => {
             className="search-input w-1/3 px-6 rounded-full "
             onClick={() => setShowPopup(true)}
           >
-            {/* <button style={{ fontWeight: "bold" }} onClick={() => setShowPopup(true)}>
-                
-        {selectedLocation ? selectedLocation : "Tìm kiếm điểm đến"}
-      </button> */}
             <button className="search-button w-full py-2 text-start">
               <InputSearchBar
                 placeholder="Tìm kiếm điểm đến"
@@ -266,12 +262,9 @@ const Header = () => {
                 setShowPopup(false);
                 e.stopPropagation();
               }}
-              // onBlur={() => setShowPopup(false)}
-
               onFocus={() => setShowPopup(true)}
             />
           )}
-
           <div className="w-1/3 rounded-full">
             {activeButton === "Chỗ ở" ? (
               <div className="flex items-center justify-center">
@@ -302,18 +295,18 @@ const Header = () => {
               span="Thêm khách"
               classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
             />
-            <button onClick={handleSearch}>
+            <div onClick={handleSearch}>
               {isFocused ? (
-                <div className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
+                <button className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
                   <i className="fa-regular fa-magnifying-glass"></i>
-                  <span>Tìm kiếm</span>
-                </div>
+                 Tìm kiếm
+                </button>
               ) : (
-                <div className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
+                <button className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
                   <i className="fa-regular fa-magnifying-glass"></i>
-                </div>
+                </button>
               )}
-            </button>
+            </div>
           </div>
         </div>
       </div>

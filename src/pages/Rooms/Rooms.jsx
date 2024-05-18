@@ -46,7 +46,7 @@ const Rooms = () => {
             Hiện có {listRoomArr.length} địa điểm cho thuê tại quốc gia Việt Nam
           </h2>
         )}
-        <div className="w-full h-auto mx-auto flex items-center justify-center flex-wrap  py-2">
+        <div className="w-full h-auto mx-auto flex items-center justify-start flex-wrap  py-2">
           {listRoomArr &&
             listRoomArr.map((room) => (
               <RoomCard

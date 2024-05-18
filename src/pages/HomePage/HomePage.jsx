@@ -12,7 +12,7 @@ const HomePage = () => {
   useChangePageTitle("Airbnb | Nhà nghỉ dưỡng cho thuê, cabin, nhà trên bãi biển, v.v.")
   return (
     <div className="h-full">
-      <div className="px-20">
+      <div className="">
         <Header />
       </div>
       <div className="h-full sm:px-3 lg:px-10 md:px-8 xl:px-20">
