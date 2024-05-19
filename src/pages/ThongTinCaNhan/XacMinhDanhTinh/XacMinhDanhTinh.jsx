@@ -170,7 +170,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {frontImageUrl && (
-                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                        <img style={{ width: "120px", height: "80px" }} src={frontImageUrl} alt="Ảnh mặt trước" />
                       )}
                       <p>Ảnh mặt trước</p>
                     </div>
@@ -192,7 +192,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {backImageUrl && (
-                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                        <img style={{ width: "120px", height: "80px" }} src={backImageUrl} alt="Ảnh mặt sau" />
                       )}
                       <p>Ảnh mặt sau</p>
                     </div>
@@ -243,7 +243,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {frontImageUrl && (
-                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                        <img style={{ width: "120px", height: "80px" }} src={frontImageUrl} alt="Ảnh mặt trước" />
                       )}
                       <p>Ảnh mặt trước</p>
                     </div>
@@ -265,7 +265,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {backImageUrl && (
-                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                        <img style={{ width: "120px", height: "80px" }} src={backImageUrl} alt="Ảnh mặt sau" />
                       )}
                       <p>Ảnh mặt sau</p>
                     </div>
@@ -317,7 +317,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {frontImageUrl && (
-                        <img src={frontImageUrl} alt="Ảnh mặt trước" />
+                        <img style={{ width: "120px", height: "80px" }}src={frontImageUrl} alt="Ảnh mặt trước" />
                       )}
                       <p>Ảnh mặt trước</p>
                     </div>
@@ -339,7 +339,7 @@ const XacMinhDanhTinh = () => {
                         style={{ width: "84px", height: "34px" }}
                       />
                       {backImageUrl && (
-                        <img src={backImageUrl} alt="Ảnh mặt sau" />
+                        <img style={{ width: "120px", height: "80px" }} src={backImageUrl} alt="Ảnh mặt sau" />
                       )}
                       <p>Ảnh mặt sau</p>
                       
