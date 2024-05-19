@@ -20,7 +20,7 @@ const XacMinhDanhTinh = () => {
 
   const handleFrontImageUpload = (e) => {
     const file = e.target.files[0];
-    // Xử lý file ảnh mặt trước ở đây
+    
     setFrontImage(file);
 
     // Lấy đường dẫn của hình ảnh và cập nhật vào state
@@ -30,7 +30,7 @@ const XacMinhDanhTinh = () => {
 
   const handleBackImageUpload = (e) => {
     const file = e.target.files[0];
-    // Xử lý file ảnh mặt sau ở đây
+    
     setBackImage(file);
     const imageUrl = URL.createObjectURL(file);
     setBackImageUrl(imageUrl);

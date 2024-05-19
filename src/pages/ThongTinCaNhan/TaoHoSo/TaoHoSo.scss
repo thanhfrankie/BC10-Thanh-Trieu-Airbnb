@@ -1,9 +1,5 @@
 
-.mt-5 {
-  margin-top: 1.5rem;
-}
-
-.pr-24 {
+.paddingR24 {
   padding-right: 6rem;
 
   @media (max-width: 768px) {
@@ -11,7 +7,7 @@
   }
 }
 
-.pr-28 {
+.paddingR28 {
   padding-right: 15rem;
 
   @media (max-width: 768px) {
@@ -19,7 +15,7 @@
   }
 }
 
-.pl-52 {
+.paddingL52 {
   padding-left: 20rem;
 
   @media (max-width: 768px) {
@@ -42,6 +38,7 @@
     grid-column: span 6;
   }
 }
+
 
 .textTitle {
   font-size: 30px;

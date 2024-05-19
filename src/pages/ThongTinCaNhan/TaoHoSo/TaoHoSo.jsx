@@ -13,8 +13,8 @@ const TaoHoSo = () => {
         <div>
           <Header />
         </div>
-        <div className=" mt-10 pr-24">
-          <div className=" pr-28  pl-52">
+        <div className=" mt-10 pr-24 paddingR24">
+          <div className=" pr-28 paddingR28  pl-52 paddingL52">
             <div className=" pb-4">
               <p className="textTitle">Hồ sơ của bạn</p>
               <p>

@@ -32,3 +32,24 @@
 .widthModalPhong {
     width: 666px !important;
 }
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #8b8989;
+    border-color:#2f4f4f;
+    background: #ffffff;
+}
+
+.ant-switch.ant-switch-checked {
+    background: #2f4f4f;
+}
+.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+    background:  #8b8989;
+}
+.ant-pagination .ant-pagination-item-active a {
+    color:  #2f4f4f;
+}
+.ant-pagination .ant-pagination-item-active:hover {
+    border-color:  #2f4f4f;
+}
+.ant-pagination .ant-pagination-item-active {
+    border-color:#2f4f4f;
+}

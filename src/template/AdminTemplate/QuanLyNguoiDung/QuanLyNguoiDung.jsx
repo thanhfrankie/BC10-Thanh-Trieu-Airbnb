@@ -150,7 +150,7 @@ const QuanLyNguoiDung = () => {
           <img
             src={avatar}
             alt=""
-            style={{ width: "80px", height: "80px", marginRight: "5px" }}
+            style={{ width: "60px", height: "60px", marginRight: "5px" }}
           />
         </div>
       ),
@@ -219,21 +219,21 @@ const QuanLyNguoiDung = () => {
       render: (text, record) => (
         <span>
           <Button
-            className="m-1"
+            className="ml-1"
             type="default"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </Button>
           <Button
-            className=" mb-1"
+            className=" ml-1 mb-1 mt-1"
             type="default"
             onClick={() => handleDelete(record)}
           >
             Xoá
           </Button>
           <Button
-            className="ml-2"
+            className="ml-1"
             type="default"
             onClick={() => handleDetail(record)}
           >
