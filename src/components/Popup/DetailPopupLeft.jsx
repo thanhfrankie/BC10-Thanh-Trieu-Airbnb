@@ -8,7 +8,7 @@ const { Option } = Select;
 
 const { TextArea } = Input;
 
-const countries = require("../../data/countries.json");
+const countries = require("../../assets/data/countries.json");
 
 function DetailPopupLeft() {
   const [comment, setComment] = useState("");

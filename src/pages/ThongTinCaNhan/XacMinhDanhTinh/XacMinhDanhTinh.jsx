@@ -5,7 +5,7 @@ import "../ThongTinCaNhan.scss";
 import Header from "../../../layout/Header/Header";
 import Footer from "../../../layout/Footer/Footer";
 const { Option } = Select;
-const countries = require("../../../data/countries.json");
+const countries = require("../../../assets/data/countries.json");
 
 const XacMinhDanhTinh = () => {
   const navigate = useNavigate();
@@ -55,8 +55,8 @@ const XacMinhDanhTinh = () => {
       <div className="mb-10">
         <Header />
       </div>
-      <div className="grid grid-cols-4 mt-5" >
-        <div className=" ml-40 col-span-2 ">
+      <div className=" mr-20 ml-20 grid grid-cols-8 mt-5  " >
+        <div style={{height:""}} className="col-span-3 ">
           <div style={{ width: "450px" }} className="borderXacMinh ">
             <p
               style={{
@@ -82,14 +82,14 @@ const XacMinhDanhTinh = () => {
                 </Option>
               ))}
             </Select>
-            <div style={{ margin: "45px 0px" }}>
+            <div style={{ margin: "30px 0px" }}>
               <Radio.Group
                 onChange={handleDocumentChange}
                 value={selectedDocument}
               >
                 <Radio
                   className="flex flex-row-reverse "
-                  style={{ margin: "10px 0px" }}
+                  style={{ margin: "15px 0px" }}
                   value="giayPhepLaiXe"
                 >
                   <span>Giấy phép lái xe</span>
@@ -98,7 +98,7 @@ const XacMinhDanhTinh = () => {
                 <hr />
                 <Radio
                   className="flex flex-row-reverse"
-                  style={{ margin: "10px 0px" }}
+                  style={{ margin: "15px 0px" }}
                   value="hoChieu"
                 >
                   <span style={{ paddingRight: "42px" }}>Hộ chiếu</span>
@@ -107,7 +107,7 @@ const XacMinhDanhTinh = () => {
                 <hr />
                 <Radio
                   className="flex flex-row-reverse"
-                  style={{ margin: "10px 0px" }}
+                  style={{ margin: "15px 0px" }}
                   value="giayToTuTuyThan"
                 >
                   <span>Giấy tờ tùy thân</span>
@@ -133,8 +133,7 @@ const XacMinhDanhTinh = () => {
             </Button>
           </div>
         </div>
-        <div className=" col-span-2 ">
-          {/* Hiển thị nội dung tương ứng khi đã chọn giấy tờ tùy thân */}
+        <div className="col-span-5 col-start-5 ">
           {showDocumentDetails && selectedDocument && (
             <div className="borderXacMinh">
               {selectedDocument === "giayPhepLaiXe" && (
@@ -201,7 +200,7 @@ const XacMinhDanhTinh = () => {
                   <NavLink to="/thong-tin-ca-nhan">
                     <Button
                       className="mt-1"
-                      style={{ marginLeft: "465px" }}
+                      style={{  }}
                       type="primary"
                       onClick={handleCompleteButtonClick}
                     >
@@ -210,8 +209,6 @@ const XacMinhDanhTinh = () => {
                   </NavLink>
                 </div>
               )}
-
-              {/* Tương tự cho các loại giấy tờ khác */}
               {selectedDocument === "hoChieu" && (
                 <div>
                   <p
@@ -272,17 +269,17 @@ const XacMinhDanhTinh = () => {
                       )}
                       <p>Ảnh mặt sau</p>
                     </div>
-                  </div>
-                  <NavLink to="/thong-tin-ca-nhan">
+                    <NavLink to="/thong-tin-ca-nhan">
                     <Button
                       className="mt-1"
-                      style={{ marginLeft: "465px" }}
+                      style={{  }}
                       type="primary"
                       onClick={handleCompleteButtonClick}
                     >
                       Hoàn thành
                     </Button>
                   </NavLink>
+                  </div>                 
                 </div>
               )}
 
@@ -345,18 +342,20 @@ const XacMinhDanhTinh = () => {
                         <img src={backImageUrl} alt="Ảnh mặt sau" />
                       )}
                       <p>Ảnh mặt sau</p>
+                      
                     </div>
-                  </div>
-                  <NavLink to="/thong-tin-ca-nhan">
+                    <NavLink to="/thong-tin-ca-nhan">
                     <Button
                       className="mt-1"
-                      style={{ marginLeft: "465px" }}
+                      style={{  }}
                       type="primary"
                       onClick={handleCompleteButtonClick}
                     >
                       Hoàn thành
                     </Button>
                   </NavLink>
+                  </div>
+                 
                 </div>
               )}
             </div>

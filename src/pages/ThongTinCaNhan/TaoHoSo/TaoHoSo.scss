@@ -1,27 +1,77 @@
+
+.mt-5 {
+  margin-top: 1.5rem;
+}
+
+.pr-24 {
+  padding-right: 6rem;
+
+  @media (max-width: 768px) {
+    padding-right: 1rem;
+  }
+}
+
+.pr-28 {
+  padding-right: 15rem;
+
+  @media (max-width: 768px) {
+    padding-right: 1rem;
+  }
+}
+
+.pl-52 {
+  padding-left: 20rem;
+
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+  }
+}
+
+.taoHoSoGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.taoHoSoCol {
+  grid-column: span 3;
+
+  @media (max-width: 768px) {
+    grid-column: span 6;
+  }
+}
+
+.textTitle {
+  font-size: 30px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
 .buttonEdit {
   border: 0.5px solid gray;
   border-radius: 20px;
-  padding: 0px 5px;
+  padding: 0 5px;
   cursor: pointer;
   background-color: white;
   color: black;
-  bottom: -4px;
-  left: 56px;
   font-weight: bold;
+
+  &:hover {
+    background-color: gray;
+    color: white;
+  }
 }
-.buttonEdit:hover {
-  background-color: gray;
-  color: white;
-}
+
 .imgLeft {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   border: 0.5px solid gray;
-}
-.textTitle {
-  font-size: 30px;
-  font-weight: bold;
 }
 
 .imgBg {
@@ -31,26 +81,23 @@
 
 .ant-btn-primary {
   background: gray;
+  &:hover {
+    background: rgb(170, 169, 169);
+  }
 }
 
-.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
-  background: rgb(170, 169, 169);
-}
-.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-  color: black;
-  border-color: rgb(170, 169, 169);
-  background: #ffffff;
-}
-.ant-input-outlined:hover {
-  border-color: rgb(170, 169, 169);
-}
-.ant-select-outlined:not(.ant-select-disabled):not(
-    .ant-select-customize-input
-  ):not(.ant-pagination-size-changer):hover
-  .ant-select-selector {
-  border-color: rgb(170, 169, 169);
+.ant-btn-default {
+  &:hover {
+    color: black;
+    border-color: rgb(170, 169, 169);
+    background: #ffffff;
+  }
 }
 
-.ant-picker-outlined:hover {
-  border-color: rgb(170, 169, 169);
+.ant-input-outlined,
+.ant-select-outlined,
+.ant-picker-outlined {
+  &:hover {
+    border-color: rgb(170, 169, 169);
+  }
 }

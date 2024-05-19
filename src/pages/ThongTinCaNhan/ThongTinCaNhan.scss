@@ -111,7 +111,13 @@
   background-color: gray;
 }
 
-.plThongTin{
-padding-left: 80px !important ;
+
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+  background: rgb(170, 169, 169);
 }
 
+.inputXacMinhImg{
+  width: 84px !important;
+  height: 34px !important;
+}

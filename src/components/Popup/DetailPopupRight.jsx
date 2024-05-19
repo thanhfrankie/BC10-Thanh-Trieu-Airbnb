@@ -5,7 +5,7 @@ import "./DetailPopup.scss";
 
 const { TextArea} = Input;
 
-const languages = require("../../data/languages.json");
+const languages = require("../../assets/data/languages.json");
 
 function DetailPopupRight() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);

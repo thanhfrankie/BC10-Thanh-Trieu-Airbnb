@@ -104,23 +104,23 @@ const ThongTinCaNhan = () => {
       <Header />
       <div
         style={{
-          height: "80px",
+          height: "60px",
           background: "#7A8B8B",
           color: "white",
-          fontSize: "50px",
+          fontSize: "40px",
           fontWeight: "bold",
-          marginTop: "20px",
+          marginTop: "30px",
           textAlign: "center",
         }}
       >
         Thông Tin Của Bạn
       </div>
-      <div className=" mr-32 ml-32 mt-5 mb-5">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={6}>
+      <div className="  mt-5 mb-5">
+        <Row gutter={[16, 16]} className=" pl-20">
+          <Col xs={24} sm={24} md={10} lg={10} xl={6} xxl={6} >
             <div className="titleTopLeft">
               <div className="relative">
-                <img className="imgLeft mt-2" src={avatar} alt="Avatar" />
+                <img className="imgLeft mt-2" src={avatar} alt="" />
                 <button
                   className="buttonEdit absolute z-5"
                   onClick={handleChooseImage}
@@ -190,7 +190,7 @@ const ThongTinCaNhan = () => {
               </p>
             </div>
           </Col>
-          <Col className="plThongTin" xs={24} sm={24} md={18}>
+          <Col className="plThongTin" xs={24} sm={24} md={14} lg={14} xl={18} xxl={18}>
             <div className="mt-4 displayUser ">
               <div>
                 <p className="texTopLeft">
@@ -273,10 +273,10 @@ const ThongTinCaNhan = () => {
                   </span>{" "}
                 </p>
                 <hr className="mb-4" />
-                <div className="flex justify-between">
+                <div className=" layoutRes flex justify-between">
                   <button
                     onClick={handleEditProfile}
-                    className="mr-3 buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  "
+                    className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  "
                   >
                     Chỉnh sửa hồ sơ
                   </button>
@@ -410,13 +410,9 @@ const ThongTinCaNhan = () => {
       </div>
       <div
         style={{
-          height: "50px",
+          height: "40px",
           background: "#7A8B8B",
-          color: "white",
-          fontSize: "50px",
-          fontWeight: "bold",
           marginTop: "20px",
-          textAlign: "center",
         }}
       ></div>
       <Footer />
