@@ -270,7 +270,7 @@ const Header = () => {
                 >
                   <button onClick={(e) => e.preventDefault()}>
                     <Space>
-                      <button className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
+                      <div className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
                         <div className="flex items-center justify-center text-sm text-black">
                           <i className="fa-regular fa-bars"></i>
                         </div>
@@ -281,7 +281,7 @@ const Header = () => {
                             <i className="fa-solid fa-circle-user"></i>
                           )}
                         </div>
-                      </button>
+                      </div>
                     </Space>
                   </button>
                 </Dropdown>
