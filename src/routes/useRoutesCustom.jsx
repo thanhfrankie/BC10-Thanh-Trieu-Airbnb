@@ -7,7 +7,6 @@ import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import ThongTinCaNhan from "../pages/ThongTinCaNhan/ThongTinCaNhan";
 import TaoHoSo from "../pages/ThongTinCaNhan/TaoHoSo/TaoHoSo";
-import XacMinhDanhTinh from "../pages/ThongTinCaNhan/XacMinhDanhTinh/XacMinhDanhTinh";
 import RoomDetail from "../pages/RoomDetail/RoomDetail";
 import RoomLocation from "../pages/RoomLocation/RoomLocation";
 import Rooms from "../pages/Rooms/Rooms";
