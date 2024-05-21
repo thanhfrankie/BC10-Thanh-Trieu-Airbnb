@@ -15,7 +15,7 @@ const BottomNav = ({ activeBottomButton, handleClick }) => {
       {userLocal ? (
         <div className="flex items-center justify-between">
           <NavLink
-            to="/"
+            to="/rooms"
             className={`flex items-center justify-center flex-col ${
               activeBottomButton === "Khám phá" ? "text-red-500" : ""
             }`}
@@ -74,7 +74,7 @@ const BottomNav = ({ activeBottomButton, handleClick }) => {
       ) : (
         <div className="flex items-center justify-between">
           <NavLink
-            to="/"
+            to="/rooms"
             className={`flex items-center justify-center flex-col ${
               activeBottomButton === "Khám phá" ? "text-red-500" : ""
             }`}
