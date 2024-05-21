@@ -276,7 +276,7 @@ const ThongTinCaNhan = () => {
                   </span>{" "}
                 </p>
                 <hr className="mb-4" />
-                <div className="layoutRes flex justify-between">
+                <div className="layoutRes mb-4 ">
                   <button
                     onClick={handleEditProfile}
                     className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400"
@@ -344,12 +344,12 @@ const ThongTinCaNhan = () => {
                       <Radio value={false}>Nữ</Radio>
                     </Radio.Group>
                   </Modal>
-                  <NavLink to="/tao-ho-so">
-                    <button className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400">
+                </div>
+                <NavLink  to="/tao-ho-so">
+                    <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400">
                       Thông tin thêm
                     </button>
                   </NavLink>
-                </div>
               </div>
             </div>
           </Col>
