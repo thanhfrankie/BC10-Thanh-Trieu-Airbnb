@@ -51,11 +51,6 @@ const useRoutesCustom = () => {
           element: <TaoHoSo />,
         },
         {
-          path: "xac-minh",
-          element: <XacMinhDanhTinh />,
-        },
-
-        {
           path: "room-detail/:roomId",
           element: <RoomDetail />,
         },
