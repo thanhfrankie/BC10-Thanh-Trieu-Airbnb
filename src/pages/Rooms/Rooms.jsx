@@ -43,7 +43,7 @@ const Rooms = () => {
         <Header />
         {listRoomArr && (
           <h2 className="text-2xl font-semibold py-3 px-4">
-            Hiện có {listRoomArr.length} địa điểm cho thuê tại quốc gia Việt Nam
+            Hiện có {listRoomArr.length} địa điểm cho thuê
           </h2>
         )}
         <div className="w-full h-auto mx-auto flex items-center justify-start flex-wrap  py-2">
