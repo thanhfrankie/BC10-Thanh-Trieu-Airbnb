@@ -392,11 +392,6 @@ const ThongTinCaNhan = () => {
                       <Radio value={false}>Nữ</Radio>
                     </Radio.Group>
                   </Modal>
-                  <NavLink to="/xac-minh">
-                    <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
-                      Thêm bảo mật
-                    </button>
-                  </NavLink>
                   <NavLink to="/tao-ho-so">
                     <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
                       Thông tin thêm

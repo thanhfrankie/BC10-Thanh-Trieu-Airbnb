@@ -103,7 +103,7 @@
 
 .ant-radio-wrapper span.ant-radio + * {
   padding-inline-start: 6px;
-  padding-inline-end: 288px;
+  padding-inline-end: 285px;
 }
 
 .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
@@ -121,3 +121,9 @@
   width: 84px !important;
   height: 34px !important;
 }
+
+.ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  border-color: rgb(170, 169, 169);
+}
+
+
