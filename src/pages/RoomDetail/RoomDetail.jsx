@@ -21,9 +21,9 @@ import { Rate, DatePicker } from "antd";
 import { bookingManagement } from "../../services/bookingRoomManagement";
 import RoomComment from "../../components/RoomComment/RoomComment";
 import dayjs from "dayjs";
-import "./RoomDetail.scss";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
+import "./RoomDetail.scss";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
@@ -768,7 +768,7 @@ const RoomDetail = () => {
             <div className="mt-3">
               <div>
                 Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
-                <NavLink to="/" className="text-blue-700">
+                <NavLink to="/" className="text-blue-700 hover:underline">
                   trang chủ
                 </NavLink>{" "}
                 để tiếp tục

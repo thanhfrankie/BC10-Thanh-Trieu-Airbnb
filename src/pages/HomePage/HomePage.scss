@@ -1,0 +1,48 @@
+@import "../../styles/breakpoints";
+.homepage {
+    width: 100%;
+
+    @media (max-width: $breakpoint-xs) {
+        .main-container {
+            margin-top: 12rem;
+       }
+       .homepage-filter__location {
+        display: none;
+       }
+    }
+    
+    @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+        .main-container {
+            margin-top: 12rem;
+       }
+       .homepage-filter__location {
+        display: none;
+       }
+    }
+    
+    @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+       .main-container {
+            margin-top: 20rem;
+       }
+    }
+    
+    @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+        .main-container {
+            margin-top: 18rem;
+       }
+    
+    }
+    
+    @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+        .main-container {
+            margin-top: 18rem;
+       }
+       
+    }
+    
+    @media (min-width: $breakpoint-xxl) {
+        .main-container {
+            margin-top: 18rem;
+       }
+    }
+}

@@ -34,7 +34,7 @@ const ListRoom = () => {
    
     <div className="w-full h-auto mx-auto flex items-center justify-start flex-wrap  py-2">
     {listRoomArr &&
-      listRoomArr.map((room) => (
+      listRoomArr.slice(0,11).map((room) => (
         <RoomCard
           to={`room-detail/${room.id}`}
         key={room.id}

@@ -1,15 +1,15 @@
-.filterIconContainer {
+@import "../../../styles/breakpoints";
+.filter-icon__container {
   overflow-x: auto;
-  margin-top: 1.5rem;
   padding-top: 1.3rem;
   display: flex;
   align-items: start;
   justify-content: start;
   overflow-y: hidden;
   white-space: nowrap;
-  -ms-overflow-style: none;  
-  scrollbar-width: none; 
-  .filterIconDiv {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  .filter-icon__div {
     padding-bottom: 0.65rem;
     display: flex;
     justify-content: center;
@@ -25,20 +25,35 @@
       opacity: 1;
     }
   }
-  .selectedIcon {
+  .selected-icon {
     opacity: 1;
   }
-  .filterIcon {
-    height: 24px;
-    width: 24px;
+  .filter-icon {
+    height: 20px;
+    width: 20px;
+    @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+      height: 20px;
+      width: 20px;
+    }
+    @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+      height: 24px;
+      width: 24px;
+    }
+
+    @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+      height: 24px;
+      width: 24px;
+    }
+
+    @media (min-width: $breakpoint-xxl) {
+      height: 24px;
+      width: 24px;
+    }
   }
-  .iconLabel {
-    font-size: 0.5rem;
-  }
-  .filterIconContainer {
+  .filter-icon__container {
     display: flex;
   }
-  .filterIconDiv {
+  .filter-icon__div {
     position: relative;
     margin-right: 10px;
     cursor: pointer;
@@ -46,9 +61,11 @@
   .label {
     position: relative;
     z-index: 1;
+    font-size: 0.85rem;
+    font-weight: 500;
   }
   .label:hover::after,
-  .filterIconDiv.selectedIcon .label::after {
+  .filter-icon__div.selected-icon .label::after {
     content: "";
     position: absolute;
     bottom: -1px;
@@ -58,6 +75,6 @@
     background-color: black;
   }
 }
-.filterIconContainer::-webkit-scrollbar {
-  display: none; 
+.filter-icon__container::-webkit-scrollbar {
+  display: none;
 }

@@ -25,19 +25,19 @@ const WithIcons = () => {
   }, []);
 
   return (
-    <div className="filterIconContainer" ref={containerRef}>
+    <div className="filter-icon__container border border-red-400" ref={containerRef}>
       {filterIcon.map((item, index) => (
         <div
           key={index}
-          className={`filterIconDiv ${
-            index === selectedFilter ? "selectedIcon" : ""
-          } min-w-56`}
+          className={`filter-icon__div ${
+            index === selectedFilter ? "selected-icon" : ""
+          } min-w-48 lg:min-w-44`}
           onClick={() => {
            
             setSelectedFilter(index);
           }}
         >
-          <img src={item.icon} alt="" className="filterIcon" />
+          <img src={item.icon} alt="" className="filter-icon" />
           <p className="label text-sm text-center">
             {item.label}
           </p>

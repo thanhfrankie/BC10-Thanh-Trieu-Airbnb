@@ -100,7 +100,7 @@ const RoomLocation = () => {
                 <div className="my-3">
                   Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui
                   lòng quay lại{" "}
-                  <NavLink to="/" className="text-blue-700">
+                  <NavLink to="/" className="text-blue-700 hover:underline transition ease-in-out duration-300">
                     trang chủ
                   </NavLink>{" "}
                   để tiếp tục
@@ -112,7 +112,7 @@ const RoomLocation = () => {
                 <p>
                   Có vẻ nơi bạn tìm kiếm không có hoặc chưa liên kết với Airbnb.
                   Vui lòng quay lại{" "}
-                  <NavLink to="/" className="text-blue-700">
+                  <NavLink to="/" className="text-blue-700 hover:underline transition ease-in-out duration-300">
                     trang chủ
                   </NavLink>{" "}
                   để tiếp tục

@@ -3,13 +3,12 @@ import "./Footer.scss";
 import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
-    <div className="footer h-full w-full space-x-3  mx-auto flex items-center justify-center flex-col ">
-   
-      <div className="mainFooter w-full border border-t-2 py-3">
-        <div className="mx-auto w-3/4  flex items-start justify-between gap-13 ">
+    <div className="footer h-full w-full mx-auto flex items-center justify-center flex-col ">
+      <div className="main-footer__container w-full border border-t-2 py-3">
+        <div className="main-footer">
           <div className="support  h-full w-1/3 flex items-center justify-center">
-            <ul className="flex h-full items-start justify-center flex-col text-start gap-3">
-              <li className="firstLi">Hỗ trợ</li>
+            <ul className="flex h-full flex-col text-start gap-3">
+              <li className="first-li">Hỗ trợ</li>
               <NavLink to="https://www.airbnb.com.vn/help">
                 <li>Trung tâm trợ giúp</li>
               </NavLink>
@@ -31,8 +30,8 @@ const Footer = () => {
             </ul>
           </div>
           <div className="hosting h-auto w-1/3 flex items-center justify-center ">
-            <ul className="px-2 flex items-start justify-center flex-col text-start gap-3">
-              <li className="firstLi">Đón tiếp khách</li>
+            <ul className="w-full flex  flex-col text-start gap-3">
+              <li className="first-li">Đón tiếp khách</li>
               <NavLink to="https://www.airbnb.com.vn/host">
                 <li>Cho thuê nhà trên Airbnb</li>
               </NavLink>
@@ -53,9 +52,9 @@ const Footer = () => {
               </NavLink>
             </ul>
           </div>
-          <div className="airbnb h-auto  w-1/3 flex items-center justify-center ">
-            <ul className="flex items-start justify-center flex-col text-start gap-3">
-              <li className="firstLi ">Airbnb</li>
+          <div className="airbnb h-auto w-1/3 flex items-center justify-center ">
+            <ul className="flex flex-col text-start gap-3">
+              <li className="first-li ">Airbnb</li>
               <NavLink to="https://www.airbnb.com.vn/press/news">
                 <li>Trang tin tức</li>
               </NavLink>
@@ -75,30 +74,34 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="copyrightFooter mx-auto w-full mt-3 flex items-center justify-center">
-        <div className="mx-auto w-3/4 px-11 py-2 flex items-center justify-between">
-          <div className="copyright flex w-1/2 items-center justify-center gap-2">
+      <div className="copyright-footer"
+      >
+        <div className="copyright-footer__container"
+          >
+          <div className="copyright "
+          >
             <div className="flex items-center justify-center gap-1">
               <div className="text-sm">
                 <i class="fa-light fa-copyright"></i>
               </div>
               <span>2024 Airbnb, Inc.</span>
             </div>
-            <span>·</span>
             <NavLink to="https://www.airbnb.com.vn/terms/privacy_policy">
-              <button className="copyrightLink">Quyền riêng tư</button>
+              <button className="copyright-link">Quyền riêng tư</button>
             </NavLink>
             <span>·</span>
             <NavLink to="https://www.airbnb.com.vn/terms">
-              <button className="copyrightLink">Điều khoản</button>
+              <button className="copyright-link">Điều khoản</button>
             </NavLink>
             <span>·</span>
             <NavLink to="https://www.airbnb.com.vn/sitemaps/v2">
-              <button className="copyrightLink">Sơ đồ trang web</button>
+              <button className="copyright-link">Sơ đồ trang web</button>
             </NavLink>
           </div>
 
-          <div className="flex w-1/2 items-center justify-end gap-4 font-medium">
+          <div className="copyright-footer__right"
+          //  flex w-1/2 items-center justify-end gap-4 font-medium"
+          >
             <div className="flex items-center justify-center gap-2">
               <button>
                 <i class="fa-regular fa-globe"></i>

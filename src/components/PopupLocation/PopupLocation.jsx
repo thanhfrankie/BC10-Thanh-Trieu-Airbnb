@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import "./PopupLocation.scss";
 import { NavLink } from "react-router-dom";
 import { convertToSlug } from "../../utils/util";
+import logo from "./../../assets/img/logo.png";
+import "./PopupLocation.scss";
 
 const PopupLocation = ({
   locations,
@@ -28,7 +29,6 @@ const PopupLocation = ({
         Đóng
       </button>
       <div className="popup-content">
-    
         <ul className="popup-grid">
           {locations.map((location) => (
             <li key={location.id}>
@@ -46,6 +46,7 @@ const PopupLocation = ({
             </li>
           ))}
         </ul>
+        
       </div>
     </div>
   );

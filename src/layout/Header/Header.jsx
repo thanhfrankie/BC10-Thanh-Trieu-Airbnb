@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Dropdown, Space } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
-import "./Header.scss";
+import logo_tablet from "./../../assets/img/logo-tablet.jpg";
 import ButtonCustom from "../../components/Button/ButtonCustom";
 import { getLocalStorage, renderAvatar } from "../../utils/util";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
@@ -10,6 +10,9 @@ import { locationManagement } from "../../services/locationManagement";
 import { convertToSlug } from "../../utils/util";
 import PopupLocation from "../../components/PopupLocation/PopupLocation";
 import InputSearchBar from "../../components/Input/InputSearchBar";
+import "./Header.scss";
+import BottomNav from "./BottomNav/BottomNav";
+import SearchBar from "./SearchBar/SearchBar";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -24,6 +27,7 @@ const Header = () => {
   const [activeButton, setActiveButton] = useState("Chỗ ở");
   const [isFocused, setIsFocused] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState("");
+  const [activeBottomButton, setActiveBottomButton] = useState("Khám phá");
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -35,6 +39,19 @@ const Header = () => {
     };
 
     fetchLocations();
+  }, []);
+  useEffect(() => {
+    const userLocal = getLocalStorage("user");
+    if (userLocal) {
+      setUserLocal(userLocal);
+      setIsLoggedIn(true);
+    }
+    const checkLocalStorage = () => {
+      return userLocal !== null;
+    };
+
+    setIsLoggedIn(checkLocalStorage());
+    setUserRole(userLocal?.user.role);
   }, []);
   const isAdmin = isLoggedIn && userRole === "ADMIN";
 
@@ -108,6 +125,7 @@ const Header = () => {
           key: "4",
         },
       ];
+
   const handleSearch = () => {
     if (searchInputValue) {
       navigate(`/rooms/${convertToSlug(searchInputValue)}`);
@@ -118,19 +136,6 @@ const Header = () => {
   const handleInputChange = (e) => {
     setSearchInputValue(e.target.value);
   };
-  useEffect(() => {
-    const userLocal = getLocalStorage("user");
-    if (userLocal) {
-      setUserLocal(userLocal);
-      setIsLoggedIn(true);
-    }
-    const checkLocalStorage = () => {
-      return userLocal !== null;
-    };
-
-    setIsLoggedIn(checkLocalStorage());
-    setUserRole(userLocal?.user.role);
-  }, []);
 
   const handleLogout = () => {
     const user = localStorage.getItem("user");
@@ -155,162 +160,209 @@ const Header = () => {
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
-
+  const handleBottomButtonClick = (buttonName) => {
+    setActiveBottomButton(buttonName);
+  };
   return (
-    <div className="w-full h-40 py-4 flex items-center justify-center flex-col ">
-      <div
-        // style={{ top: "1%", left: "50%", transform: "translate(-50%, -50%)", position: "fixed" }}
-        className="w-full bg-white  px-20"
-      >
-        <div className="w-full flex justify-between items-center ">
-          <div className="w-1/3">
-            <NavLink to="/" className="header-logo text-sm flex items-center">
-              <img src={logo} className="w-full" alt="Airbnb Logo" />
-            </NavLink>
-          </div>
-          <div className="w-1/3 flex items-center justify-center ">
-            <ButtonCustom
-              value="Chỗ ở"
-              classNameBtn={`btnHover  ${
-                activeButton === "Chỗ ở" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Chỗ ở")}
-            />
-            <ButtonCustom
-              value="Trải nghiệm"
-              classNameBtn={`btnHover  ${
-                activeButton === "Trải nghiệm" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Trải nghiệm")}
-            />
-            <NavLink to="https://www.airbnb.com.vn/s/experiences/online">
-              <ButtonCustom
-                value="Trải nghiệm trực tuyến"
-                classNameBtn="btnHover"
-              />
-            </NavLink>
-          </div>
-          <div className="w-1/3 flex items-center justify-end ">
-            <NavLink to="https://www.airbnb.com.vn/host/homes">
-              <ButtonCustom
-                value="Cho thuê chỗ ở qua Airbnb"
-                classNameBtn="btnRent font-semibold text-black"
-              />
-            </NavLink>
-            <div className="mr-3">
-              <button className="globe flex items-center justify-center text-center rounded-full w-9 h-9">
-                <i className="fa-regular fa-globe"></i>
-              </button>
-            </div>
-            <div>
-              <Dropdown
-                menu={{
-                  items,
-                }}
-                trigger={["click"]}
-                placement="topRight"
+    <header>
+      <div className="header w-full h-48 py-4 flex items-center justify-center flex-col border border-red-400">
+        <div className="search-bar__mobile w-full px-6">
+          <SearchBar/>
+        </div>
+        <div className="header-bottom__nav">
+          <BottomNav handleClick={handleBottomButtonClick} activeBottomButton={activeBottomButton}/>
+        </div>
+        
+        <div className="header-container w-full bg-white border border-blue-400">
+          <div className="header-container__main w-full flex justify-between items-center border border-green-400">
+            <div className="header-logo__container w-1/3 border border-green-400">
+              <NavLink
+                to="/"
+                className="header-logo__icon  flex items-center justify-center "
               >
-                <button onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    <button className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
-                      <div className="flex items-center justify-center text-sm text-black">
-                        <i className="fa-regular fa-bars"></i>
-                      </div>
-                      <div className="flex items-center justify-center text-3xl text-gray-500">
-                        {isLoggedIn ? (
-                          userLocal && renderAvatar(userLocal.user)
-                        ) : (
-                          <i className="fa-solid fa-circle-user"></i>
-                        )}
-                      </div>
-                    </button>
-                  </Space>
+                {/* <i class=" fa-brands fa-airbnb border border-red-300 w-full h-full " style={{ height: "100%", width: "100%" }}></i> */}
+                <img
+                  src={logo_tablet}
+                  alt="Airbnb Logo"
+                  className="logo-tablet h-auto  object-cover "
+                />
+              </NavLink>
+              <NavLink
+                to="/"
+                className="header-logo text-sm flex items-center justify-center border border-red-300"
+              >
+                <img src={logo} className="w-full" alt="Airbnb Logo" />
+              </NavLink>
+            </div>
+            <div className="header-center__container w-1/3 flex items-center justify-center border border-green-400">
+              <ButtonCustom
+                value="Chỗ ở"
+                classNameBtn={`btn-hover   ${
+                  activeButton === "Chỗ ở" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Chỗ ở")}
+              />
+              <ButtonCustom
+                value="Trải nghiệm"
+                classNameBtn={`btn-hover  ${
+                  activeButton === "Trải nghiệm" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Trải nghiệm")}
+              />
+              <NavLink to="https://www.airbnb.com.vn/s/experiences/online">
+                <ButtonCustom
+                  value="Trải nghiệm trực tuyến"
+                  classNameBtn="btn-hover"
+                />
+              </NavLink>
+            </div>
+            <div className="header-right__container lg:ml-3 md:ml-2 w-1/3 flex items-center justify-end border border-green-400">
+              <NavLink to="https://www.airbnb.com.vn/host/homes">
+                <ButtonCustom
+                  value="Cho thuê chỗ ở qua Airbnb"
+                  classNameBtn="btn-rent font-semibold text-black"
+                />
+              </NavLink>
+              <div className="mr-3 md:mr-2">
+                <button className="globe flex items-center justify-center text-center rounded-full w-9 h-9">
+                  <i className="fa-regular fa-globe"></i>
                 </button>
-              </Dropdown>
+              </div>
+              <div>
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  trigger={["click"]}
+                  placement="topRight"
+                >
+                  <button onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <button className="flex items-center justify-center space-x-3 gap-1 py-2 px-3.5 rounded-full border border-gray-300 ">
+                        <div className="flex items-center justify-center text-sm text-black">
+                          <i className="fa-regular fa-bars"></i>
+                        </div>
+                        <div className="flex items-center justify-center text-3xl text-gray-500">
+                          {isLoggedIn ? (
+                            userLocal && renderAvatar(userLocal.user)
+                          ) : (
+                            <i className="fa-solid fa-circle-user"></i>
+                          )}
+                        </div>
+                      </button>
+                    </Space>
+                  </button>
+                </Dropdown>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="h-36 w-full flex items-center justify-center ">
-        <div
-          tabindex="-1"
-          className="search w-1/2 flex items-center justify-center gap-1 rounded-full shadow-lg relative"
-          onBlur={() => setIsFocused(false)}
-          onFocus={() => setIsFocused(true)}
-        >
-          <div
-            className="search-input w-1/3 px-6 rounded-full "
-            onClick={() => setShowPopup(true)}
-          >
-            <button className="search-button w-full py-2 text-start">
-              <InputSearchBar
-                placeholder="Tìm kiếm điểm đến"
-                id="Địa điểm"
-                label="Địa điểm"
-                className=" border-none px-4 outline-none "
-                classNameLabel="font-bold"
-                value={searchInputValue}
-                onChange={handleInputChange}
+        <div className="search-container h-36 w-full flex items-center justify-center border border-red-400">
+          <div className="search-main__container w-full flex items-center justify-center flex-col border border-yellow-300">
+            <div className="header-center__container2 flex items-center justify-center border border-green-400">
+              <ButtonCustom
+                value="Chỗ ở"
+                classNameBtn={`btn-hover   ${
+                  activeButton === "Chỗ ở" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Chỗ ở")}
               />
-            </button>
-          </div>
-          {showPopup && (
-            <PopupLocation
-              locations={locations}
-              onSelectLocation={(location) => setSelectedLocation(location)}
-              onClose={(e) => {
-                setShowPopup(false);
-                e.stopPropagation();
-              }}
-              onFocus={() => setShowPopup(true)}
-            />
-          )}
-          <div className="w-1/3 rounded-full">
-            {activeButton === "Chỗ ở" ? (
-              <div className="flex items-center justify-center">
+              <ButtonCustom
+                value="Trải nghiệm"
+                classNameBtn={`btn-hover  ${
+                  activeButton === "Trải nghiệm" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Trải nghiệm")}
+              />
+              <NavLink to="https://www.airbnb.com.vn/s/experiences/online">
                 <ButtonCustom
-                  value="Nhận phòng"
-                  span="Thêm ngày"
-                  classNameBtn="btnSearch text-xs w-1/2 py-2 px-6 text-start font-bold"
+                  value="Trải nghiệm trực tuyến"
+                  classNameBtn="btn-hover"
                 />
-                <ButtonCustom
-                  value="Trả phòng"
-                  span="Thêm ngày"
-                  classNameBtn="btnSearch text-xs w-1/2 px-6 text-start font-bold"
-                />
+              </NavLink>
+            </div>
+
+            <div
+              tabindex="-1"
+              className="search-bar__container flex items-center justify-center gap-1 rounded-full shadow-lg relative border border-green-400"
+              onBlur={() => setIsFocused(false)}
+              onFocus={() => setIsFocused(true)}
+            >
+              <div
+                className="search-input w-1/3 px-6 rounded-full "
+                onClick={() => setShowPopup(true)}
+              >
+                <button className="search-button w-full py-2 text-start">
+                  <InputSearchBar
+                    placeholder="Tìm kiếm điểm đến"
+                    id="Địa điểm"
+                    label="Địa điểm"
+                    className=" border-none px-4 outline-none "
+                    classNameLabel="font-bold"
+                    value={searchInputValue}
+                    onChange={handleInputChange}
+                  />
+                </button>
               </div>
-            ) : (
-              <div className=" flex items-center justify-start mx-auto ">
+              {showPopup && (
+                <PopupLocation
+                  locations={locations}
+                  onSelectLocation={(location) => setSelectedLocation(location)}
+                  onClose={(e) => {
+                    setShowPopup(false);
+                    e.stopPropagation();
+                  }}
+                  onFocus={() => setShowPopup(true)}
+                />
+              )}
+              <div className="w-1/3 rounded-full">
+                {activeButton === "Chỗ ở" ? (
+                  <div className="flex items-center justify-center">
+                    <ButtonCustom
+                      value="Nhận phòng"
+                      span="Thêm ngày"
+                      classNameBtn="btnSearch text-xs w-1/2 py-2 px-6 text-start font-bold"
+                    />
+                    <ButtonCustom
+                      value="Trả phòng"
+                      span="Thêm ngày"
+                      classNameBtn="btnSearch text-xs w-1/2 px-6 text-start font-bold"
+                    />
+                  </div>
+                ) : (
+                  <div className=" flex items-center justify-start mx-auto ">
+                    <ButtonCustom
+                      value="Ngày"
+                      span="Thêm ngày"
+                      classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="w-1/3 flex items-center justify-center rounded-full relative">
                 <ButtonCustom
-                  value="Ngày"
-                  span="Thêm ngày"
+                  value="Khách"
+                  span="Thêm khách"
                   classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
                 />
+                <div onClick={handleSearch}>
+                  {isFocused ? (
+                    <button className="mag-glass__find px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
+                      <i className="fa-regular fa-magnifying-glass"></i>
+                      Tìm kiếm
+                    </button>
+                  ) : (
+                    <button className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
+                      <i className="fa-regular fa-magnifying-glass"></i>
+                    </button>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-          <div className="w-1/3 flex items-center justify-center rounded-full relative">
-            <ButtonCustom
-              value="Khách"
-              span="Thêm khách"
-              classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
-            />
-            <div onClick={handleSearch}>
-              {isFocused ? (
-                <button className="mag-glass px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
-                  <i className="fa-regular fa-magnifying-glass"></i>
-                 Tìm kiếm
-                </button>
-              ) : (
-                <button className="mag-glass px-4 py-4 flex items-center justify-center absolute -right-4 top-1/2 transition transform -translate-x-1/2 -translate-y-1/2 text-white ">
-                  <i className="fa-regular fa-magnifying-glass"></i>
-                </button>
-              )}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 export default Header;

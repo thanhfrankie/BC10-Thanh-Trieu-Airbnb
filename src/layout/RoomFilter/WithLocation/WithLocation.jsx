@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { locationManagement } from "../../../services/locationManagement";
 import { NavLink } from "react-router-dom";
 import { convertToSlug } from "../../../utils/util";
+import "./WithLocation.scss";
 const WithLocation = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
   useEffect(() => {
@@ -20,7 +21,14 @@ const WithLocation = () => {
   return (
     <div className="location-container mx-auto p-4">
       <h2 className="text-lg font-semibold mb-4">
-        Hiện có {listLocationArr.length} tỉnh, thành phố tại Việt Nam đang liên kết với Airbnb
+        Hiện có {listLocationArr.length} tỉnh, thành phố tại Việt Nam đang liên
+        kết với Airbnb. {" "}
+        <NavLink
+          to="/rooms"
+          className="all-room font-bold text-lg py-3 underline transition ease-in-out duration-300"
+        >
+          Toàn bộ nhà
+        </NavLink>
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {listLocationArr &&

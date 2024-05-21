@@ -1,0 +1,45 @@
+@import "../../styles/breakpoints";
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 0.5rem;
+  padding: 10px 20px;
+  background-color: #cd2626;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  z-index: 999;
+  opacity: 50%;
+  @media (max-width: $breakpoint-xs) {
+    bottom: 4rem;
+  }
+
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+    bottom: 4rem;
+  }
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #ee2c2c;
+  opacity: 100%;
+}
+
+@media only screen and (max-width: 375px) {
+  .scroll-to-top-btn {
+    padding: 5px 10px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .scroll-to-top-btn {
+    padding: 8px 16px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .scroll-to-top-btn {
+    padding: 10px 20px;
+  }
+}

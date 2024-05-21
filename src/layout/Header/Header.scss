@@ -1,8 +1,6 @@
-.header {
- 
-}
+@import "../../styles/breakpoints";
 .logo {
-  color: #FF385C;
+  color: #ff385c;
 }
 .ant-dropdown {
   .ant-dropdown-menu {
@@ -16,14 +14,14 @@
     }
   }
 }
-// .btn {
-//   color: #6a6a6a;
-// }
+.btn-search {
+  color: #6a6a6a;
+}
 .active {
   color: black;
   font-weight: 600;
 }
-.search {
+.search-bar__container {
   border: 1px solid gray;
 }
 .active:hover {
@@ -38,15 +36,15 @@
 .input-label {
   border: none;
 }
-.btn:hover,
+.btn-search:hover,
 .search-input:hover,
 .globe:hover {
   background-color: #ebebeb;
 }
-.btnHover:hover {
+.btn-hover:hover {
   color: black;
 }
-.active.btnHover {
+.active.btn-hover {
   background-color: white;
 }
 .search-input:hover {
@@ -54,58 +52,347 @@
     background-color: #ebebeb;
   }
 }
-.mag-glass {
+.mag-glass,.mag-glass__find {
   background-color: #ff385c;
   border-radius: 30px;
 }
 
 .btnSearch,
-.btnRent,
-.inputLabel {
+.btn-rent,
+.input-label {
   color: #222222;
 }
-.btnLabel,
+.btn-label,
 .inputCustom {
   color: #6a6a6a;
 }
-.inputLabel {
+.input-label {
   font-weight: 700;
   font-size: 0.75rem;
 }
 
-.greeting-style{
+.greeting-style {
   font-size: 20px !important;
   font-weight: bold !important;
-  color:#ff385c !important;
+  color: #ff385c !important;
 }
-// Điện thoại di động nhỏ
-@media (max-width: 575.98px) {
+.header {
+  .header-container {
+    padding: 0;
+  }
+  .header-center__container2 {
+    display: none;
+  }
+  .header-bottom__nav {
+    display: flex;
+    .bottom-nav_container {
 
-}
+      padding: 0 1rem;
+    }
+  }
+  .btn-search__mobile {
+    border-radius: 40px;
+  }
+  @media (max-width: $breakpoint-xs) {
+    height: 6rem;
+    .header-bottom__nav {
+      display: flex;
+      .bottom-nav_container {
+        padding: 0 2rem;
+      }
+    }
+    .btn-search__mobile {
+      border-radius: 40px;
+    }
+  }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
-}
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+    height: 6rem;
+    .header-bottom__nav {
+      display: flex;
+      .bottom-nav_container {
+        padding: 0 3rem;
+      }
+    }
+    .btn-search__mobile {
+      border-radius: 40px;
+    }
+  }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .header-logo {
-    // width: 120px;
-    // border: 1px solid red;
+  @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+    height: 15rem;
+    .header-bottom__nav {
+      display: none;
+    }
+    .header-container {
+      padding: 0 2rem;
+      // display: none;
+    }
+    .header-container__main {
+      height: 3.5rem;
+    }
+    .header-logo__container {
+      margin-bottom: 0.5rem;
+    }
+    .header-center__container {
+      display: none;
+    }
+    .header-right__container {
+      width: calc(100% * 8 / 12);
+    }
+    .header-center__container2 {
+      display: flex;
+    }
+    .btn-search__mobile {
+      display: none;
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+    height: 11rem;
+    .header-bottom__nav {
+      display: none;
+    }
+    .header-container {
+      height: 3.5rem;
+      padding: 0 2rem;
+    }
+    .header-container__main {
+      margin-top: 1rem;
+    }
+    .header-logo__container {
+      margin-bottom: 0.5rem;
+      width: calc(100% / 6);
+    }
+
+    .header-center__container {
+      display: none;
+    }
+    .header-right__container {
+      width: calc(100% * 8 / 12);
+    }
+    .header-center__container2 {
+      display: flex;
+    }
+    .btn-search__mobile {
+      display: none;
+    }
+  }
+
+  @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+    height: 11rem;
+    .header-bottom__nav {
+      display: none;
+    }
+    .header-container {
+      padding: 0 2rem;
+    }
+    .btn-hover {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-search__mobile {
+      display: none;
+    }
+  }
+
+  @media (min-width: $breakpoint-xxl) {
+    height: 12rem;
+    .header-bottom__nav {
+      display: none;
+
+    }
+    .header-container {
+      padding: 0 5rem;
+    }
+    .btn-hover {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-search__mobile {
+      display: none;
+    }
   }
 }
+.header-container__main {
+  display: none;
+  @media (max-width: $breakpoint-xs) {
+  }
 
-@media (min-width: 992px) and (max-width: 1199.98px) {
-}
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+  }
 
-@media (min-width: 1200px) and (max-width: 1439.98px) {
-  .header-logo {
-    // width: 120px;
-    // border: 1px solid red;
+  @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+    display: flex;
+    width: 100%;
+  }
+
+  @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+    display: flex;
+    width: 100%;
+  }
+
+  @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+    display: flex;
+    width: 100%;
+  }
+
+  @media (min-width: $breakpoint-xxl) {
+    display: flex;
+    width: 100%;
   }
 }
-
-@media (min-width: 1440px) {
+.header-logo__container {
+  .header-logo__icon {
+    display: none;
+  }
   .header-logo {
-    width: 100px;
-    // border: 1px solid red;
+    display: none;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+  }
+
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+  }
+
+  @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+    .header-logo__icon {
+      display: block;
+      width: 2.85rem;
+      height: 2rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+    .header-logo__icon {
+      display: block;
+      width: 2.85rem;
+      height: 2rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+    .header-logo {
+      display: block;
+      width: 6rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-xxl) {
+    .header-logo {
+      display: block;
+      width: 6.5rem;
+    }
+  }
+}
+.header-center__container {
+  .btn-hover {
+    display: none;
+  }
+  @media (max-width: $breakpoint-xs) {
+  }
+
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+  }
+
+  @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+    .btn-hover {
+      display: block;
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+    .btn-hover {
+      display: block;
+    }
+  }
+
+  @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+    .btn-hover {
+      display: block;
+    }
+  }
+
+  @media (min-width: $breakpoint-xxl) {
+    .header-logo {
+      display: block;
+      width: 6.5rem;
+    }
+    .btn-hover {
+      display: block;
+    }
+  }
+}
+.search-container {
+  .search-bar__container {
+    display: none;
+  }
+  @media (max-width: $breakpoint-xs) {
+  }
+
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+  }
+
+  @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+    .search-bar__container {
+      display: flex;
+      width: 85%;
+      height: 4rem;
+      margin-top: 0;
+      .btnSearch {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .mag-glass__find {
+        padding: 0.75rem 0.75rem;
+        font-size: smaller;
+      }
+    }
+    .search-main__container {
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
+    .search-bar__container {
+      display: flex;
+      height: 4rem;
+      width: 85%;
+      margin-top: 0;
+    }
+    .search-main__container {
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
+    .search-bar__container {
+      display: flex;
+      width: 70%;
+    }
+  }
+  @media (min-width: $breakpoint-xxl) {
+    .search-bar__container {
+      display: flex;
+      width: 50%;
+    }
+  }
+  @media (min-width: 1439px) and (max-width: 1463.98px) {
+    .search-bar__container {
+      display: flex;
+      width: 75%;
+      .btn-search {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 4rem;
+        font-size: 0.9rem;
+      }
+     
+    }
   }
 }
