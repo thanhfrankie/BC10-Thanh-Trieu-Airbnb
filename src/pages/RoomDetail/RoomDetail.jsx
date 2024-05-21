@@ -663,9 +663,7 @@ const RoomDetail = () => {
                   </div>
                 </div>
                 <div className="room-booking__container">
-                  {/* w-1/3 py-16 px-7" */}
                   <div className="room-booking__form flex flex-col gap-5 rounded-lg shadow-lg p-4">
-                    {/* rounded-lg shadow-lg p-4  flex flex-col gap-5"> */}
                     <div className="room-booking__header flex items-center justify-between">
                       <div className="room-booking__price font-bold text-3xl">
                         ${giaTien}/ <span className="font-normal"> đêm</span>

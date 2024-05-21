@@ -4,6 +4,7 @@ const ButtonCustom = ({
   classNameBtn = "",
   classNameSpan = "",
   value,
+  onClick,
   span = "",
   ...rest
 }) => {
@@ -11,6 +12,7 @@ const ButtonCustom = ({
     <button
       className={`btn-search h-full py-2 px-4 rounded-full  ${classNameBtn}`}
       {...rest}
+      onClick={onClick}
     >
       {value}
 

@@ -13,7 +13,10 @@ import InputSearchBar from "../../components/Input/InputSearchBar";
 import "./Header.scss";
 import BottomNav from "./BottomNav/BottomNav";
 import SearchBar from "./SearchBar/SearchBar";
-
+import { DatePicker } from "antd";
+import moment from "moment";
+import Guest from "./Guest/Guest";
+// import 'antd/dist/antd.css';
 const Header = () => {
   const navigate = useNavigate();
   const notify = useContext(NotifyContext);
@@ -28,6 +31,10 @@ const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [activeBottomButton, setActiveBottomButton] = useState("Khám phá");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [isStartOpen, setIsStartOpen] = useState(false);
+  const [isEndOpen, setIsEndOpen] = useState(false);
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -130,7 +137,7 @@ const Header = () => {
     if (searchInputValue) {
       navigate(`/rooms/${convertToSlug(searchInputValue)}`);
     } else {
-      alert("Vui lòng nhập điểm đến để tìm kiếm!");
+      navigate(`/rooms`)
     }
   };
   const handleInputChange = (e) => {
@@ -163,16 +170,42 @@ const Header = () => {
   const handleBottomButtonClick = (buttonName) => {
     setActiveBottomButton(buttonName);
   };
+  const handleStartClick = () => {
+    setIsStartOpen(true);
+  };
+
+  const handleEndClick = () => {
+    setIsEndOpen(true);
+  };
+
+  const handleStartDateChange = (date, dateString) => {
+    setStartDate(date);
+    setIsStartOpen(false);
+    if (endDate && date && endDate.isBefore(date, "day")) {
+      setEndDate(null); // Reset end date if it's before the new start date
+    }
+  };
+
+  const handleEndDateChange = (date, dateString) => {
+    setEndDate(date);
+    setIsEndOpen(false);
+  };
+  const disabledEndDate = (current) => {
+    return current && startDate && current.isBefore(startDate, "day");
+  };
   return (
     <header>
       <div className="header w-full h-48 py-4 flex items-center justify-center flex-col ">
         <div className="search-bar__mobile w-full px-6">
-          <SearchBar/>
+          <SearchBar />
         </div>
         <div className="header-bottom__nav">
-          <BottomNav handleClick={handleBottomButtonClick} activeBottomButton={activeBottomButton}/>
+          <BottomNav
+            handleClick={handleBottomButtonClick}
+            activeBottomButton={activeBottomButton}
+          />
         </div>
-        
+
         <div className="header-container w-full bg-white ">
           <div className="header-container__main w-full flex justify-between items-center ">
             <div className="header-logo__container w-1/3 ">
@@ -314,36 +347,95 @@ const Header = () => {
                   onFocus={() => setShowPopup(true)}
                 />
               )}
-              <div className="w-1/3 rounded-full">
+              <div className="w-1/3 rounded-full relative">
                 {activeButton === "Chỗ ở" ? (
                   <div className="flex items-center justify-center">
-                    <ButtonCustom
-                      value="Nhận phòng"
-                      span="Thêm ngày"
-                      classNameBtn="btnSearch text-xs w-1/2 py-2 px-6 text-start font-bold"
-                    />
-                    <ButtonCustom
-                      value="Trả phòng"
-                      span="Thêm ngày"
-                      classNameBtn="btnSearch text-xs w-1/2 px-6 text-start font-bold"
-                    />
+                    <div className="w-1/2 relative">
+                      <ButtonCustom
+                        value="Nhận phòng"
+                        span={
+                          startDate
+                            ? startDate.format("DD-MM-YYYY")
+                            : "Thêm ngày"
+                        }
+                        classNameBtn="btnSearch text-xs w-full py-2 px-6 text-start font-bold"
+                        onClick={handleStartClick}
+                      />
+                      {isStartOpen && (
+                        <DatePicker
+                          open={isStartOpen}
+                          onChange={handleStartDateChange}
+                          onOpenChange={setIsStartOpen}
+                          style={{ position: "absolute", top: "100%", left: 0 }}
+                          disabledDate={(current) => {
+                            let customDate = moment().format("YYYY-MM-DD");
+                            return (
+                              current &&
+                              current < moment(customDate, "YYYY-MM-DD")
+                            );
+                          }}
+                        />
+                      )}
+                    </div>
+                    <div className="w-1/2 relative">
+                      <ButtonCustom
+                        value="Trả phòng"
+                        span={
+                          endDate ? endDate.format("DD-MM-YYYY") : "Thêm ngày"
+                        }
+                        classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
+                        onClick={handleEndClick}
+                      />
+                      {isEndOpen && (
+                        <DatePicker
+                          open={isEndOpen}
+                          onChange={handleEndDateChange}
+                          onOpenChange={setIsEndOpen}
+                          disabledDate={disabledEndDate}
+                          style={{ position: "absolute", top: "100%", left: 0 }}
+                        />
+                      )}
+                    </div>
                   </div>
                 ) : (
                   <div className=" flex items-center justify-start mx-auto ">
-                    <ButtonCustom
-                      value="Ngày"
-                      span="Thêm ngày"
-                      classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
-                    />
+                    <div className="w-full relative">
+                      <ButtonCustom
+                        value="Ngày"
+                        span={
+                          endDate ? endDate.format("DD-MM-YYYY") : "Thêm ngày"
+                        }
+                        classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
+                        onClick={handleEndClick}
+                      />
+                      {isEndOpen && (
+                        <DatePicker
+                          open={isEndOpen}
+                          onChange={handleEndDateChange}
+                          onOpenChange={setIsEndOpen}
+                          disabledDate={(current) => {
+                            let customDate = moment().format("YYYY-MM-DD");
+                            return (
+                              current &&
+                              current < moment(customDate, "YYYY-MM-DD")
+                            );
+                          }}
+                          style={{ position: "absolute", top: "100%", left: 0 }}
+                        />
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
               <div className="w-1/3 flex items-center justify-center rounded-full relative">
-                <ButtonCustom
+                {/* <ButtonCustom
                   value="Khách"
                   span="Thêm khách"
                   classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
-                />
+                /> */}
+                <div className="w-full">
+                  <Guest />
+                </div>
                 <div onClick={handleSearch}>
                   {isFocused ? (
                     <button className="mag-glass__find px-4 py-3 flex items-center justify-center gap-2.5 absolute -right-12 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
