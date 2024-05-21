@@ -39,10 +39,10 @@ const Rooms = () => {
   }
   return (
     <div>
-      <div className="px-56">
+      <div className="">
         <Header />
         {listRoomArr && (
-          <h2 className="text-2xl font-semibold py-3">
+          <h2 className="text-2xl font-semibold py-3 px-4">
             Hiện có {listRoomArr.length} địa điểm cho thuê tại quốc gia Việt Nam
           </h2>
         )}

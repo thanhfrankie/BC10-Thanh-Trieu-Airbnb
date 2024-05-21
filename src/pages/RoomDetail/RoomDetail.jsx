@@ -279,14 +279,15 @@ const RoomDetail = () => {
     });
   };
   return (
-    <div>
-      <div className="h-auto room-detail px-56">
+    <div className="w-full">
+      <div className="room-detail">
+
         <Header />
-        <div className="room-detail-container mt-3 py-5 ">
+        <div className="room-detail__container">
           {watchingRoom ? (
             <div>
-              <h1 className="room-name font-bold text-3xl my-4">{tenPhong}</h1>
-              <div className="room-title flex items-center justify-start gap-2 mb-3 text-lg">
+              <h1 className="room-detail__name font-bold text-3xl my-4">{tenPhong}</h1>
+              <div className="room-detail__title flex items-center justify-start gap-2 mb-3 text-lg">
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -305,20 +306,25 @@ const RoomDetail = () => {
                 <p>Chủ nhà siêu cấp</p>
                 <NavLink
                   to={slug ? `/rooms/${slug}` : "#"}
-                  className="room-slug leading-5 transition ease-in-out duration-300 underline"
+                  className="room-detail__slug leading-5 transition ease-in-out duration-300 underline"
                 >
                   {tinhThanh}, {quocGia}
                 </NavLink>
               </div>
+              <div className="room-img__container">
+
               <img
-                className="room-img w-full rounded-xl"
+                className="room-detail__img w-full"
                 src={hinhAnh}
                 alt=""
               />
-              <div className="room-info flex">
-                <div className="w-2/3 py-3">
-                  <div className="room-owner w-4/5 flex py-3">
-                    <div className=" flex flex-col gap-2 py-2">
+              </div>
+              <div className="room-detail__container">
+                <div className="room-detail__info " >
+               {/* w-2/3 py-3" */}
+                  <div className="room-detail__owner">
+                    {/* w-4/5 flex py-3" */}
+                    {/* <div className=" flex flex-col gap-2 py-2"> */}
                       <div className="font-bold text-xl">
                         Chủ nhà/ Người tổ chức: {""}
                         <span className="underline">{checkRoomOwner()}</span>
@@ -335,9 +341,9 @@ const RoomDetail = () => {
                         {khach} khách • {phongNgu} phòng ngủ • {giuong} giường •{" "}
                         {phongTam} phòng tắm
                       </div>
-                    </div>
                   </div>
-                  <div className="room-right w-4/5 py-3">
+                  <div className="room-detail__rights">
+                     {/* w-4/5 py-3" */}
                     <div className="flex items-center justify-start gap-4 my-4">
                       <div>
                         <svg
@@ -437,8 +443,10 @@ const RoomDetail = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="room-desc w-4/5 py-3 font-medium">
-                    <div className="room-translate text-lg font-normal px-3 py-2 rounded-lg bg-gray-100">
+                  <div className="room-detail__desc">
+                    {/* w-4/5 py-3 font-medium" */}
+                    
+                    <div className="room-detail__translate text-lg font-normal px-3 py-2 rounded-lg bg-gray-100">
                       Một số thông tin được hiển thị ở ngôn ngữ gốc.{" "}
                       <button className="font-semibold underline">Dịch</button>
                     </div>
@@ -447,7 +455,7 @@ const RoomDetail = () => {
                       Hiển thị thêm
                     </button>
                   </div>
-                  <div>
+                  <div className="room-detail__utilities">
                     <h2 className="font-bold text-xl py-6">
                       Các tiện ích đi kèm
                     </h2>
@@ -657,10 +665,12 @@ const RoomDetail = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-1/3 py-16 px-7">
-                  <div className="room-booking rounded-lg shadow-lg p-4  flex flex-col gap-5">
-                    <div className=" flex items-center justify-between">
-                      <div className="room-price font-bold text-3xl">
+                <div className="room-booking__container"> 
+                {/* w-1/3 py-16 px-7" */}
+                  <div className="room-booking__form flex flex-col gap-5 rounded-lg shadow-lg p-4"> 
+                  {/* rounded-lg shadow-lg p-4  flex flex-col gap-5"> */}
+                    <div className="room-booking__header flex items-center justify-between">
+                      <div className="room-booking__price font-bold text-3xl">
                         ${giaTien}/ <span className="font-normal"> đêm</span>
                       </div>
                       <div className="flex items-center justify-center gap-2">
@@ -692,8 +702,9 @@ const RoomDetail = () => {
                           style={{
                             width: "100%",
                             border: "0.5px solid black",
-                            padding: "1rem 0.5rem",
+                            padding: "1rem",
                             textAlign: "center",
+                            borderRadius: "40px",
                           }}
                         />
                         {dayStay === 0 && (
@@ -765,7 +776,7 @@ const RoomDetail = () => {
               </div>
             </div>
           ) : (
-            <div className="mt-3">
+            <div className="mt-3 px-10">
               <div>
                 Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
                 <NavLink to="/" className="text-blue-700 hover:underline">
@@ -777,7 +788,7 @@ const RoomDetail = () => {
           )}
         </div>
 
-        <div className=" flex flex-col gap-3 ">
+        <div className="room-detail__comment flex flex-col gap-3 mt-3">
           {watchingRoom && checkIsLoggedIn(userLocalInfo) ? (
             <div className="room-comment__info pb-4">
               <div className="py-3 flex items-center justify-start gap-4">
@@ -824,7 +835,7 @@ const RoomDetail = () => {
             </div>
           ) : (
             watchingRoom !== null && (
-              <p>
+              <p className="room-comment__p">
                 Bạn cần{" "}
                 <NavLink
                   to="/sign-in"
@@ -838,9 +849,9 @@ const RoomDetail = () => {
           )}
           <div>
             {watchingRoom !== null && (
-              <h2 className="font-bold text-2xl py-3">Bình luận</h2>
+              <h2 className="room-comment__title font-bold text-2xl py-3">Bình luận</h2>
             )}
-            <div className="grid grid-cols-2 h-1/2-screen my-3 gap-6 overflow-y-auto">
+            <div className="room-comment__list grid grid-cols-2 h-1/2-screen my-3 gap-6 overflow-y-auto">
               {listCommentArr &&
                 listCommentArr
                   .slice()

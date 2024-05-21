@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
+import React from "react";
 
-const InputSearchBar = forwardRef(({
+const InputSearchBar = ({
   id,
   label,
   placeholder,
@@ -33,6 +33,6 @@ const InputSearchBar = forwardRef(({
   
     </div>
   );
-});
+};
 
 export default InputSearchBar;

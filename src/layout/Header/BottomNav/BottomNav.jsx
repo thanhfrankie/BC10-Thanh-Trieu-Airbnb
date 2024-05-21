@@ -10,9 +10,6 @@ const BottomNav = ({ activeBottomButton, handleClick }) => {
       setUserLocal(userLocal);
     }
   }, []);
-  //   const handleButtonClick = (buttonName) => {
-  //     setActiveButton(buttonName);
-  //   };
   return (
     <div className="bottom-nav_container w-full py-3 fixed bottom-0 left-0 z-20 bg-white px-16">
       {userLocal ? (

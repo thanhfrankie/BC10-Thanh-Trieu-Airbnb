@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import InputSearchBar from "../../../components/Input/InputSearchBar";
-import ButtonCustom from "../../../components/Button/ButtonCustom";
-import { NavLink } from "react-router-dom";
 import PopupLocation from "../../../components/PopupLocation/PopupLocation";
 import { locationManagement } from "../../../services/locationManagement";
 
@@ -41,7 +38,6 @@ const SearchBar = () => {
                     setShowPopup(false);
                     e.stopPropagation();
                   }}
-                  onBlur={() => setShowPopup(false)}
                 />
               )}
     </div>

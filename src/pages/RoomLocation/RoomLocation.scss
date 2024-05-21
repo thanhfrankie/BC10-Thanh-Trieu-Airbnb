@@ -1,0 +1,39 @@
+@import "../../styles/breakpoints";
+
+
+.room-location__main {
+    display: flex;
+    width: 100%;
+    padding: 0 5rem;
+    .room-location__list, .room-location__map {
+        width: 50%;
+    }
+    @media (max-width: $breakpoint-xs) {
+        padding: 0 5rem;
+        flex-direction: column;
+        width: 100%;
+        .room-location__list, .room-location__map {
+            width: 100%;
+        }
+        .room-location__map {
+            height: 15rem;
+        }
+    }
+    
+    @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+        flex-direction: column;
+        padding: 0 5rem;
+        width: 100%;
+        .room-location__list, .room-location__map {
+            width: 100%;
+        }
+        .room-location__map {
+            height: 15rem;
+        }
+    }
+    
+    @media (min-width: $breakpoint-md) and (max-width: ($breakpoint-lg - 0.02px)) {
+        // flex-direction: column;
+      
+    }
+}

@@ -25,7 +25,7 @@ const WithIcons = () => {
   }, []);
 
   return (
-    <div className="filter-icon__container border border-red-400" ref={containerRef}>
+    <div className="filter-icon__container " ref={containerRef}>
       {filterIcon.map((item, index) => (
         <div
           key={index}

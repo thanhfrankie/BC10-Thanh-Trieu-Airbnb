@@ -165,7 +165,7 @@ const Header = () => {
   };
   return (
     <header>
-      <div className="header w-full h-48 py-4 flex items-center justify-center flex-col border border-red-400">
+      <div className="header w-full h-48 py-4 flex items-center justify-center flex-col ">
         <div className="search-bar__mobile w-full px-6">
           <SearchBar/>
         </div>
@@ -173,14 +173,13 @@ const Header = () => {
           <BottomNav handleClick={handleBottomButtonClick} activeBottomButton={activeBottomButton}/>
         </div>
         
-        <div className="header-container w-full bg-white border border-blue-400">
-          <div className="header-container__main w-full flex justify-between items-center border border-green-400">
-            <div className="header-logo__container w-1/3 border border-green-400">
+        <div className="header-container w-full bg-white ">
+          <div className="header-container__main w-full flex justify-between items-center ">
+            <div className="header-logo__container w-1/3 ">
               <NavLink
                 to="/"
                 className="header-logo__icon  flex items-center justify-center "
               >
-                {/* <i class=" fa-brands fa-airbnb border border-red-300 w-full h-full " style={{ height: "100%", width: "100%" }}></i> */}
                 <img
                   src={logo_tablet}
                   alt="Airbnb Logo"
@@ -189,12 +188,12 @@ const Header = () => {
               </NavLink>
               <NavLink
                 to="/"
-                className="header-logo text-sm flex items-center justify-center border border-red-300"
+                className="header-logo text-sm flex items-center justify-center"
               >
                 <img src={logo} className="w-full" alt="Airbnb Logo" />
               </NavLink>
             </div>
-            <div className="header-center__container w-1/3 flex items-center justify-center border border-green-400">
+            <div className="header-center__container w-1/3 flex items-center justify-center ">
               <ButtonCustom
                 value="Chỗ ở"
                 classNameBtn={`btn-hover   ${
@@ -216,7 +215,7 @@ const Header = () => {
                 />
               </NavLink>
             </div>
-            <div className="header-right__container lg:ml-3 md:ml-2 w-1/3 flex items-center justify-end border border-green-400">
+            <div className="header-right__container lg:ml-3 md:ml-2 w-1/3 flex items-center justify-end ">
               <NavLink to="https://www.airbnb.com.vn/host/homes">
                 <ButtonCustom
                   value="Cho thuê chỗ ở qua Airbnb"
@@ -257,9 +256,9 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="search-container h-36 w-full flex items-center justify-center border border-red-400">
-          <div className="search-main__container w-full flex items-center justify-center flex-col border border-yellow-300">
-            <div className="header-center__container2 flex items-center justify-center border border-green-400">
+        <div className="search-container h-36 w-full flex items-center justify-center ">
+          <div className="search-main__container w-full flex items-center justify-center flex-col ">
+            <div className="header-center__container2 flex items-center justify-center ">
               <ButtonCustom
                 value="Chỗ ở"
                 classNameBtn={`btn-hover   ${
@@ -284,7 +283,7 @@ const Header = () => {
 
             <div
               tabindex="-1"
-              className="search-bar__container flex items-center justify-center gap-1 rounded-full shadow-lg relative border border-green-400"
+              className="search-bar__container flex items-center justify-center gap-1 rounded-full shadow-lg relative "
               onBlur={() => setIsFocused(false)}
               onFocus={() => setIsFocused(true)}
             >

@@ -9,7 +9,7 @@ import Header from "../../layout/Header/Header";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
 import Footer from "../../layout/Footer/Footer";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
-
+import "./RoomLocation.scss";
 const RoomLocation = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -90,10 +90,10 @@ const RoomLocation = () => {
   }
   const { tinhThanh, quocGia } = currentLocation || {};
   return (
-    <div className="">
-      <div className="h-auto px-56 mb-5">
+    <div>
+      <div className="mb-5">
         <Header />
-        <div>
+        <div className="px-16">
           {listRoomByLocationArr.length === 0 ? (
             <div className="h-screen-70 mt-3">
               {tinhThanh && quocGia ? (
@@ -104,7 +104,7 @@ const RoomLocation = () => {
                     trang chủ
                   </NavLink>{" "}
                   để tiếp tục
-                <button className="room-booking__button py-5 px-7 flex items-center justify-center rounded-lg text-white border border-pink-500">
+                <button className="room-booking__button mt-3 py-5 px-7 flex items-center justify-center rounded-lg text-white border border-pink-500">
                 Yêu cầu
               </button>
                 </div>
@@ -124,7 +124,7 @@ const RoomLocation = () => {
             <div>
               <div className="py-1">
                 Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
-                {quocGia}
+                {quocGia}. 
               </div>
               <div className="font-bold text-2xl py-2">
                 Chỗ ở tại khu vực bản đồ đã chọn
@@ -132,8 +132,9 @@ const RoomLocation = () => {
             </div>
           )}
         </div>
-        <div className="flex gap-3 ">
-          <div className="w-1/2 flex flex-col gap-4 ">
+        <div className="room-location__main" >
+
+          <div className="room-location__list flex flex-col gap-4 ">
             {listRoomByLocationArr.map((room) => (
               <div key={room.id}>
                 <NavLink
@@ -178,7 +179,7 @@ const RoomLocation = () => {
               </div>
             ))}
           </div>
-          <div className="w-1/2">{embededMap}</div>
+          <div className="room-location__map">{embededMap}</div>
         </div>
       </div>
       <Footer />

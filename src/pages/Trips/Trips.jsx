@@ -107,8 +107,9 @@ const Trips = () => {
   };
   return (
     <div>
-      <div className="px-56">
+      <div>
         <Header />
+        <div className="px-20 sm:px-5 lg:px-10">
         {showedRoomArr.length !== 0 && (
           <h1 className="text-2xl font-bold my-4 ">Phòng đã thuê</h1>
         )}
@@ -163,7 +164,8 @@ const Trips = () => {
             </div>
           )}
         </div>
-      </div>
+        </div>
+        </div>
       <Footer />
       <ScrollToTopButton />
     </div>

@@ -100,7 +100,6 @@ const Footer = () => {
           </div>
 
           <div className="copyright-footer__right"
-          //  flex w-1/2 items-center justify-end gap-4 font-medium"
           >
             <div className="flex items-center justify-center gap-2">
               <button>

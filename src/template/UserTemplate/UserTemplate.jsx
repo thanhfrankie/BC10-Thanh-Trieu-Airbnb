@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export const NotifyContext = React.createContext(null);
 const UserTemplate = () => {
   const { isLoading } = useSelector((state) => state.loadingSlice);
-  const [closeTime, setCloseTime] = useState(1000);
+  const [closeTime, setCloseTime] = useState(1500);
   const renderNotify = (notify) => {
     return toast(notify);
   };
