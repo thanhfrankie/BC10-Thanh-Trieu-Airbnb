@@ -6,7 +6,7 @@ import Footer from "../../layout/Footer/Footer";
 import { getUserById, updateUserById } from "../../services/userManagement";
 import { getLocalStorage } from "../../utils/util";
 import { http } from "../../services/config";
-import { Modal, Button, Input, message, Radio, notification, Row, Col,} from "antd";
+import { Modal, Button, Input, message, Radio, notification, Row, Col } from "antd";
 import { getToken } from "../../services/authService";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CheckOutlined } from "@ant-design/icons";
@@ -14,6 +14,7 @@ import Loading from "../../components/Loading/Loading";
 
 const ThongTinCaNhan = () => {
   const [editedUserData, setEditedUserData] = useState(null);
+  const [tempUserData, setTempUserData] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const fetchUserData = async () => {
@@ -34,6 +35,7 @@ const ThongTinCaNhan = () => {
   }, []);
 
   const handleEditProfile = () => {
+    setTempUserData({ ...editedUserData });
     setShowModal(true);
   };
 
@@ -43,14 +45,14 @@ const ThongTinCaNhan = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserData({ ...editedUserData, [name]: value });
+    setTempUserData({ ...tempUserData, [name]: value });
   };
 
   const handleSaveChanges = async () => {
     try {
-     
-      await updateUserById(editedUserData.id, editedUserData);
+      await updateUserById(tempUserData.id, tempUserData);
       message.success("Cập nhật thông tin thành công");
+      setEditedUserData(tempUserData);
       setShowModal(false);
     } catch (error) {
       console.error("Error updating user data:", error);
@@ -69,12 +71,12 @@ const ThongTinCaNhan = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("formFile", file); // Thêm file vào FormData với key là "formFile"
+    formData.append("formFile", file);
     const token = getToken();
     try {
       const response = await http.post("/users/upload-avatar", formData, {
         headers: {
-          token: token, 
+          token: token,
         },
       });
 
@@ -88,12 +90,13 @@ const ThongTinCaNhan = () => {
       console.error("Error uploading image:", error);
     }
   };
+
   const shortenName = (name) => {
     return name.length > 15 ? `${name.substring(0, 15)}...` : name;
   };
 
   if (!editedUserData) {
-    return <div><Loading/></div>;
+    return <div><Loading /></div>;
   }
 
   const { name, email, phone, birthday, role, avatar } = editedUserData;
@@ -115,9 +118,9 @@ const ThongTinCaNhan = () => {
       >
         Thông Tin Của Bạn
       </div>
-      <div className="  mt-5 mb-5">
-        <Row gutter={[16, 16]} className=" pl-20">
-          <Col xs={24} sm={24} md={10} lg={10} xl={6} xxl={6} >
+      <div className="mt-5 mb-5">
+        <Row gutter={[16, 16]} className="pl-20">
+          <Col xs={24} sm={24} md={10} lg={10} xl={6} xxl={6}>
             <div className="titleTopLeft">
               <div className="relative">
                 <img className="imgLeft mt-2" src={avatar} alt="" />
@@ -147,7 +150,7 @@ const ThongTinCaNhan = () => {
               >
                 {" "}
                 <i
-                  class="fa-regular fa-shield-check"
+                  className="fa-regular fa-shield-check"
                   style={{
                     fontSize: "25px",
                     color: "green",
@@ -273,10 +276,10 @@ const ThongTinCaNhan = () => {
                   </span>{" "}
                 </p>
                 <hr className="mb-4" />
-                <div className=" layoutRes flex justify-between">
+                <div className="layoutRes flex justify-between">
                   <button
                     onClick={handleEditProfile}
-                    className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  "
+                    className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400"
                   >
                     Chỉnh sửa hồ sơ
                   </button>
@@ -299,93 +302,42 @@ const ThongTinCaNhan = () => {
                     <Input
                       name="name"
                       label="Tên"
-                      value={editedUserData.name}
+                      value={tempUserData?.name}
                       onChange={handleInputChange}
                       placeholder="Tên"
                       style={{ marginBottom: "25px" }}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập tên người dùng.",
-                        },
-                      ]}
                     />
                     Email
                     <Input
                       name="email"
                       label="Email"
-                      value={editedUserData.email}
+                      value={tempUserData?.email}
                       onChange={handleInputChange}
                       placeholder="Email"
                       style={{ marginBottom: "25px" }}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập địa chỉ email.",
-                        },
-                        { type: "email", message: "Email không hợp lệ." },
-                      ]}
                     />
                     Số điện thoại
                     <Input
                       name="phone"
                       label="Số điện thoại"
-                      value={editedUserData.phone}
+                      value={tempUserData?.phone}
                       onChange={handleInputChange}
                       placeholder="Số điện thoại"
                       style={{ marginBottom: "25px" }}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập số điện thoại.",
-                        },
-                        {
-                          pattern: /^[0-9()+\-\s]+$/,
-                          message: "Số điện thoại chỉ được nhập số.",
-                        },
-                      ]}
                     />
                     Ngày sinh
                     <Input
                       name="birthday"
                       label="Ngày sinh"
-                      value={editedUserData.birthday}
+                      value={tempUserData?.birthday}
                       onChange={handleInputChange}
                       placeholder="Ngày sinh"
                       style={{ marginBottom: "20px" }}
-                      rules={[
-                        { required: true, message: "Vui lòng nhập ngày sinh." },
-                        {
-                          pattern: /^[0-9/]+$/,
-                          message: "Nhập số theo định dạng DD/MM/YYYY",
-                        },
-                        {
-                          validator: (_, value) => {
-                            if (
-                              value &&
-                              value.length >= 8 &&
-                              value.length <= 10
-                            ) {
-                              const parts = value.split("/");
-                              if (
-                                parts.length === 3 &&
-                                parts[2].length === 4 &&
-                                !isNaN(parts[2])
-                              ) {
-                                return Promise.resolve();
-                              }
-                            }
-                            return Promise.reject(
-                              new Error("Ngày sinh chưa đúng")
-                            );
-                          },
-                        },
-                      ]}
                     />
                     Giới tính
                     <Radio.Group
                       name="gender"
-                      value={editedUserData.gender}
+                      value={tempUserData?.gender}
                       onChange={(e) => handleInputChange(e)}
                     >
                       <Radio value={true}>Nam</Radio>
@@ -393,7 +345,7 @@ const ThongTinCaNhan = () => {
                     </Radio.Group>
                   </Modal>
                   <NavLink to="/tao-ho-so">
-                    <button className=" buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400  ">
+                    <button className="buttonEdit text-black hover:text-white bg-gray-100 hover:bg-gray-400">
                       Thông tin thêm
                     </button>
                   </NavLink>

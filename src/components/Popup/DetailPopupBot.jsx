@@ -5,15 +5,12 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./DetailPopup.scss";
 const { TextArea } = Input;
-
 const DetailPopupBot = () => {
   const navigate = useNavigate();
-
   const handleCompleteButtonClick = () => {
     alert("Cập nhật thành công");
     navigate("/thong-tin-ca-nhan");
   };
-
   const [comment, setComment] = useState("");
   const handleCommentChange = (e) => {
     const inputComment = e.target.value;
@@ -24,15 +21,12 @@ const DetailPopupBot = () => {
     }
   };
   const [visible1, setVisible1] = useState(false);
-
   const showModal1 = () => {
     setVisible1(true);
   };
-
   const handleOk1 = () => {
     setVisible1(false);
   };
-
   const handleCancel1 = () => {
     setVisible1(false);
   };

@@ -3,13 +3,7 @@ import { message as antdMessage, Upload } from "antd";
 import { Modal, Button, Form, Input, message, Row, Col, Table } from "antd";
 import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 import { http } from "../../../services/config";
-import {
-  ShopOutlined,
-  GlobalOutlined,
-  UploadOutlined,
-  EnvironmentOutlined,
-  PictureOutlined,
-} from "@ant-design/icons";
+import { ShopOutlined, GlobalOutlined, UploadOutlined, EnvironmentOutlined, PictureOutlined,} from "@ant-design/icons";
 import { getToken } from "../../../services/authService";
 
 const QuanLyThongTinViTri = () => {
@@ -120,7 +114,6 @@ const QuanLyThongTinViTri = () => {
     try {
       const formData = new FormData();
       formData.append("formFile", info.file);
-
       const token = getToken(); 
       const response = await http.post(
         `/vi-tri/upload-hinh-vitri?maViTri=${maViTri}`,
@@ -131,10 +124,8 @@ const QuanLyThongTinViTri = () => {
           },
         }
       );
-
       if (response.status === 200) {
         message.success("Tải ảnh lên thành công");
-
         fetchData();
       } else {
         message.error("Tải ảnh lên không thành công");
@@ -173,7 +164,6 @@ const QuanLyThongTinViTri = () => {
         </div>
       ),
     },
-
     {
       title: "Tên Vị Trí",
       dataIndex: "tenViTri",
@@ -228,11 +218,9 @@ const QuanLyThongTinViTri = () => {
       ),
     },
   ];
-
   const filteredUsersData = usersData.filter((user) =>
     user.tinhThanh.toLowerCase().includes(searchKeyword.toLowerCase())
   );
-
   return (
     <div className="container">
       <div>

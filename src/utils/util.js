@@ -7,6 +7,8 @@ export const saveLocalStorage = (key, data) => {
   const stringData = JSON.stringify(data);
   return localStorage.setItem(key, stringData);
 };
+
+
 export const convertToSlug = (text) => {
   return text
     .toLowerCase()
