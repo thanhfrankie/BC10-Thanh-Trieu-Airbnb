@@ -19,7 +19,7 @@ const PopupLocation = ({
 
   return (
     <div
-      className="popup-location"
+      className="popup-location popup-location__mobile"
       onBlur={onBlur}
       onFocus={onFocus}
       tabindex="-1"

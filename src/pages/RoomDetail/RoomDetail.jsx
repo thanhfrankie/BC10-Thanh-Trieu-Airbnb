@@ -735,7 +735,7 @@ const RoomDetail = () => {
                         Bạn vẫn chưa bị trừ tiền
                       </div>
                       <div>
-                        <div className="flex mb-3 gap-3 items-center justify-between">
+                        <div className="flex mb-3 gap-3 items-center justify-between container">
                           <div className="text-gray-700 underline ">
                             {giaTien && dayStay
                               ? `$${giaTien} x ${dayStay} đêm`

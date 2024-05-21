@@ -27,7 +27,34 @@
     margin: 0 2rem;
   }
 }
+.popup-location__mobile {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 75%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: $breakpoint-xs) {
+    top: 10%;
+    width: 80%;
+    margin: 0 2rem;
+  }
 
+  @media (min-width: $breakpoint-sm) and (max-width: ($breakpoint-md - 0.02px)) {
+    top: 10%;
+    width: 80%;
+    margin: 0 2rem;
+  }
+}
 .popup-content {
   flex: 1;
   overflow-y: auto;
