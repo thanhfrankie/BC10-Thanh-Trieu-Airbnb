@@ -10,7 +10,6 @@ const SearchBar = () => {
     const fetchLocations = async () => {
       try {
         const response = await locationManagement.getLocation();
-        console.log(response)
         setLocations(response.data.content.slice(0, 10));
       } catch (error) {
         console.error("Error fetching locations:", error);

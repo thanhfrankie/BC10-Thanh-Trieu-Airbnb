@@ -182,7 +182,7 @@ const Header = () => {
     setStartDate(date);
     setIsStartOpen(false);
     if (endDate && date && endDate.isBefore(date, "day")) {
-      setEndDate(null); // Reset end date if it's before the new start date
+      setEndDate(null);
     }
   };
 
@@ -428,11 +428,6 @@ const Header = () => {
                 )}
               </div>
               <div className="w-1/3 flex items-center justify-center rounded-full relative">
-                {/* <ButtonCustom
-                  value="Khách"
-                  span="Thêm khách"
-                  classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
-                /> */}
                 <div className="w-full">
                   <Guest />
                 </div>

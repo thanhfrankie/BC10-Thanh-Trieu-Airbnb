@@ -12,14 +12,14 @@ const Guest = () => {
   useEffect(() => {
     setTotalGuests(adults + children + infants + pets);
   }, [adults, children, infants, pets]);
-  
+
   const handleVisibleChange = (visible) => {
     setVisible(visible);
   };
   const increment = (setter, value) => () => setter(value + 1);
   const decrement = (setter, value) => () => setter(value > 0 ? value - 1 : 0);
   const content = (
-    <div className="p-4">
+    <div className="py-2 px-4">
       {[
         { label: "Người lớn", value: adults, setter: setAdults },
         { label: "Trẻ em", value: children, setter: setChildren },
@@ -27,7 +27,7 @@ const Guest = () => {
         { label: "Thú cưng", value: pets, setter: setPets },
       ].map(({ label, value, setter }) => (
         <div key={label} className="flex items-center justify-between my-2">
-          <span>{label}</span>
+          <span className="px-2">{label}</span>
           <div className="flex items-center space-x-2">
             <Button onClick={decrement(setter, value)} disabled={value === 0}>
               -
@@ -43,17 +43,16 @@ const Guest = () => {
     <Popover
       content={content}
       trigger="click"
-      visible={visible}
-      onVisibleChange={handleVisibleChange}
+      open={visible}
+      onOpenChange={handleVisibleChange}
       placement="bottomLeft"
     >
       <div>
-
-      <ButtonCustom
-        value="Khách"
-        span={totalGuests > 0 ? `${totalGuests} khách` : "Thêm khách"}
-        classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
-      />
+        <ButtonCustom
+          value="Khách"
+          span={totalGuests > 0 ? `${totalGuests} khách` : "Thêm khách"}
+          classNameBtn="btnSearch text-xs w-full px-6 text-start font-bold"
+        />
       </div>
     </Popover>
   );
