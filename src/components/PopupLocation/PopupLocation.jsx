@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { convertToSlug } from "../../utils/util";
-import logo from "./../../assets/img/logo.png";
 import "./PopupLocation.scss";
 
 const PopupLocation = ({

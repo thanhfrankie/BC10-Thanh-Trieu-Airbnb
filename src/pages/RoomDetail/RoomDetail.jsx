@@ -17,13 +17,14 @@ import useChangePageTitle from "../../hooks/useChangePageTitle";
 import { commentManagement } from "../../services/commentManagement";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Rate, DatePicker } from "antd";
+import { Rate, DatePicker, ConfigProvider } from "antd";
 import { bookingManagement } from "../../services/bookingRoomManagement";
 import RoomComment from "../../components/RoomComment/RoomComment";
 import dayjs from "dayjs";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { NotifyContext } from "../../template/UserTemplate/UserTemplate";
 import "./RoomDetail.scss";
+import moment from "moment";
 const RoomDetail = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [watchingRoom, setWatchingRoom] = useState();
@@ -281,12 +282,13 @@ const RoomDetail = () => {
   return (
     <div className="w-full">
       <div className="room-detail">
-
         <Header />
         <div className="room-detail__container">
           {watchingRoom ? (
             <div>
-              <h1 className="room-detail__name font-bold text-3xl my-4">{tenPhong}</h1>
+              <h1 className="room-detail__name font-bold text-3xl my-4">
+                {tenPhong}
+              </h1>
               <div className="room-detail__title flex items-center justify-start gap-2 mb-3 text-lg">
                 <svg
                   aria-hidden="true"
@@ -312,38 +314,33 @@ const RoomDetail = () => {
                 </NavLink>
               </div>
               <div className="room-img__container">
-
-              <img
-                className="room-detail__img w-full"
-                src={hinhAnh}
-                alt=""
-              />
+                <img className="room-detail__img w-full" src={hinhAnh} alt="" />
               </div>
               <div className="room-detail__container">
-                <div className="room-detail__info " >
-               {/* w-2/3 py-3" */}
+                <div className="room-detail__info ">
+                  {/* w-2/3 py-3" */}
                   <div className="room-detail__owner">
                     {/* w-4/5 flex py-3" */}
                     {/* <div className=" flex flex-col gap-2 py-2"> */}
-                      <div className="font-bold text-xl">
-                        Chủ nhà/ Người tổ chức: {""}
-                        <span className="underline">{checkRoomOwner()}</span>
-                      </div>
-                      <div className="text-lg font-semibold">
-                        <span>Tọa lạc: </span>
-                        {hasLocation && (
-                          <span>
-                            {tenViTri}, {tinhThanh}, {quocGia}
-                          </span>
-                        )}
-                      </div>
-                      <div className="">
-                        {khach} khách • {phongNgu} phòng ngủ • {giuong} giường •{" "}
-                        {phongTam} phòng tắm
-                      </div>
+                    <div className="font-bold text-xl">
+                      Chủ nhà/ Người tổ chức: {""}
+                      <span className="underline">{checkRoomOwner()}</span>
+                    </div>
+                    <div className="text-lg font-semibold">
+                      <span>Tọa lạc: </span>
+                      {hasLocation && (
+                        <span>
+                          {tenViTri}, {tinhThanh}, {quocGia}
+                        </span>
+                      )}
+                    </div>
+                    <div className="">
+                      {khach} khách • {phongNgu} phòng ngủ • {giuong} giường •{" "}
+                      {phongTam} phòng tắm
+                    </div>
                   </div>
                   <div className="room-detail__rights">
-                     {/* w-4/5 py-3" */}
+                    {/* w-4/5 py-3" */}
                     <div className="flex items-center justify-start gap-4 my-4">
                       <div>
                         <svg
@@ -445,7 +442,7 @@ const RoomDetail = () => {
                   </div>
                   <div className="room-detail__desc">
                     {/* w-4/5 py-3 font-medium" */}
-                    
+
                     <div className="room-detail__translate text-lg font-normal px-3 py-2 rounded-lg bg-gray-100">
                       Một số thông tin được hiển thị ở ngôn ngữ gốc.{" "}
                       <button className="font-semibold underline">Dịch</button>
@@ -665,10 +662,10 @@ const RoomDetail = () => {
                     </div>
                   </div>
                 </div>
-                <div className="room-booking__container"> 
-                {/* w-1/3 py-16 px-7" */}
-                  <div className="room-booking__form flex flex-col gap-5 rounded-lg shadow-lg p-4"> 
-                  {/* rounded-lg shadow-lg p-4  flex flex-col gap-5"> */}
+                <div className="room-booking__container">
+                  {/* w-1/3 py-16 px-7" */}
+                  <div className="room-booking__form flex flex-col gap-5 rounded-lg shadow-lg p-4">
+                    {/* rounded-lg shadow-lg p-4  flex flex-col gap-5"> */}
                     <div className="room-booking__header flex items-center justify-between">
                       <div className="room-booking__price font-bold text-3xl">
                         ${giaTien}/ <span className="font-normal"> đêm</span>
@@ -696,17 +693,32 @@ const RoomDetail = () => {
                     <div className="w-full flex gap-8 flex-col ">
                       <div>
                         {" "}
-                        <RangePicker
-                          presets={rangePresets}
-                          onChange={handleGetTotalDay}
-                          style={{
-                            width: "100%",
-                            border: "0.5px solid black",
-                            padding: "1rem",
-                            textAlign: "center",
-                            borderRadius: "40px",
+                        <ConfigProvider
+                          theme={{
+                            components: {
+                              DatePicker: { activeBorderColor: "#d9d9d9" },
+                            },
                           }}
-                        />
+                        >
+                          <RangePicker
+                            presets={rangePresets}
+                            onChange={handleGetTotalDay}
+                            style={{
+                              width: "100%",
+                              border: "0.5px solid black",
+                              padding: "1rem",
+                              textAlign: "center",
+                              borderRadius: "40px",
+                            }}
+                            disabledDate={(current) => {
+                              let customDate = moment().format("YYYY-MM-DD");
+                              return (
+                                current &&
+                                current < moment(customDate, "YYYY-MM-DD")
+                              );
+                            }}
+                          />
+                        </ConfigProvider>
                         {dayStay === 0 && (
                           <p className="text-pink-600 font-semibold text-sm mt-2 text-center">
                             Vui lòng chọn số đêm ở lại
@@ -849,7 +861,9 @@ const RoomDetail = () => {
           )}
           <div>
             {watchingRoom !== null && (
-              <h2 className="room-comment__title font-bold text-2xl py-3">Bình luận</h2>
+              <h2 className="room-comment__title font-bold text-2xl py-3">
+                Bình luận
+              </h2>
             )}
             <div className="room-comment__list grid grid-cols-2 h-1/2-screen my-3 gap-6 overflow-y-auto">
               {listCommentArr &&
