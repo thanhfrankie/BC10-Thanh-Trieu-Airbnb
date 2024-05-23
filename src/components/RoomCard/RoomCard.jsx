@@ -29,6 +29,7 @@ const RoomCard = ({
             keyboard={true}
             modules={[Navigation, Pagination, Mousewheel, Keyboard]}
             className="mySwiper"
+            lazy={true}
           >
             {hinhAnh && (
               <div>
@@ -37,6 +38,7 @@ const RoomCard = ({
                     src={hinhAnh}
                     alt={tenPhong}
                     className="room-card__img h-64 rounded-lg object-cover object-center"
+                    loading="lazy"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -44,6 +46,7 @@ const RoomCard = ({
                     src={hinhAnh}
                     alt={tenPhong}
                     className="room-card__img  h-64 rounded-lg object-cover object-center"
+                    loading="lazy"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -51,6 +54,7 @@ const RoomCard = ({
                     src={hinhAnh}
                     alt={tenPhong}
                     className="room-card__img  h-64 rounded-lg object-cover object-center"
+                    loading="lazy"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -58,6 +62,7 @@ const RoomCard = ({
                     src={hinhAnh}
                     alt={tenPhong}
                     className="room-card__img  h-64 rounded-lg object-cover object-center"
+                    loading="lazy"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -65,6 +70,7 @@ const RoomCard = ({
                     src={hinhAnh}
                     alt={tenPhong}
                     className="room-card__img  h-64 rounded-lg object-cover object-center"
+                    loading="lazy"
                   />
                 </SwiperSlide>
               </div>

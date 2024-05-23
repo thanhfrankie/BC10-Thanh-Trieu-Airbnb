@@ -100,7 +100,7 @@ const RoomLocation = () => {
         <Header />
         <div>
           {listRoomByLocationArr.length === 0 ? (
-            <div className="h-screen-70 mt-3">
+            <div className="h-screen-70 mt-3 px-20">
               {tinhThanh && quocGia ? (
                 <div className="my-3">
                   Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui
@@ -159,12 +159,14 @@ const RoomLocation = () => {
                       keyboard={true}
                       modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                       className="mySwiper"
+                      lazy={true}
                     >
                       <SwiperSlide>
                         <img
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                       <SwiperSlide>
@@ -172,6 +174,7 @@ const RoomLocation = () => {
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                       <SwiperSlide>
@@ -179,6 +182,7 @@ const RoomLocation = () => {
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                       <SwiperSlide>
@@ -186,6 +190,7 @@ const RoomLocation = () => {
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                       <SwiperSlide>
@@ -193,6 +198,7 @@ const RoomLocation = () => {
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                       <SwiperSlide>
@@ -200,6 +206,7 @@ const RoomLocation = () => {
                           src={room.hinhAnh}
                           alt=""
                           className="w-full h-52 rounded-lg object-cover"
+                          loading="lazy"
                         />
                       </SwiperSlide>
                     </Swiper>
@@ -212,7 +219,7 @@ const RoomLocation = () => {
                       <div className="w-full truncate">
                         {" "}
                         {room.khach} khách • {room.phongNgu} phòng ngủ •{" "}
-                        {room.giuong} giường •{room.phongTam} phòng tắm
+                        {room.giuong} giường • {room.phongTam} phòng tắm
                       </div>
                       <div className="w-full flex flex-wrap gap-3 ">
                         {room.bep && <p>Bếp</p>}

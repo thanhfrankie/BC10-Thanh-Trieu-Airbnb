@@ -292,6 +292,8 @@ const RoomDetail = () => {
       setModalOpen(false);
     }
   };
+
+
   return (
     <div className="w-full">
       <div className="room-detail">
@@ -485,7 +487,7 @@ const RoomDetail = () => {
                     </div>
                   </div>
                   <div className="room-detail__desc">
-                    {/* w-4/5 py-3 font-medium" */}
+                
 
                     <div className="room-detail__translate text-lg font-normal px-3 py-2 rounded-lg bg-gray-100">
                       Một số thông tin được hiển thị ở ngôn ngữ gốc.{" "}
@@ -830,7 +832,7 @@ const RoomDetail = () => {
               </div>
             </div>
           ) : (
-            <div className="mt-3 px-10">
+            <div className="mt-3 px-10 mx-auto">
               <div>
                 Không tìm thấy phòng {roomId}, vui lòng quay lại{" "}
                 <NavLink to="/" className="text-blue-700 hover:underline">

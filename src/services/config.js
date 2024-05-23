@@ -9,5 +9,3 @@ export const http = axios.create({
   },
   timeout: "10000",
 });
-
-
