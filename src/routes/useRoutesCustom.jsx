@@ -66,10 +66,6 @@ const useRoutesCustom = () => {
           path: "trips",
           element: <Trips />,
         },
-        {
-          path: "test",
-          element: <Test />,
-        },
       ],
     },
     {

@@ -210,7 +210,7 @@
     }
   }
 }
-.overlay {
+.room-detail__overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -224,9 +224,9 @@
   z-index: 10;
   display: none;
 }
-.room-img__overlay {
+.room-overlay__container {
   &:hover {
-    .overlay {
+    .room-detail__overlay {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -236,7 +236,7 @@
     }
   }
 }
-.modal {
+.room-detail__modal {
   display: block;
   position: fixed;
   z-index: 102;
@@ -248,7 +248,7 @@
   background-color: rgba(0, 0, 0, 0.9);
   pointer-events: auto;
 }
-.modal-content {
+.room-modal__content {
   display: block;
   position: absolute;
   width: 100%;
@@ -263,7 +263,7 @@
   }
 }
 
-.close {
+.room-modal__close {
   width: 48px;
   height: 48px;
   position: absolute;
@@ -274,7 +274,6 @@
   font-weight: bold;
   transition: 0.3s;
   z-index: 100;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -282,9 +281,7 @@
   border-radius: 100%;
 }
 
-.close:hover,
-.close:focus {
+.room-modal__close:hover {
   color: #bbb;
   text-decoration: none;
-  cursor: pointer;
 }

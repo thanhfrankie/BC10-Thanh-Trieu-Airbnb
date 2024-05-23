@@ -98,7 +98,7 @@ const RoomLocation = () => {
     <div>
       <div className="mb-5">
         <Header />
-        <div className="px-16">
+        <div>
           {listRoomByLocationArr.length === 0 ? (
             <div className="h-screen-70 mt-3">
               {tinhThanh && quocGia ? (
@@ -131,24 +131,24 @@ const RoomLocation = () => {
               )}
             </div>
           ) : (
-            <div>
-              <div className="py-1">
+            <div className="w-full ">
+              <div className="w-full px-20 py-1 ">
                 Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
                 {quocGia}.
               </div>
-              <div className="font-bold text-2xl py-2">
+              <div className="font-bold text-2xl px-20 py-2 ">
                 Chỗ ở tại khu vực bản đồ đã chọn
               </div>
             </div>
           )}
         </div>
-        <div className="room-location__main">
+        <div className="room-location__main ">
           <div className="room-location__list flex flex-col gap-4 ">
             {listRoomByLocationArr.map((room) => (
-              <div key={room.id}>
+              <div key={room.id} className="w-full ">
                 <NavLink
                   to={`/room-detail/${room.id}`}
-                  className="w-full flex gap-4 py-3 rounded-lg hover:shadow-lg  transition duration-300 ease-in-out"
+                  className="w-full flex py-3 rounded-lg hover:shadow-lg  transition duration-300 ease-in-out"
                 >
                   <div className="location-img__container w-1/2 rounded-lg">
                     <Swiper
@@ -204,7 +204,7 @@ const RoomLocation = () => {
                       </SwiperSlide>
                     </Swiper>
                   </div>
-                  <div className="w-1/2 flex flex-col items-start justify-between gap-3">
+                  <div className="w-1/2 flex flex-col items-start justify-between gap-3 px-2 ">
                     <div className="w-full flex flex-col gap-3 ">
                       <div className="w-full text-xl font-semibold truncate ">
                         {room.tenPhong}
@@ -226,9 +226,9 @@ const RoomLocation = () => {
                         {room.hoBoi && <p>Hồ bơi</p>}
                       </div>
                     </div>
-                    <div className="w-full font-bold  text-end ">
+                    <div className="w-full font-bold text-end ">
                       ${room.giaTien}{" "}
-                      <span className="font-normal">/khách</span>
+                      <span className="font-normal ">/khách</span>
                     </div>
                   </div>
                 </NavLink>

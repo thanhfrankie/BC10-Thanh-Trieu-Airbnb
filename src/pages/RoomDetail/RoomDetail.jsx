@@ -332,7 +332,7 @@ const RoomDetail = () => {
                 `}
               >
                 <div
-                  className="room-img__overlay w-full relative "
+                  className="room-overlay__container w-full relative "
                   onClick={openModal}
                 >
                   <img
@@ -340,22 +340,22 @@ const RoomDetail = () => {
                     src={hinhAnh}
                     alt=""
                   />
-                  <div className="overlay hover:rounded-2xl">
+                  <div className="room-detail__overlay hover:rounded-2xl">
                     <i class="fa-light fa-eye"></i> <div> Xem trước</div>
                   </div>
                 </div>
               </div>
               {isModalOpen && (
                 <div
-                  className={`modal ${
+                  className={`room-detail__modal ${
                     isModalOpen ? "pointer-events-auto" : ""
                   }`}
                   onClick={handleClickOutside}
                 >
-                  <button className="close" onClick={closeModal}>
+                  <button className="room-modal__close" onClick={closeModal}>
                     <i class="fa-thin fa-x"></i>
                   </button>
-                  <div className="modal-content">
+                  <div className="room-modal__content">
                     <img
                       className="w-full h-full rounded-2xl object-cover"
                       src={hinhAnh}
