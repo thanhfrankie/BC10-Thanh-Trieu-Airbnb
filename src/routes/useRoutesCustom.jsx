@@ -12,7 +12,6 @@ import RoomLocation from "../pages/RoomLocation/RoomLocation";
 import Rooms from "../pages/Rooms/Rooms";
 import Trips from "../pages/Trips/Trips";
 import { getLocalStorage } from "../utils/util";
-import Test from "../pages/Test/Test";
 
 const useRoutesCustom = () => {
   const navigate = useNavigate();
