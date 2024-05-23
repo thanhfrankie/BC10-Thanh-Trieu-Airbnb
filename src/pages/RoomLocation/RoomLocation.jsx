@@ -9,6 +9,11 @@ import Header from "../../layout/Header/Header";
 import useChangePageTitle from "../../hooks/useChangePageTitle";
 import Footer from "../../layout/Footer/Footer";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
 import "./RoomLocation.scss";
 const RoomLocation = () => {
   const [listLocationArr, setListLocationArr] = useState([]);
@@ -100,31 +105,36 @@ const RoomLocation = () => {
                 <div className="my-3">
                   Hiện không có chỗ cho thuê tại {tinhThanh}, {quocGia}. Vui
                   lòng quay lại{" "}
-                  <NavLink to="/" className="text-blue-700 hover:underline transition ease-in-out duration-300">
+                  <NavLink
+                    to="/"
+                    className="text-blue-700 hover:underline transition ease-in-out duration-300"
+                  >
                     trang chủ
                   </NavLink>{" "}
                   để tiếp tục
-                <button className="room-booking__button mt-3 py-5 px-7 flex items-center justify-center rounded-lg text-white border border-pink-500">
-                Yêu cầu
-              </button>
+                  <button className="room-booking__button mt-3 py-5 px-7 flex items-center justify-center rounded-lg text-white border border-pink-500">
+                    Yêu cầu
+                  </button>
                 </div>
               ) : (
                 <p>
                   Có vẻ nơi bạn tìm kiếm không có hoặc chưa liên kết với Airbnb.
                   Vui lòng quay lại{" "}
-                  <NavLink to="/" className="text-blue-700 hover:underline transition ease-in-out duration-300">
+                  <NavLink
+                    to="/"
+                    className="text-blue-700 hover:underline transition ease-in-out duration-300"
+                  >
                     trang chủ
                   </NavLink>{" "}
                   để tiếp tục
                 </p>
               )}
-              
             </div>
           ) : (
             <div>
               <div className="py-1">
                 Có {listRoomByLocationArr.length} chỗ cho thuê tại {tinhThanh},{" "}
-                {quocGia}. 
+                {quocGia}.
               </div>
               <div className="font-bold text-2xl py-2">
                 Chỗ ở tại khu vực bản đồ đã chọn
@@ -132,8 +142,7 @@ const RoomLocation = () => {
             </div>
           )}
         </div>
-        <div className="room-location__main" >
-
+        <div className="room-location__main">
           <div className="room-location__list flex flex-col gap-4 ">
             {listRoomByLocationArr.map((room) => (
               <div key={room.id}>
@@ -141,12 +150,59 @@ const RoomLocation = () => {
                   to={`/room-detail/${room.id}`}
                   className="w-full flex gap-4 py-3 rounded-lg hover:shadow-lg  transition duration-300 ease-in-out"
                 >
-                  <div className="w-1/2 rounded-lg">
-                    <img
-                      src={room.hinhAnh}
-                      alt=""
-                      className="w-full h-48 rounded-lg object-cover"
-                    />
+                  <div className="location-img__container w-1/2 rounded-lg">
+                    <Swiper
+                      cssMode={true}
+                      navigation={true}
+                      pagination={true}
+                      mousewheel={true}
+                      keyboard={true}
+                      modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+                      className="mySwiper"
+                    >
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img
+                          src={room.hinhAnh}
+                          alt=""
+                          className="w-full h-52 rounded-lg object-cover"
+                        />
+                      </SwiperSlide>
+                    </Swiper>
                   </div>
                   <div className="w-1/2 flex flex-col items-start justify-between gap-3">
                     <div className="w-full flex flex-col gap-3 ">

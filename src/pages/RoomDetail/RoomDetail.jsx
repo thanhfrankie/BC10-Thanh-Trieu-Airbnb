@@ -36,10 +36,11 @@ const RoomDetail = () => {
   const [guest, setGuest] = useState(1);
   const [dayStay, setDayStay] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { roomId } = useParams();
   const [error, setError] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
   const { RangePicker } = DatePicker;
   const notify = useContext(NotifyContext);
+  const { roomId } = useParams();
 
   useChangePageTitle(watchingRoom ? watchingRoom.tenPhong : "Loading...");
   const navigate = useNavigate();
@@ -279,6 +280,18 @@ const RoomDetail = () => {
       }
     });
   };
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const handleClickOutside = (event) => {
+    if (event.target.className.includes("modal")) {
+      setModalOpen(false);
+    }
+  };
   return (
     <div className="w-full">
       <div className="room-detail">
@@ -313,15 +326,47 @@ const RoomDetail = () => {
                   {tinhThanh}, {quocGia}
                 </NavLink>
               </div>
-              <div className="room-img__container">
-                <img className="room-detail__img w-full" src={hinhAnh} alt="" />
+              <div
+                className={`room-img__container  
+                ${isModalOpen ? "pointer-events-none" : ""}
+                `}
+              >
+                <div
+                  className="room-img__overlay w-full relative "
+                  onClick={openModal}
+                >
+                  <img
+                    className="room-detail__img w-full cursor-pointer "
+                    src={hinhAnh}
+                    alt=""
+                  />
+                  <div className="overlay hover:rounded-2xl">
+                    <i class="fa-light fa-eye"></i> <div> Xem trước</div>
+                  </div>
+                </div>
               </div>
+              {isModalOpen && (
+                <div
+                  className={`modal ${
+                    isModalOpen ? "pointer-events-auto" : ""
+                  }`}
+                  onClick={handleClickOutside}
+                >
+                  <button className="close" onClick={closeModal}>
+                    <i class="fa-thin fa-x"></i>
+                  </button>
+                  <div className="modal-content">
+                    <img
+                      className="w-full h-full rounded-2xl object-cover"
+                      src={hinhAnh}
+                      alt=""
+                    />
+                  </div>
+                </div>
+              )}
               <div className="room-detail__container">
                 <div className="room-detail__info ">
-                  {/* w-2/3 py-3" */}
                   <div className="room-detail__owner">
-                    {/* w-4/5 flex py-3" */}
-                    {/* <div className=" flex flex-col gap-2 py-2"> */}
                     <div className="font-bold text-xl">
                       Chủ nhà/ Người tổ chức: {""}
                       <span className="underline">{checkRoomOwner()}</span>
@@ -340,7 +385,6 @@ const RoomDetail = () => {
                     </div>
                   </div>
                   <div className="room-detail__rights">
-                    {/* w-4/5 py-3" */}
                     <div className="flex items-center justify-start gap-4 my-4">
                       <div>
                         <svg

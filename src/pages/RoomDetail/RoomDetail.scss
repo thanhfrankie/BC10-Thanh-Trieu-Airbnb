@@ -66,7 +66,6 @@
     padding: 0 1rem;
   }
   .room-detail__img {
-    width: 100%;
     border-radius: 1rem;
     object-fit: cover;
   }
@@ -112,7 +111,6 @@
   }
 
   @media (min-width: $breakpoint-lg) and (max-width: ($breakpoint-xl - 0.02px)) {
- 
   }
 
   @media (min-width: $breakpoint-xl) and (max-width: ($breakpoint-xxl - 0.02px)) {
@@ -129,7 +127,6 @@
     .room-detail__info {
       padding: 1rem 0;
       width: calc(100% * 2 / 3);
-   
     }
 
     .room-detail__owner,
@@ -138,7 +135,6 @@
     .room-detail__desc {
       padding: 1rem 0;
       width: calc(100% * 4 / 5);
-    
     }
 
     .room-booking__container {
@@ -148,7 +144,7 @@
       align-items: start;
       justify-content: center;
     }
-    
+
     .room-booking__form {
       width: 100%;
     }
@@ -174,18 +170,16 @@
     .room-detail__container {
       padding: 0 5rem;
       display: flex;
-      
     }
     .room-detail__info {
       padding: 1rem 0;
       width: calc(100% * 2 / 3);
-      
     }
     .room-detail__owner {
       padding: 1rem 0;
       width: calc(100% * 4 / 5);
     }
-   
+
     .room-detail__utilities,
     .room-detail__rights,
     .room-detail__desc {
@@ -215,4 +209,82 @@
       padding: 1rem 5rem;
     }
   }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+  display: none;
+}
+.room-img__overlay {
+  &:hover {
+    .overlay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+}
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 102;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  pointer-events: auto;
+}
+.modal-content {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500;
+  border-radius: 1rem;
+  img {
+    min-height: 400px;
+    object-fit: cover;
+  }
+}
+
+.close {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 100;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: gray;
+  border-radius: 100%;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }

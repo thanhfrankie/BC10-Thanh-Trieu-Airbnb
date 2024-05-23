@@ -1,6 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
+import "./RoomCard.scss";
 const RoomCard = ({
   id,
   to,
@@ -13,16 +18,58 @@ const RoomCard = ({
   btnClass,
 }) => {
   return (
-    <div className="RoomCard  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-3 hover:rounded-lg hover:shadow-lg  transition duration-300 ease-in-out ">
+    <div className="room-card mb-4 px-3 hover:rounded-lg hover:shadow-lg  transition duration-300 ease-in-out ">
       <div className="bg-white rounded-lg  flex flex-col h-full">
-        <NavLink to={to} className="flex flex-col h-full">
-          {hinhAnh && (
-            <img
-              src={hinhAnh}
-              alt={tenPhong}
-              className="RoomCardImg  sm:h-72 md:h-72 xl:h-64 rounded-lg object-cover object-center"
-            />
-          )}
+        <NavLink to={to} className="room-card__main flex flex-col h-full">
+          <Swiper
+            cssMode={true}
+            navigation={true}
+            pagination={true}
+            mousewheel={true}
+            keyboard={true}
+            modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+            className="mySwiper"
+          >
+            {hinhAnh && (
+              <div>
+                <SwiperSlide>
+                  <img
+                    src={hinhAnh}
+                    alt={tenPhong}
+                    className="room-card__img h-64 rounded-lg object-cover object-center"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src={hinhAnh}
+                    alt={tenPhong}
+                    className="room-card__img  h-64 rounded-lg object-cover object-center"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src={hinhAnh}
+                    alt={tenPhong}
+                    className="room-card__img  h-64 rounded-lg object-cover object-center"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src={hinhAnh}
+                    alt={tenPhong}
+                    className="room-card__img  h-64 rounded-lg object-cover object-center"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src={hinhAnh}
+                    alt={tenPhong}
+                    className="room-card__img  h-64 rounded-lg object-cover object-center"
+                  />
+                </SwiperSlide>
+              </div>
+            )}
+          </Swiper>
           <div className="py-4 px-1 flex-grow flex flex-col">
             <div className="font-semibold text-lg  mb-2 truncate-title">
               {tenPhong}
@@ -35,9 +82,9 @@ const RoomCard = ({
             </div>
           </div>
         </NavLink>
-          <button className={btnClass} onClick={() => handle(id)}>
-            {contentButton}
-          </button>
+        <button className={btnClass} onClick={() => handle(id)}>
+          {contentButton}
+        </button>
       </div>
     </div>
   );

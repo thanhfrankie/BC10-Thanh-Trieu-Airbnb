@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { roomManagement } from "../../services/roomManagement";
 import Loading from "../../components/Loading/Loading";
-import "./ListRoom.scss";
 import RoomCard from "../../components/RoomCard/RoomCard";
+import "./ListRoom.scss";
 const ListRoom = () => {
   const [listRoomArr, setListRoomArr] = useState([]);
   const [loading, setLoading] = useState(true);

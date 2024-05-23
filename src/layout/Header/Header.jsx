@@ -10,13 +10,12 @@ import { locationManagement } from "../../services/locationManagement";
 import { convertToSlug } from "../../utils/util";
 import PopupLocation from "../../components/PopupLocation/PopupLocation";
 import InputSearchBar from "../../components/Input/InputSearchBar";
-import "./Header.scss";
 import BottomNav from "./BottomNav/BottomNav";
 import SearchBar from "./SearchBar/SearchBar";
 import { DatePicker } from "antd";
 import moment from "moment";
 import Guest from "./Guest/Guest";
-// import 'antd/dist/antd.css';
+import "./Header.scss";
 const Header = () => {
   const navigate = useNavigate();
   const notify = useContext(NotifyContext);
