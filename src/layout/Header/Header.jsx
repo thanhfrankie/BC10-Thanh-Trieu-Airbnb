@@ -188,8 +188,13 @@ const Header = () => {
     setEndDate(date);
     setIsEndOpen(false);
   };
+  const disabledStartDate = (current) => {
+    let customDate = moment().format("YYYY-MM-DD");
+    return current && current < moment(customDate, "YYYY-MM-DD");
+  };
   const disabledEndDate = (current) => {
-    return current && startDate && current.isBefore(startDate, "day");
+    let customDate = moment().format("YYYY-MM-DD");
+  return current && (current < moment(customDate, "YYYY-MM-DD") || (startDate && current.isBefore(startDate, "day")));
   };
   return (
     <header>
@@ -365,13 +370,7 @@ const Header = () => {
                           onChange={handleStartDateChange}
                           onOpenChange={setIsStartOpen}
                           style={{ position: "absolute", top: "100%", left: 0 }}
-                          disabledDate={(current) => {
-                            let customDate = moment().format("YYYY-MM-DD");
-                            return (
-                              current &&
-                              current < moment(customDate, "YYYY-MM-DD")
-                            );
-                          }}
+                          disabledDate={disabledStartDate}
                         />
                       )}
                     </div>
@@ -411,13 +410,7 @@ const Header = () => {
                           open={isEndOpen}
                           onChange={handleEndDateChange}
                           onOpenChange={setIsEndOpen}
-                          disabledDate={(current) => {
-                            let customDate = moment().format("YYYY-MM-DD");
-                            return (
-                              current &&
-                              current < moment(customDate, "YYYY-MM-DD")
-                            );
-                          }}
+                          disabledDate={disabledStartDate}
                           style={{ position: "absolute", top: "100%", left: 0 }}
                         />
                       )}
