@@ -18,7 +18,6 @@ const Rooms = () => {
       try {
         setLoading(true);
         const res = await roomManagement.getAllRoom();
-        console.log(res.data.content);
         setListRoomArr(res.data.content.filter((room) => room.maViTri !== 0));
       } catch (error) {
         console.log(error);

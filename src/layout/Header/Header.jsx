@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Dropdown, Space } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "./../../assets/img/logo.png";
@@ -22,7 +22,6 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [userLocal, setUserLocal] = useState(null);
-  const [isInputFocused, setIsInputFocused] = useState(false);
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -89,11 +88,11 @@ const Header = () => {
           key: "2",
         },
         {
-          label: <NavLink to="/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
+          label: <NavLink to="https://www.airbnb.com.vn/host/homes">Cho thuê chỗ ở qua Airbnb</NavLink>,
           key: "3",
         },
         {
-          label: <NavLink to="/help">Trung tâm trợ giúp</NavLink>,
+          label: <NavLink to="https://www.airbnb.com.vn/help">Trung tâm trợ giúp</NavLink>,
           key: "4",
         },
         {

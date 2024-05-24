@@ -151,65 +151,31 @@ const RoomLocation = () => {
                   className="w-full flex py-3 rounded-lg hover:shadow-lg  transition duration-300 ease-in-out"
                 >
                   <div className="location-img__container w-1/2 rounded-lg">
-                    <Swiper
-                      cssMode={true}
-                      navigation={true}
-                      pagination={true}
-                      mousewheel={true}
-                      keyboard={true}
-                      modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                      className="mySwiper"
-                      lazy={true}
-                    >
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                        <img
-                          src={room.hinhAnh}
-                          alt=""
-                          className="w-full h-52 rounded-lg object-cover"
-                          loading="lazy"
-                        />
-                      </SwiperSlide>
-                    </Swiper>
+                    {room.hinhAnh && (
+                      <Swiper
+                        cssMode={true}
+                        navigation={true}
+                        pagination={true}
+                        mousewheel={true}
+                        keyboard={true}
+                        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+                        className="mySwiper"
+                        lazy={true}
+                      >
+                        {Array(5)
+                          .fill(room.hinhAnh)
+                          .map((imgSrc, index) => (
+                            <SwiperSlide key={index}>
+                              <img
+                                src={imgSrc}
+                                alt={`${room.tenPhong} ${index + 1}`}
+                                className="w-full h-72 rounded-lg object-cover"
+                                loading="lazy"
+                              />
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                    )}
                   </div>
                   <div className="w-1/2 flex flex-col items-start justify-between gap-3 px-2 ">
                     <div className="w-full flex flex-col gap-3 ">
