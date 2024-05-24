@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { message as antdMessage, Upload } from "antd";
-import { Modal, Button, Form, Input, message, Row, Col, Table } from "antd";
-import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
-import { http } from "../../../services/config";
-import { ShopOutlined, GlobalOutlined, UploadOutlined, EnvironmentOutlined, PictureOutlined,} from "@ant-design/icons";
+import { message as antdMessage, Upload, Modal, Button, Form, Input, Row, Col, Table, message } from "antd";
+import { ShopOutlined, GlobalOutlined, UploadOutlined, EnvironmentOutlined, PictureOutlined } from "@ant-design/icons";
 import { getToken } from "../../../services/authService";
+import { http } from "../../../services/config";
+import "../QuanLyNguoiDung/QuanLyNguoiDung.scss";
 
 const QuanLyThongTinViTri = () => {
   const [usersData, setUsersData] = useState([]);
@@ -32,7 +31,7 @@ const QuanLyThongTinViTri = () => {
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
-    setEditingUser(null); 
+    setEditingUser(null);
   };
 
   const handleCancel = () => {
@@ -85,19 +84,16 @@ const QuanLyThongTinViTri = () => {
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record); 
-    form.setFieldsValue(record); 
-    setVisible(true); 
+    setEditingUser(record);
+    form.setFieldsValue(record);
+    setVisible(true);
   };
 
   const handleDelete = async (record) => {
     try {
-      const token = getToken(); 
-      const response = await http.delete(`/vi-tri/${record.id}`, {
-        headers: {
-          token: `${token}`,
-        },
-      });
+      const token = getToken();
+      const response = await http.delete(`/vi-tri/${record.id}`, { headers: { token } });
+
       if (response.status === 200) {
         antdMessage.success("Xoá vị trí thành công!");
         setUsersData(usersData.filter((user) => user.id !== record.id));
@@ -105,7 +101,7 @@ const QuanLyThongTinViTri = () => {
         antdMessage.error("Xoá vị trí không thành công!");
       }
     } catch (error) {
-      console.error("Lỗi xoá :", error);
+      console.error("Error deleting:", error);
       antdMessage.error("Đã có lỗi xảy ra khi xoá vị trí.");
     }
   };
@@ -114,16 +110,9 @@ const QuanLyThongTinViTri = () => {
     try {
       const formData = new FormData();
       formData.append("formFile", info.file);
-      const token = getToken(); 
-      const response = await http.post(
-        `/vi-tri/upload-hinh-vitri?maViTri=${maViTri}`,
-        formData,
-        {
-          headers: {
-            token: token,
-          },
-        }
-      );
+      const token = getToken();
+      const response = await http.post(`/vi-tri/upload-hinh-vitri?maViTri=${maViTri}`, formData, { headers: { token } });
+
       if (response.status === 200) {
         message.success("Tải ảnh lên thành công");
         fetchData();
@@ -131,7 +120,7 @@ const QuanLyThongTinViTri = () => {
         message.error("Tải ảnh lên không thành công");
       }
     } catch (error) {
-      console.error("Lỗi khi tải ảnh lên API:", error);
+      console.error("Error uploading image:", error);
       message.error("Đã có lỗi xảy ra khi tải ảnh lên API");
     }
   };
@@ -149,16 +138,8 @@ const QuanLyThongTinViTri = () => {
       key: "hinhAnh",
       render: (hinhAnh, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={hinhAnh}
-            alt="Hình Ảnh"
-            style={{ width: "50px", height: "50px", marginRight: "10px" }}
-          />
-          <Upload
-            showUploadList={false}
-            beforeUpload={() => false}
-            onChange={(info) => uploadImageToApi(info, record.id)}
-          >
+          <img src={hinhAnh} alt="Hình Ảnh" style={{ width: "50px", height: "50px", marginRight: "10px" }} />
+          <Upload showUploadList={false} beforeUpload={() => false} onChange={(info) => uploadImageToApi(info, record.id)}>
             <Button icon={<UploadOutlined />} />
           </Upload>
         </div>
@@ -168,146 +149,105 @@ const QuanLyThongTinViTri = () => {
       title: "Tên Vị Trí",
       dataIndex: "tenViTri",
       key: "tenViTri",
-      render: (tenViTri) => (
-        <span style={{ fontWeight: "bold" }}>{tenViTri}</span>
-      ),
+      render: (tenViTri) => <span style={{ fontWeight: "bold" }}>{tenViTri}</span>,
     },
     {
       title: "Tỉnh Thành",
       dataIndex: "tinhThanh",
       key: "tinhThanh",
-      render: (tinhThanh) => (
-        <span style={{ fontWeight: "bold", color: "green" }}>{tinhThanh}</span>
-      ),
+      render: (tinhThanh) => <span style={{ fontWeight: "bold", color: "green" }}>{tinhThanh}</span>,
     },
     {
       title: "Quốc Gia",
       dataIndex: "quocGia",
       key: "quocGia",
-      render: (quocGia) => (
-        <span style={{ fontWeight: "bold", color: "red" }}>{quocGia}</span>
-      ),
+      render: (quocGia) => <span style={{ fontWeight: "bold", color: "red" }}>{quocGia}</span>,
     },
     {
       title: "Hành động",
       key: "action",
       render: (text, record) => (
         <span>
-          <Button
-            className="m-1"
-            type="default"
-            onClick={() => handleEdit(record)}
-          >
+          <Button type="default" onClick={() => handleEdit(record)}>
             Sửa
           </Button>
-          <Button
-            className=" mb-1"
-            type="default"
-            onClick={() => handleDelete(record)}
-          >
+          <Button type="default" onClick={() => handleDelete(record)}>
             Xoá
           </Button>
-          <Button
-            className="ml-2"
-            type="default"
-            onClick={() => handleDetail(record)}
-          >
+          <Button type="default" onClick={() => handleDetail(record)}>
             Xem chi tiết
           </Button>
         </span>
       ),
     },
   ];
+
   const filteredUsersData = usersData.filter((user) =>
     user.tinhThanh.toLowerCase().includes(searchKeyword.toLowerCase())
   );
+
   return (
     <div className="container">
-      <div>
-        <Button type="primary" onClick={handleOpenModal}>
-          <i class="fa-regular fa-circle-plus mr-1"></i> Thêm Thông Tin Vị Trí
-        </Button>
+      <Button type="primary" onClick={handleOpenModal}>
+        <i className="fa-regular fa-circle-plus mr-1"></i> Thêm Thông Tin Vị Trí
+      </Button>
 
-        <Modal
-          title={editingUser ? "Chỉnh sửa thông tin" : "Thêm Thông Tin Vị Trí"}
-          visible={visible}
-          onCancel={handleCloseModal}
-          footer={[
-            <Button key="cancel" onClick={handleCancel}>
-              Hủy
-            </Button>,
-            <Button key="submit" type="primary" onClick={() => form.submit()}>
-              {editingUser ? "Cập nhật" : "Thêm"}
-            </Button>,
-          ]}
-        >
-          <Form
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            layout="vertical"
-            initialValues={{ remember: true }}
-          >
-            <Row gutter={[16, 16]}>
-              <Col span={12}>
-                <Form.Item name="id" label="ID ">
-                  <Input disabled placeholder="ID" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="hinhAnh" label="Hình Ảnh">
-                  <Input prefix={<PictureOutlined />} placeholder="Hình ảnh" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="tenViTri"
-                  label="Tên vị trí"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập vị trí.",
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<EnvironmentOutlined />}
-                    placeholder="Vị trí"
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="tinhThanh"
-                  label="Tỉnh thành"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập tỉnh thành.",
-                    },
-                  ]}
-                >
-                  <Input prefix={<ShopOutlined />} placeholder="Tỉnh thành" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="quocGia"
-                  label="Quốc gia"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập quốc gia.",
-                    },
-                  ]}
-                >
-                  <Input prefix={<GlobalOutlined />} placeholder="Quốc gia" />
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </Modal>
-      </div>
+      <Modal
+        title={editingUser ? "Chỉnh sửa thông tin" : "Thêm Thông Tin Vị Trí"}
+        visible={visible}
+        onCancel={handleCloseModal}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Hủy
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => form.submit()}>
+            {editingUser ? "Cập nhật" : "Thêm"}
+          </Button>,
+        ]}
+      >
+        <Form form={form} name="register" onFinish={onFinish} layout="vertical">
+          <Row gutter={[16, 16]}>
+            <Col span={12}>
+              <Form.Item name="id" label="ID">
+                <Input disabled placeholder="ID" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="hinhAnh" label="Hình Ảnh">
+                <Input prefix={<PictureOutlined />} placeholder="Hình ảnh" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="tenViTri"
+                label="Tên vị trí"
+                rules={[{ required: true, message: "Vui lòng nhập vị trí." }]}
+              >
+                <Input prefix={<EnvironmentOutlined />} placeholder="Vị trí" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="tinhThanh"
+                label="Tỉnh thành"
+                rules={[{ required: true, message: "Vui lòng nhập tỉnh thành." }]}
+              >
+                <Input prefix={<ShopOutlined />} placeholder="Tỉnh thành" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="quocGia"
+                label="Quốc gia"
+                rules={[{ required: true, message: "Vui lòng nhập quốc gia." }]}
+              >
+                <Input prefix={<GlobalOutlined />} placeholder="Quốc gia" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
+
       <Modal
         title="Chi tiết thông tin vị trí"
         visible={detailVisible}
@@ -315,29 +255,14 @@ const QuanLyThongTinViTri = () => {
         footer={null}
       >
         <div>
-          <p>
-            <strong>ID: </strong> {detailData.id}
-          </p>
-          <p>
-            <strong>Vị trí: </strong> {detailData.tenViTri}
-          </p>
-          <p>
-            <strong>Tỉnh thành: </strong> {detailData.tinhThanh}
-          </p>
-          <p>
-            <strong>Quốc gia: </strong> {detailData.quocGia}
-          </p>
-
-          <p>
-            <strong>Hình ảnh: </strong>{" "}
-            <img
-              src={detailData.hinhAnh}
-              alt="Hình Ảnh"
-              style={{ width: "250px", height: "250px" }}
-            />
-          </p>
+          <p><strong>ID: </strong> {detailData.id}</p>
+          <p><strong>Vị trí: </strong> {detailData.tenViTri}</p>
+          <p><strong>Tỉnh thành: </strong> {detailData.tinhThanh}</p>
+          <p><strong>Quốc gia: </strong> {detailData.quocGia}</p>
+          <p><strong>Hình ảnh: </strong> <img src={detailData.hinhAnh} alt="Hình Ảnh" style={{ width: "250px", height: "250px" }} /></p>
         </div>
       </Modal>
+
       <div className="search-container mt-4">
         <Input.Search
           placeholder="Nhập tỉnh thành để tìm kiếm..."
@@ -346,6 +271,7 @@ const QuanLyThongTinViTri = () => {
           onSearch={(value) => setSearchKeyword(value)}
         />
       </div>
+
       <div className="table-container mt-4">
         <Table columns={columns} dataSource={filteredUsersData} />
       </div>
@@ -354,3 +280,7 @@ const QuanLyThongTinViTri = () => {
 };
 
 export default QuanLyThongTinViTri;
+
+
+
+

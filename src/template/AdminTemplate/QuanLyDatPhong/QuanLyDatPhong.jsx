@@ -11,7 +11,6 @@ import {
   TeamOutlined,
   FieldNumberOutlined,
 } from "@ant-design/icons";
-
 const QuanLyDatPhong = () => {
   const [usersData, setUsersData] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -20,11 +19,9 @@ const QuanLyDatPhong = () => {
   const [form] = Form.useForm();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [editingUser, setEditingUser] = useState(null);
-
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     try {
       const response = await http.get("/dat-phong");
@@ -33,19 +30,16 @@ const QuanLyDatPhong = () => {
       console.error("Error fetching data:", error);
     }
   };
-
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
     setEditingUser(null); 
   };
-
   const handleCancel = () => {
     form.resetFields();
     setVisible(true);
   };
-
   const onFinish = async (values) => {
     try {
       if (editingUser) {
@@ -75,18 +69,15 @@ const QuanLyDatPhong = () => {
       antdMessage.error("Đã có lỗi xảy ra khi thêm/cập nhật người dùng.");
     }
   };
-
   const handleDetail = (record) => {
     setDetailData(record);
     setDetailVisible(true);
   };
-
   const handleEdit = (record) => {
     setEditingUser(record);
     form.setFieldsValue(record);
     setVisible(true);
   };
-
   const handleDelete = async (record) => {
     try {
       const response = await http.delete(`/dat-phong/${record.id}`);
@@ -101,95 +92,67 @@ const QuanLyDatPhong = () => {
       antdMessage.error("Đã có lỗi xảy ra khi xoá đặt phòng.");
     }
   };
-
   const columns = [
-    {
-      title: "ID",
+    { title: "ID",
       dataIndex: "id",
       key: "id",
-      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,
-    },
-    {
-      title: "Mã phòng",
+      render: (id) => <span style={{ fontWeight: "bold" }}>{id}</span>,  },
+    {  title: "Mã phòng",
       dataIndex: "maPhong",
       key: "maPhong",
       render: (maPhong) => (
-        <span style={{ fontWeight: "bold", color: "#CD5C5C",marginLeft:"30px" }}>{maPhong}</span>
-      ),
-    },
-
-    {
-      title: "Ngày đến",
+        <span style={{ fontWeight: "bold", color: "#CD5C5C",marginLeft:"30px" }}>{maPhong}</span>  ), },
+    {  title: "Ngày đến",
       dataIndex: "ngayDen",
       key: "ngayDen",
       render: (ngayDen) => (
         <span style={{ color: "green", fontWeight: "bold" }}>
           {moment(ngayDen).format("DD/MM/YYYY")}
-        </span>
-      ),
-    },
-    {
-      title: "Ngày đi",
+        </span>  ),  },
+    {  title: "Ngày đi",
       dataIndex: "ngayDi",
       key: "ngayDi",
       render: (ngayDi) => (
         <span style={{ color: " #FF8247", fontWeight: "bold" }}>
           {moment(ngayDi).format("DD/MM/YYYY")}
-        </span>
-      ),
-    },
-    {
-      title: "Số lượng khách",
+        </span>  ),  },
+    {  title: "Số lượng khách",
       dataIndex: "soLuongKhach",
       key: "soLuongKhach",
       render: (soLuongKhach) => (
         <span style={{ fontWeight: "bold", color: " #9932CC",marginLeft:"30px" }}>
           {soLuongKhach}
-        </span>
-      ),
-    },
-
-    {
-      title: "Mã người dùng",
+        </span>  ),  },
+    {  title: "Mã người dùng",
       dataIndex: "maNguoiDung",
       key: "maNguoiDung",
       render: (maNguoiDung) => (
         <span style={{ fontWeight: "bold", color: "#FFB90F" }}>
           {maNguoiDung}
-        </span>
-      ),
-    },
-    {
-      title: "Hành động",
+        </span>  ),  },
+    {  title: "Hành động",
       key: "action",
       render: (text, record) => (
         <span>
           <Button
-            className="m-1"
+            className="ml-1"
             type="default"
-            onClick={() => handleEdit(record)}
-          >
+            onClick={() => handleEdit(record)}  >
             Sửa
           </Button>
           <Button
-            className=" mb-1"
+            className=" ml-1 mb-1 mt-1"
             type="default"
-            onClick={() => handleDelete(record)}
-          >
+            onClick={() => handleDelete(record)}  >
             Xoá
           </Button>
           <Button
-            className="ml-2"
+            className="ml-1"
             type="default"
-            onClick={() => handleDetail(record)}
-          >
+            onClick={() => handleDetail(record)} >
             Xem chi tiết
           </Button>
-        </span>
-      ),
-    },
-  ];
-
+        </span>  ),  },  ];
   const filteredUsersData = usersData.filter(
     (user) =>
       user.maPhong &&
@@ -198,15 +161,13 @@ const QuanLyDatPhong = () => {
         .toLowerCase()
         .includes(searchKeyword.toLowerCase())
   );
-
   return (
     <div className="container">
       <div>
         <Button type="primary" onClick={handleOpenModal}>
           <i class="fa-regular fa-circle-plus mr-1"></i> Thêm Đặt Phòng
         </Button>
-
-        <Modal
+         <Modal
           title={editingUser ? "Chỉnh sửa thông tin" : " Đặt Phòng"}
           visible={visible}
           onCancel={handleCloseModal}
@@ -216,16 +177,13 @@ const QuanLyDatPhong = () => {
             </Button>,
             <Button key="submit" type="primary" onClick={() => form.submit()}>
               {editingUser ? "Cập nhật" : "Thêm"}
-            </Button>,
-          ]}
-        >
+            </Button>,  ]}  >
           <Form
             form={form}
             name="register"
             onFinish={onFinish}
             layout="vertical"
-            initialValues={{ remember: true }}
-          >
+            initialValues={{ remember: true }}  >
             <Row gutter={[16, 16]}>
               <Col span={12}>
                 <Form.Item name="id" label="ID ">
@@ -238,31 +196,22 @@ const QuanLyDatPhong = () => {
                   label="Mã phòng"
                   rules={[
                     { required: true, message: "Vui lòng nhập mã phòng." },
-                    {
-                      pattern: /^[0-9()+\-\s]+$/,
-                      message: "Chỉ được nhập số.",
-                    },
-                  ]}
-                >
+                    {  pattern: /^[0-9()+\-\s]+$/,
+                      message: "Chỉ được nhập số.",  },  ]}  >
                   <Input
                     prefix={<TrademarkCircleOutlined />}
-                    placeholder="Mã phòng"
-                  />
+                    placeholder="Mã phòng" />
                 </Form.Item>
               </Col>
-
               <Col span={12}>
                 <Form.Item
                   name="ngayDen"
                   label="Ngày đến"
                   rules={[
-                    { required: true, message: "Vui lòng nhập ngày đến." },
-                  ]}
-                >
+                    { required: true, message: "Vui lòng nhập ngày đến." },]} >
                   <Input
                     prefix={<MergeCellsOutlined />}
-                    placeholder="Ngày đến"
-                  />
+                    placeholder="Ngày đến"  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -270,13 +219,10 @@ const QuanLyDatPhong = () => {
                   name="ngayDi"
                   label="Ngày đi"
                   rules={[
-                    { required: true, message: "Vui lòng nhập ngày đi." },
-                  ]}
-                >
+                    { required: true, message: "Vui lòng nhập ngày đi." },  ]} >
                   <Input
                     prefix={<MacCommandOutlined />}
-                    placeholder="Ngày đi"
-                  />
+                    placeholder="Ngày đi"  />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -285,12 +231,7 @@ const QuanLyDatPhong = () => {
                   label="Số lượng khách"
                   rules={[
                     { required: true, message: "Vui lòng nhập số lượng." },
-                    {
-                      pattern: /^[0-9()+\-\s]+$/,
-                      message: "Chỉ được nhập số.",
-                    },
-                  ]}
-                >
+                    {  pattern: /^[0-9()+\-\s]+$/, message: "Chỉ được nhập số.",  },  ]}  >
                   <Input
                     prefix={<TeamOutlined />}
                     placeholder="Số lượng khách"
@@ -303,12 +244,8 @@ const QuanLyDatPhong = () => {
                   label="Mã người dùng"
                   rules={[
                     { required: true, message: "Vui lòng nhập mã ." },
-                    {
-                      pattern: /^[0-9()+\-\s]+$/,
-                      message: "Chỉ được nhập số.",
-                    },
-                  ]}
-                >
+                    {  pattern: /^[0-9()+\-\s]+$/,
+                      message: "Chỉ được nhập số.",  }, ]} >
                   <Input
                     prefix={<FieldNumberOutlined />}
                     placeholder="Mã người dùng"
@@ -323,30 +260,16 @@ const QuanLyDatPhong = () => {
         title="Chi tiết đặt phòng"
         visible={detailVisible}
         onCancel={() => setDetailVisible(false)}
-        footer={null}
-      >
+        footer={null}  >
         <div>
-          <p>
-            <strong>ID: </strong> {detailData.id}
-          </p>
-          <p>
-            <strong>Mã phòng: </strong> {detailData.maPhong}
-          </p>
-          <p>
-            <strong>Ngày đến: </strong>{" "}
-            {moment(detailData.ngayDen).format("DD/MM/YYYY")}
-          </p>
-          <p>
-            <strong>Ngày đi: </strong>{" "}
-            {moment(detailData.ngayDi).format("DD/MM/YYYY")}
-          </p>
-
-          <p>
-            <strong>Số lượng khách: </strong> {detailData.soLuongKhach}
-          </p>
-          <p>
-            <strong>Mã người dùng: </strong> {detailData.maNguoiDung}
-          </p>
+          <p><strong>ID: </strong> {detailData.id}</p>
+          <p><strong>Mã phòng: </strong> {detailData.maPhong}</p>
+          <p><strong>Ngày đến: </strong>{" "}
+            {moment(detailData.ngayDen).format("DD/MM/YYYY")}</p>
+          <p><strong>Ngày đi: </strong>{" "}
+            {moment(detailData.ngayDi).format("DD/MM/YYYY")}</p>
+          <p><strong>Số lượng khách: </strong> {detailData.soLuongKhach}</p>
+          <p><strong>Mã người dùng: </strong> {detailData.maNguoiDung}</p>
         </div>
       </Modal>
       <div className="search-container mt-4">
@@ -354,8 +277,7 @@ const QuanLyDatPhong = () => {
           placeholder="Nhập mã phòng để tìm kiếm..."
           enterButton
           style={{ width: "100%" }}
-          onSearch={(value) => setSearchKeyword(value)}
-        />
+          onSearch={(value) => setSearchKeyword(value)}  />
       </div>
       <div className="table-container mt-4">
         <Table columns={columns} dataSource={filteredUsersData} />

@@ -197,7 +197,7 @@ const ThongTinCaNhan = () => {
             <div className="mt-4 displayUser ">
               <div>
                 <p className="texTopLeft">
-                  Xin Chào :{" "}
+                  Tên :{" "}
                   <span
                     style={{
                       color: "gray",
