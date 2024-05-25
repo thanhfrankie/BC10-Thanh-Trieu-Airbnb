@@ -17,7 +17,7 @@ const useRoutesCustom = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const userLocal = getLocalStorage("user");
-    if (window.location.pathname === "/room-detail") {
+    if (window.location.pathname === "/room-detail" || window.location.pathname === "/room-detail/") {
       navigate("/room-detail/1");
     }
     if (userLocal && window.location.pathname === "/sign-in") {
