@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import { Layout, Menu, Button } from "antd";
 import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined, SafetyCertificateOutlined, UserOutlined } from "@ant-design/icons";
@@ -9,6 +9,7 @@ import QuanLyThongTinPhong from "./QuanLyThongTinPhong/QuanLyThongTinPhong";
 import QuanLyDatPhong from "./QuanLyDatPhong/QuanLyDatPhong";
 import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 import "./AdminTemplate.scss"
+import { getLocalStorage } from "../../utils/util";
 const { Header, Sider, Content } = Layout;
 
 const AdminTemplate = () => {
@@ -19,6 +20,16 @@ const AdminTemplate = () => {
     setSelectedPage(key);
   };
 
+  useEffect(() => {
+    const user = getLocalStorage("user");
+    if (!user) {
+      window.location.href = "https://google.com";
+    }
+    if (user?.user.role != "ADMIN") {
+      window.location.href = "https://google.com";
+    }
+  }, []);
+  
   const renderContent = () => {
     switch (selectedPage) {
       case "1":
