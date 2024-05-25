@@ -15,6 +15,18 @@ const BottomNav = ({ activeBottomButton, handleClick }) => {
       {userLocal ? (
         <div className="flex items-center justify-between">
           <NavLink
+            to="/"
+            className={`flex items-center justify-center flex-col ${
+              activeBottomButton === "Home" ? "text-red-500" : ""
+            }`}
+            onClick={() => handleClick("Home")}
+          >
+            <div>
+              <i class="fa-regular fa-house"></i>
+            </div>
+            <div>Home</div>
+          </NavLink>
+          <NavLink
             to="/rooms"
             className={`flex items-center justify-center flex-col ${
               activeBottomButton === "Khám phá" ? "text-red-500" : ""
@@ -26,17 +38,7 @@ const BottomNav = ({ activeBottomButton, handleClick }) => {
             </div>
             <div className="text-xs">Khám phá</div>
           </NavLink>
-          <button
-            className={`flex items-center justify-center flex-col ${
-              activeBottomButton === "Yêu thích" ? "text-red-500" : ""
-            }`}
-            onClick={() => handleClick("Yêu thích")}
-          >
-            <div>
-              <i class="fa-light fa-heart"></i>
-            </div>
-            <div>Yêu thích</div>
-          </button>
+
           <NavLink
             to="/trips"
             className={`flex items-center justify-center flex-col ${
