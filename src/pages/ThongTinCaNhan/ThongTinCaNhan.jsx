@@ -311,6 +311,7 @@ const ThongTinCaNhan = () => {
                     <Input
                       name="email"
                       label="Email"
+                      disabled
                       value={tempUserData?.email}
                       onChange={handleInputChange}
                       placeholder="Email"
